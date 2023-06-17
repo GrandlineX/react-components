@@ -29,5 +29,6 @@ make:build:prod:
     paths:
       - dist
       - style
+      - css
     expire_in: 7 days
 

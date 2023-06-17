@@ -1,0 +1,33 @@
+include:
+  - project: 'grandlinex/templates'
+    file: '/stages.yml'
+  - project: 'grandlinex/templates'
+    file: '/prod/electron-bundle.yml'
+  - project: 'grandlinex/templates'
+    file: '/build/electron-bundle.yml'
+  - project: 'grandlinex/templates'
+    file: '/deploy/npm-gitlab-deploy.yml'
+
+make:build:prod:
+  image: ${DOCKER_IMG_PRE}worker:latest
+  tags:
+    - docker
+  stage: build
+  only:
+    - tags
+    - /^v(\d+\.)?(\d+\.)?(\*|\d+)$/
+  except:
+    - branches
+    - pipeline
+  script:
+    - npm install
+    - npm run buildprep
+  needs:
+    - lint:scan:prod
+    - sec:scan:prod
+  artifacts:
+    paths:
+      - dist
+      - style
+    expire_in: 7 days
+

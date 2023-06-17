@@ -1,0 +1,396 @@
+.glx-pt-2 {
+  padding-top: 2px;
+}
+
+.glx-pb-2 {
+  padding-bottom: 2px;
+}
+
+.glx-pr-2 {
+  padding-right: 2px;
+}
+
+.glx-pl-2 {
+  padding-left: 2px;
+}
+
+.glx-px-2 {
+  @extend .glx-pl-2;
+  @extend .glx-pr-2;
+}
+
+.glx-py-2 {
+  @extend .glx-pt-2;
+  @extend .glx-pb-2;
+}
+
+.glx-p-2 {
+  @extend .glx-pt-2;
+  @extend .glx-pb-2;
+  @extend .glx-pl-2;
+  @extend .glx-pr-2;
+}
+
+.glx-pt-4 {
+  padding-top: 4px;
+}
+
+.glx-pb-4 {
+  padding-bottom: 4px;
+}
+
+.glx-pr-4 {
+  padding-right: 4px;
+}
+
+.glx-pl-4 {
+  padding-left: 4px;
+}
+
+.glx-px-4 {
+  @extend .glx-pl-4;
+  @extend .glx-pr-4;
+}
+
+.glx-py-4 {
+  @extend .glx-pt-4;
+  @extend .glx-pb-4;
+}
+
+.glx-p-4 {
+  @extend .glx-pt-4;
+  @extend .glx-pb-4;
+  @extend .glx-pl-4;
+  @extend .glx-pr-4;
+}
+
+.glx-pt-6 {
+  padding-top: 6px;
+}
+
+.glx-pb-6 {
+  padding-bottom: 6px;
+}
+
+.glx-pr-6 {
+  padding-right: 6px;
+}
+
+.glx-pl-6 {
+  padding-left: 6px;
+}
+
+.glx-px-6 {
+  @extend .glx-pl-6;
+  @extend .glx-pr-6;
+}
+
+.glx-py-6 {
+  @extend .glx-pt-6;
+  @extend .glx-pb-6;
+}
+
+.glx-p-6 {
+  @extend .glx-pt-6;
+  @extend .glx-pb-6;
+  @extend .glx-pl-6;
+  @extend .glx-pr-6;
+}
+
+.glx-pt-8 {
+  padding-top: 8px;
+}
+
+.glx-pb-8 {
+  padding-bottom: 8px;
+}
+
+.glx-pr-8 {
+  padding-right: 8px;
+}
+
+.glx-pl-8 {
+  padding-left: 8px;
+}
+
+.glx-px-8 {
+  @extend .glx-pl-8;
+  @extend .glx-pr-8;
+}
+
+.glx-py-8 {
+  @extend .glx-pt-8;
+  @extend .glx-pb-8;
+}
+
+.glx-p-8 {
+  @extend .glx-pt-8;
+  @extend .glx-pb-8;
+  @extend .glx-pl-8;
+  @extend .glx-pr-8;
+}
+
+.glx-pt-10 {
+  padding-top: 10px;
+}
+
+.glx-pb-10 {
+  padding-bottom: 10px;
+}
+
+.glx-pr-10 {
+  padding-right: 10px;
+}
+
+.glx-pl-10 {
+  padding-left: 10px;
+}
+
+.glx-px-10 {
+  @extend .glx-pl-10;
+  @extend .glx-pr-10;
+}
+
+.glx-py-10 {
+  @extend .glx-pt-10;
+  @extend .glx-pb-10;
+}
+
+.glx-p-10 {
+  @extend .glx-pt-10;
+  @extend .glx-pb-10;
+  @extend .glx-pl-10;
+  @extend .glx-pr-10;
+}
+
+.glx-pt-12 {
+  padding-top: 12px;
+}
+
+.glx-pb-12 {
+  padding-bottom: 12px;
+}
+
+.glx-pr-12 {
+  padding-right: 12px;
+}
+
+.glx-pl-12 {
+  padding-left: 12px;
+}
+
+.glx-px-12 {
+  @extend .glx-pl-12;
+  @extend .glx-pr-12;
+}
+
+.glx-py-12 {
+  @extend .glx-pt-12;
+  @extend .glx-pb-12;
+}
+
+.glx-p-12 {
+  @extend .glx-pt-12;
+  @extend .glx-pb-12;
+  @extend .glx-pl-12;
+  @extend .glx-pr-12;
+}
+
+
+.glx-mt-2 {
+  margin-top: 2px;
+}
+
+.glx-mb-2 {
+  margin-bottom: 2px;
+}
+
+.glx-mr-2 {
+  margin-right: 2px;
+}
+
+.glx-ml-2 {
+  margin-left: 2px;
+}
+
+.glx-mx-2 {
+  @extend .glx-ml-2;
+  @extend .glx-mr-2;
+}
+
+.glx-my-2 {
+  @extend .glx-mt-2;
+  @extend .glx-mb-2;
+}
+
+.glx-m-2 {
+  @extend .glx-mt-2;
+  @extend .glx-mb-2;
+  @extend .glx-ml-2;
+  @extend .glx-mr-2;
+}
+
+.glx-mt-4 {
+  margin-top: 4px;
+}
+
+.glx-mb-4 {
+  margin-bottom: 4px;
+}
+
+.glx-mr-4 {
+  margin-right: 4px;
+}
+
+.glx-ml-4 {
+  margin-left: 4px;
+}
+
+.glx-mx-4 {
+  @extend .glx-ml-4;
+  @extend .glx-mr-4;
+}
+
+.glx-my-4 {
+  @extend .glx-mt-4;
+  @extend .glx-mb-4;
+}
+
+.glx-m-4 {
+  @extend .glx-mt-4;
+  @extend .glx-mb-4;
+  @extend .glx-ml-4;
+  @extend .glx-mr-4;
+}
+
+.glx-mt-6 {
+  margin-top: 6px;
+}
+
+.glx-mb-6 {
+  margin-bottom: 6px;
+}
+
+.glx-mr-6 {
+  margin-right: 6px;
+}
+
+.glx-ml-6 {
+  margin-left: 6px;
+}
+
+.glx-mx-6 {
+  @extend .glx-ml-6;
+  @extend .glx-mr-6;
+}
+
+.glx-my-6 {
+  @extend .glx-mt-6;
+  @extend .glx-mb-6;
+}
+
+.glx-m-6 {
+  @extend .glx-mt-6;
+  @extend .glx-mb-6;
+  @extend .glx-ml-6;
+  @extend .glx-mr-6;
+}
+
+.glx-mt-8 {
+  margin-top: 8px;
+}
+
+.glx-mb-8 {
+  margin-bottom: 8px;
+}
+
+.glx-mr-8 {
+  margin-right: 8px;
+}
+
+.glx-ml-8 {
+  margin-left: 8px;
+}
+
+.glx-mx-8 {
+  @extend .glx-ml-8;
+  @extend .glx-mr-8;
+}
+
+.glx-my-8 {
+  @extend .glx-mt-8;
+  @extend .glx-mb-8;
+}
+
+.glx-m-8 {
+  @extend .glx-mt-8;
+  @extend .glx-mb-8;
+  @extend .glx-ml-8;
+  @extend .glx-mr-8;
+}
+
+.glx-mt-10 {
+  margin-top: 10px;
+}
+
+.glx-mb-10 {
+  margin-bottom: 10px;
+}
+
+.glx-mr-10 {
+  margin-right: 10px;
+}
+
+.glx-ml-10 {
+  margin-left: 10px;
+}
+
+.glx-mx-10 {
+  @extend .glx-ml-10;
+  @extend .glx-mr-10;
+}
+
+.glx-my-10 {
+  @extend .glx-mt-10;
+  @extend .glx-mb-10;
+}
+
+.glx-m-10 {
+  @extend .glx-mt-10;
+  @extend .glx-mb-10;
+  @extend .glx-ml-10;
+  @extend .glx-mr-10;
+}
+
+.glx-mt-12 {
+  margin-top: 12px;
+}
+
+.glx-mb-12 {
+  margin-bottom: 12px;
+}
+
+.glx-mr-12 {
+  margin-right: 12px;
+}
+
+.glx-ml-12 {
+  margin-left: 12px;
+}
+
+.glx-mx-12 {
+  @extend .glx-ml-12;
+  @extend .glx-mr-12;
+}
+
+.glx-my-12 {
+  @extend .glx-mt-12;
+  @extend .glx-mb-12;
+}
+
+.glx-m-12 {
+  @extend .glx-mt-12;
+  @extend .glx-mb-12;
+  @extend .glx-ml-12;
+  @extend .glx-mr-12;
+}

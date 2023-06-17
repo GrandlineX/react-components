@@ -1,0 +1,132 @@
+.glx-flex{
+  display: flex;
+}
+// Flex Container
+.glx-flex-r {
+  flex-direction: row;
+  display: flex;
+
+}
+.glx-flex-row {
+  @extend .glx-flex-r;
+  width: 100%;
+
+}
+.glx-flex-c {
+  display: flex;
+  flex-direction: column;
+}
+.glx-flex-column {
+  @extend .glx-flex-c;
+  width: 100%;
+}
+
+
+// Flex Alignments
+
+//VERTICAL CENTER
+.glx-flex-v-center {
+  align-items: center;
+}
+
+//HORIZONTAL CENTER
+.glx-flex-h-center {
+  justify-content: center;
+}
+
+.glx-flex-center {
+  @extend .glx-flex-v-center;
+  @extend .glx-flex-h-center;
+  height: 100%;
+}
+
+.glx-flex-start {
+  justify-content: flex-start;
+}
+
+.glx-flex-end {
+  justify-content: flex-end;
+}
+
+.glx-flex-space-between {
+  justify-content: space-between;
+}
+
+.glx-flex-space-around {
+  justify-content: space-around;
+}
+
+.glx-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.glx-flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+// Flex Gap
+
+.glx-flex-g-0 {
+  gap: 0;
+}
+
+.glx-flex-g-2 {
+  gap: 2px;
+}
+
+.glx-flex-g-4 {
+  gap: 4px;
+}
+
+.glx-flex-g-6 {
+  gap: 6px;
+}
+
+.glx-flex-g-8 {
+  gap: 8px;
+}
+
+.glx-flex-g-10 {
+  gap: 10px;
+}
+
+.glx-flex-g-12 {
+  gap: 12px;
+}
+
+.glx-flex-g-24 {
+  gap: 24px;
+}
+
+
+.glx-flex-grow-0 {
+  flex-grow: 0;
+}
+
+.glx-flex-grow-1 {
+  flex-grow: 1;
+}
+
+.glx-flex-grow-2 {
+  flex-grow: 2;
+}
+
+
+.glx-mobile-wrap{
+  flex-direction: row;
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+  }
+}
+
+.glx-layout-1-3{
+  flex-basis:33.33%;
+}
+
+
+.glx-layout-2-3{
+  flex-basis:66.66%;
+}
+.glx-layout-1-2{
+  flex-basis:50%;
+}

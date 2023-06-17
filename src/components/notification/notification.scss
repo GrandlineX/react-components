@@ -1,0 +1,70 @@
+
+.glx-notification {
+  color: $main-text;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+  gap: 4px;
+  position: relative;
+  .glx-icon-button-wr,.glx-icon-button{
+    display: none;
+  }
+}
+
+.glx-notification:hover {
+  .glx-icon-button-wr,.glx-icon-button{
+    display: block;
+    background: $main-background;
+    border-radius: 4px;
+  }
+}
+
+
+.glx-notification--image{
+  position: absolute;
+    top: 0;
+  right: 0;
+  height: 100%;
+  width: 90px;
+  background-size: cover ;
+  mask-image: linear-gradient(to right, transparent 0%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 100%);
+  z-index: 90;
+}
+
+.glx-notification:hover {
+  background-color: $main-background;
+  cursor: default;
+}
+.glx-notification--sel{
+  background-color: $main-background;
+}
+
+.glx-notification--unread {
+
+  .glx-notification--color {
+    background-color: $main-orange;
+  }
+}
+
+.glx-notification--color {
+  width: 2px;
+  background-color: $main-accent-05;
+}
+
+.glx-notification--icon {
+  width: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+.glx-notification--button {
+  justify-content: space-between;
+  z-index: 99;
+
+}
+
+.glx-notification--date {
+  padding-top: 14px;
+  color: $main-accent-05;
+}

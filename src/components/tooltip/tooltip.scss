@@ -1,0 +1,37 @@
+.glx-tooltip-container {
+  @extend .glx-default-text;
+  position: relative;
+  text-align: center;
+}
+
+.glx-tooltip-children {
+
+}
+
+.glx-tooltip-content {
+  background: $tlc-card;
+  color: $tlc-card-font;
+  border-radius: 2px;
+  position: absolute;
+  font-size: 12pt;
+  padding: 4px;
+  z-index: 12000;
+  border: 1px solid $main-contrast-transparent;
+}
+
+.glx-tooltip-content-bottom {
+
+  transform: translateY(4px);
+}
+
+.glx-tooltip-content-right {
+  top: 0;
+  padding-left: 2px;
+  transform: translateX(4px);
+}
+
+.glx-tooltip-content-left {
+  top: 0;
+  padding-right: 2px;
+  transform: translateY(-4px);
+}

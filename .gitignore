@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+package-lock.json
+*.tgz
+/style/
+/.idea/
+/docs/
+/icon/icons/
+/icon/icons/out
+/docker-compose.yml
+/css/style.css
+/storybook-static/

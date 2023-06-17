@@ -1,0 +1,238 @@
+
+::selection {
+  background: #333;
+}
+
+::-moz-selection {
+  background: #111;
+}
+
+.glx--clock-main{
+  position: relative;
+}
+
+$clock-size: 160px;
+$clock-fontsize-margin: $clock-size*0.1;
+$clock-fontsize: $clock-size - 10px - $clock-fontsize-margin;
+$clock-half: $clock-size*0.5;
+$clock-half-min: $clock-half*-1;
+
+figure.glx--clock {
+  width: $clock-size;
+  height: $clock-size;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: $clock-half-min;
+  margin-left: $clock-half-min;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: rotateX(-35deg) rotateY(45deg);
+  transform: rotateX(-35deg) rotateY(45deg);
+  transition: 2s;
+
+
+  .face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    background: #000;
+    text-align: center;
+  }
+
+  #s, #m, #h {
+    font-size: $clock-fontsize;
+    font-family: 'Digital-7';
+    margin-top: $clock-fontsize-margin;
+    color: $main-blue;
+    text-shadow: 0px 0px 5px #000;
+    -webkit-animation: color 10s infinite;
+    animation: color 10s infinite;
+    line-height: $clock-fontsize;
+  }
+
+  .front {
+    -webkit-transform: translate3d(0, 0, $clock-half);
+    transform: translate3d(0, 0, $clock-half);
+    background: #111;
+  }
+
+  .left {
+    -webkit-transform: rotateY(-90deg) translate3d(0, 0, $clock-half);
+    transform: rotateY(-90deg) translate3d(0, 0, $clock-half);
+    background: #151515;
+  }
+
+  .top {
+    -webkit-transform: rotateX(90deg) translate3d(0, 0, $clock-half);
+    transform: rotateX(90deg) translate3d(0, 0, $clock-half);
+    background: #222;
+  }
+
+}
+
+figure.glx--clock:hover {
+  -webkit-transform: rotateX(-50deg) rotateY(45deg);
+  transform: rotateX(-50deg) rotateY(45deg);
+}
+.glx--cube{
+  min-height: 230px;
+}
+
+
+@keyframes color {
+  0% {
+    color: $main-blue;
+    text-shadow: 0px 0px 5px #000;
+  }
+  50% {
+    color: #cc4343;
+    text-shadow: 0px 0px 5px $main-red;
+  }
+}
+
+@-webkit-keyframes color {
+  0% {
+    color: $main-blue;
+    text-shadow: 0px 0px 5px #000;
+  }
+  50% {
+    color: #cc4343;
+    text-shadow: 0px 0px 5px $main-red;
+  }
+}
+
+
+$hue-color: 240;
+$first-color: $main-contrast;
+$title-color: hsl($hue-color, 53%, 15%);
+$text-color: hsl($hue-color, 12%, 35%);
+$text-color-light: hsl($hue-color, 12%, 65%);
+$white-color: $main-white;
+$z-normal:1;
+
+.glx-analog--clock__circle {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  box-shadow: -6px -6px 16px $white-color,
+  6px 6px 16px hsla($hue-color, 30%, 86%, 1),
+  inset 6px 6px 16px hsla($hue-color, 30%, 86%, 1),
+  inset -6px -6px 16px $white-color;
+  border-radius: 50%;
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+}
+
+
+.glx-analog--clock__content {
+  align-self: center;
+  row-gap: 2rem;
+}
+
+.glx-analog--clock__twelve,
+.glx-analog--clock__three,
+.glx-analog--clock__six,
+.glx-analog--clock__nine {
+  position: absolute;
+  width: 1.5rem;
+  height: 1px;
+  background-color: $first-color;
+}
+
+.glx-analog--clock__twelve,
+.glx-analog--clock__six {
+  transform: translateX(-50%) rotate(90deg);
+}
+
+.glx-analog--clock__twelve {
+  top: 1.25rem;
+  left: 50%;
+}
+
+.glx-analog--clock__three {
+  top: 50%;
+  right: 0.75rem;
+}
+
+.glx-analog--clock__six {
+  bottom: 1.25rem;
+  left: 50%;
+}
+
+.glx-analog--clock__nine {
+  left: 0.75rem;
+  top: 50%;
+}
+
+.glx-analog--clock__rounder {
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: $first-color;
+  border-radius: 50%;
+  border: 2px solid var(--body-color);
+  z-index: var(--z-tooltip);
+}
+
+.glx-analog--clock__hour,
+.glx-analog--clock__minutes,
+.glx-analog--clock__seconds {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+
+.glx-analog--clock__hour {
+  width: 105px;
+  height: 140px;
+}
+
+.glx-analog--clock__hour::before {
+  content: "";
+  position: absolute;
+  background-color: $text-color;
+  width: 0.25rem;
+  height: 5.5rem;
+  border-radius: 0.75rem;
+  z-index: $z-normal;
+}
+
+.glx-analog--clock__minutes {
+  width: 136px;
+  height: 186px;
+}
+
+.glx-analog--clock__minutes::before {
+  content: "";
+  position: absolute;
+  background-color: $text-color;
+  width: 0.25rem;
+  height: 6.5rem;
+  border-radius: 0.75rem;
+  z-index: $z-normal;
+}
+
+.glx-analog--clock__seconds {
+  width: 130px;
+  height: 200px;
+}
+
+.glx-analog--clock__seconds::before {
+  content: "";
+  position: absolute;
+  background-color: $first-color;
+  width: 0.125rem;
+  height: 7.5rem;
+  border-radius: 0.75rem;
+  z-index: $z-normal;
+}
+
+
+.glx-num-clock{
+
+}

@@ -1,0 +1,22 @@
+
+.glx-tag-selector{
+  position: relative;
+  min-width: 200px;
+
+  .glx-tag-selector--drawer{
+    @extend .glx-p-8,.glx-w-full-8;
+    z-index: 88;
+    position: absolute;
+    background-color: $main-accent-01;
+    >div{
+      @extend .glx-no-select;
+      width: 100%;
+    }
+    >div:hover{
+      @extend .glx-no-select;
+      background-color: $main-accent-05;
+      width: 100%;
+    }
+
+  }
+}

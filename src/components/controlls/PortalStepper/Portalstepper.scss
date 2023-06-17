@@ -1,0 +1,23 @@
+
+.portal-stepper-main {
+  @extend .glx-default-text;
+  height: 100%;
+
+  .portal-stepper--content {
+    margin-top: 12px;
+    height: calc(100% - 52px);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    h4 {
+      font-size: 16pt;
+    }
+  }
+}
+
+
+.portal-stepper--content::-webkit-scrollbar {
+  display: none;
+}
+

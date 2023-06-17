@@ -1,0 +1,72 @@
+/**
+ DISABLE TEXT Select
+ */
+.glx-no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.glx-default-text{
+  color: $main-text;
+  ::-moz-selection { /* Code for Firefox */
+    color: $main-background;
+    background: $main-text;
+  }
+  ::selection {
+    color: $main-background;
+    background: $main-text;
+  }
+}
+/**
+ Hide Scrolls
+ */
+.glx-no-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.glx-no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/**
+ Text Styling
+ */
+.glx-underline {
+  text-decoration: underline;
+}
+
+.glx-break-word {
+  overflow-wrap: break-word;
+}
+
+.glx-bold {
+  font-weight: bold;
+}
+
+.glx-pointer {
+  cursor: pointer;
+}
+
+/**
+ Electron Drag Region
+ */
+.glx-electron-drag {
+  -webkit-app-region: drag;
+}
+
+.glx-electron-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+.glx-hidden {
+  visibility: hidden;
+}
+
+.glx-gone {
+  display: none;
+}

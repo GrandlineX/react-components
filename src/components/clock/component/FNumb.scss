@@ -1,0 +1,11 @@
+.glx-f-number{
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 300;
+  color: $main-accent-02;
+  .num-active{
+    color: $main-text;
+  }
+  .num-active--secondary{
+    color: $main-contrast !important;
+  }
+}

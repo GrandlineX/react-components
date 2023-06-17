@@ -1,0 +1,38 @@
+
+
+.glx-table--fixed-header{
+  th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+}
+.glx-table-root{
+  color: $main-text;
+  width: 100%;
+  border-collapse: collapse;
+
+   td,  th {
+    border: none;
+    padding: 8px;
+  }
+
+  .glx-table--row{
+    background-color: $main-background;
+  }
+  .glx-table--row-even{
+    background-color: $main-background-alt;
+  }
+
+   .glx-table--row-hover:hover {background-color: $main-select;}
+
+   th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: $tlc-card;
+    color: $tlc-card-font;
+  }
+
+}

@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "src",
+    "themes"
+  ],
+  "ext": "scss",
+  "exec": "npm run build--sass",
+  "ignore": [
+    "style"
+  ]
+}

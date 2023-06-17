@@ -1,0 +1,188 @@
+.glx-card--item {
+  @extend .glx-flex-column,.glx-flex-space-between;
+  margin: 4px;
+  text-align: center;
+  background-size: cover;
+  color: $tlc-card-font;
+  font-size: 11pt;
+  min-height: 300px;
+  max-height: 460px;
+  max-width: 320px;
+  min-width: 280px;
+  flex-grow: 1;
+  background-color: $tlc-card;
+  position: relative;
+  border-radius: 12px;
+
+  .glx-card--badges{
+    height: 30px;
+  }
+}
+
+.glx-card--icon {
+  @extend .glx-p-4,.glx-h-full-4;
+  padding: 8px;
+  font-size: 24pt;
+  display: flex;
+  align-items: center;
+}
+
+.glx-card--icon-red .glx--icon{
+  color: $main-red !important;
+
+}
+
+.glx-card--icon-orange .glx--icon{
+  color: $main-orange !important;
+
+}
+
+.glx-card--icon-yellow .glx--icon{
+  color: $main-yellow !important;
+
+
+}
+
+.glx-card--icon-green .glx--icon{
+  color: $main-green !important;
+
+}
+
+.glx-card--icon-black {
+
+  color: black;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+}
+
+.glx-card--head:hover {
+  .glx-card--hover {
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    gap: 4px;
+  }
+}
+
+.glx-round-top{
+  border-radius: 12px 12px 0 0;
+}
+
+.glx-card--img {
+  height: 200px;
+  width: 100%;
+  background-size: cover;
+  mask-image: linear-gradient(to top, transparent 0%, black 100%);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 100%);
+}
+
+.glx-card--date {
+
+}
+
+.glx-card--hover {
+  flex-direction: row;
+  width: 100%;
+  height: 200px;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+
+
+  button {
+    @extend .glx-flex-column, .glx-flex-center;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    background: none;
+    font-size: 14pt;
+    border-radius: 24px;
+    border: 2px $main-white solid;
+    color: $main-white;
+  }
+
+  button:hover {
+    background: $main-contrast;
+  }
+}
+
+.glx-card--effect {
+  // background: radial-gradient(transparent 0%, $tlc-card 95%);
+  background: linear-gradient(to bottom, transparent 0%, $tlc-card 100%);
+  border-radius: 12px 12px 0 0;
+  height: 100%;
+}
+
+.glx-card--iconCover {
+  height: 200px;
+  width: 100%;
+  background-size: cover;
+  font-size: 90pt;
+
+  svg {
+    transform: translateY(20px);
+  }
+}
+.glx-card--skeleton {
+  height: 200px;
+  width: 100%;
+  background-size: cover;
+  font-size: 90pt;
+}
+
+.glx-card--title{
+  text-align: left;
+  padding-left: 8px;
+  padding-bottom: 4px;
+  @extend .glx-py-2;
+  font-size: 12pt;
+  font-weight: 600;
+}
+.glx-card--content {
+  text-align: left;
+  padding-left: 8px;
+  font-size: 12pt;
+
+  padding-right: 4px;
+  min-height: 30px;
+
+  span {
+    overflow-wrap: anywhere;
+    padding: 2px;
+  }
+}
+
+.glx-card--button-space {
+  width: 100%;
+  height: 50px;
+}
+
+.glx-card--space {
+  width: 100%;
+  height: 4px;
+}
+
+.glx-card--button-box {
+}
+
+.glx-card--button-box-media {
+  position: absolute;
+  bottom: 4px;
+  width: 100%;
+
+  button {
+    margin: 4px;
+  }
+}
+
+.glx-card--footer{
+  @extend .glx-flex-row,.glx-flex-space-between,.glx-py-8;
+
+  > div{
+    flex-basis:33.33%;
+  }
+}
+

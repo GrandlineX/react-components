@@ -1,0 +1,252 @@
+button.button--base {
+  min-width: 400px;
+  font-size: 12pt;
+  border: none;
+  color: $main-white;
+  background-color: $main-button;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 8px;
+
+  span {
+    margin-right: 6px;
+  }
+}
+
+.button--default::before {
+  background-color: $main-contrast;
+}
+
+.button--default:hover {
+  background-color: $main-contrast;
+}
+
+.button--blue::before {
+  background-color: $main-dark-blue;
+}
+
+.button--blue:hover {
+  background-color: $main-dark-blue;
+}
+
+.button--cyan::before {
+  background-color: $main-cyan;
+}
+
+.button--cyan:hover {
+  background-color: $main-cyan;
+  color: black !important;
+
+}
+
+.button--red::before {
+  background-color: $main-red;
+}
+
+.button--red:hover {
+  background-color: $main-red;
+}
+
+.button--green::before {
+  background-color: $main-green;
+}
+
+.button--green:hover {
+  background-color: $main-green;
+}
+
+.button--purple::before {
+  background-color: $main-purple;
+}
+
+.button--purple:hover {
+  background-color: $main-purple;
+}
+
+.button--orange::before {
+  background-color: $main-orange;
+}
+
+.button--orange:hover {
+  background-color: $main-orange;
+}
+
+.button--pink::before {
+  background-color: $main-pink;
+}
+
+.button--pink:hover {
+  background-color: $main-pink;
+  color: black !important;
+
+}
+
+.button--yellow::before {
+  background-color: $main-yellow;
+}
+
+.button--yellow:hover {
+  background-color: $main-yellow;
+
+  color: black !important;
+}
+
+button.button-link {
+  position: relative;
+  color: white;
+  cursor: pointer;
+  padding: 12px;
+  font-size: 12pt;
+  background-color: $main-button;
+  border-radius: 8px;
+  border: none;
+}
+
+button.cancel {
+  background-color: $main-background;
+  border: 1px solid white;
+}
+
+button.half {
+  width: 192px;
+  margin-left: 8px;
+  margin-right: 8px;
+  min-width: 0px;
+}
+
+button.button--base:disabled {
+  background-color: $main-accent-02;
+  cursor: not-allowed;
+}
+
+
+button.button--grid:disabled {
+  background-color: $main-accent-02;
+  cursor: not-allowed;
+}
+
+button.button--grid {
+  position: relative;
+  width: 300px;
+  font-size: 12pt;
+  border: none;
+  color: $main-white;
+  background-color: $main-button;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  margin: 2px;
+  border-radius: 4px;
+
+  span {
+    margin-right: 6px;
+  }
+}
+
+button.button--grid:after, button.button-link:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 4px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 5px 20px white;
+}
+
+button.button--grid:active:after, button.button-link:active:after {
+  box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: 4px;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+button.button--grid:active, button.button-link:active {
+  top: 1px;
+}
+
+
+button.button--grid-half {
+  width: 150px;
+
+}
+
+button:disabled {
+  transition: unset;
+}
+button:disabled::before {
+  transform: unset;
+  transition: unset;
+  background-color: unset;
+}
+
+button.bubble {
+  z-index: 1;
+  position: relative;
+  font-size: inherit;
+  font-family: inherit;
+  color: white;
+  padding: 0.5em 1em;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+}
+
+
+button.bubble::before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 100%;
+  right: 100%;
+  width: 2em;
+  height: 1em;
+  border-radius: 50%;
+  transform-origin: center;
+  transform: translate3d(50%, -50%, 0) scale3d(0, 0, 0);
+  transition: transform 0.45s ease-in-out;
+}
+
+button.bubble:hover::before {
+  transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
+}
+
+.glx-icon-button--blue svg{
+  color: $main-blue !important;
+}
+.glx-icon-button--red svg{
+  color: $main-red !important;
+}
+.glx-icon-button--green svg{
+  color: $main-green !important;
+}
+.glx-icon-button--orange svg{
+  color: $main-orange !important;
+}
+.glx-icon-button--yellow svg{
+  color: $main-yellow !important;
+}
+.glx-icon-button--cyan svg{
+  color: $main-cyan !important;
+}
+.glx-icon-button--pink svg{
+  color: $main-pink !important;
+}
+.glx-icon-button--purple svg{
+  color: $main-purple !important;
+}
+.glx-icon-button--black svg{
+  color: $main-black !important;
+}

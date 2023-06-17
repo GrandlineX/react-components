@@ -1,0 +1,582 @@
+.glx-ee-component .tab-layout--root{
+  height: 500px;
+  position: relative;
+}
+
+.main-frame{
+  height: calc(100% - 40px);
+}
+
+
+@media screen and (max-width: 450px) {
+  .tab-layout--root .sidebar-panel{
+    width: calc(100% - 44px) !important;
+  }
+}
+
+
+.tab-layout--root{
+
+  width: 100%;
+  height: 100%;
+  position: relative;
+  // ########################## MODAL #########################
+  .tab-layout--modal{
+    @extend .glx-default-text;
+  position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 99999;
+  }
+  // ########################## Spotlight #########################
+  .tab-layout--spotlight{
+    @extend .glx-no-select,.glx-default-text;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.80);
+    z-index: 99999;
+    font-size: 20px;
+    .tab-layout--spotlight-input{
+      max-width: calc(100% - 96px);
+      width: 400px;
+      height: 60px;
+      border: 1px solid $main-text;
+      input{
+        width: calc(100% - 20px);
+        height: 100%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: $main-text;
+        font-size: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+    .tab-layout--spotlight-offset{
+      height: 20%;
+    }
+
+    .option-icon{
+      padding-left: 8px;
+      width: 24px;
+    }
+    .option-path{
+      font-size: 12px;
+      color: $main-contrast;
+    }
+
+
+    .tab-layout--spotlight-option{
+      height: calc(80% - 100px);
+      width: 400px;
+      max-width: calc(100% - 96px);
+      overflow-y: scroll;
+      overflow-x: hidden;
+      .option-element{
+        width: calc(100% - 2px);
+        height: 60px;
+        border: 1px solid $main-text;
+      }
+      .option-element--no-action{
+        width: 100%;
+        height: 60px;
+        color: $main-accent-03;
+      }
+      .option-message{
+        width: 100%;
+        height: 60px;
+      }
+      .option-element:hover,.option-element-active {
+        background-color: $main-contrast;
+        cursor: pointer;
+        .option-path{
+          color: $main-white;
+        }
+      }
+    }
+
+
+  }
+  // ########################## BASIC #########################
+
+  .flex-center {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+  }
+
+  .flex-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .flex-grid {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    row-gap: 4px;
+    column-gap: 4px;
+    height: 100%;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+  }
+
+  .flex-row {
+    padding: 0;
+    margin: 0;
+    display: flex;
+
+    justify-content: center;
+    height: 100%;
+    flex-direction: row;
+  }
+
+  .row {
+    width: auto;
+
+  }
+
+  .item {
+
+    padding: 2px;
+    margin: 4px;
+    text-align: center;
+  }
+
+
+  .main {
+    @extend .flex-center;
+    background-color: $main-background;
+    height: calc(100% - 40px);
+    h2 {
+      font-size: 32pt;
+    }
+    overflow-x: hidden;
+  }
+
+
+  .main--sidebar {
+    background: $tlc-sidebar;
+    width: 44px;
+    height: calc(100% - 40px);
+    float: left;
+    color: $tlc-sidebar-font;
+
+    svg {
+      color: $tlc-sidebar-font;
+      font-size: 16pt;
+    }
+  }
+
+
+  .main-no--sidebar {
+    width: calc(100% - 44px);
+  }
+
+  .main-no--sidebar-half {
+    min-height: 1px;
+    width: calc(50% - 22px);
+    float: left;
+  }
+
+
+  // ########################## HEADER #########################
+
+  .tab-header {
+    -webkit-app-region: drag;
+    position: relative;
+    height: 40px;
+    background-color: $tlc-header;
+
+    .title {
+      color: $tlc-header-font;
+      padding-top: 2px;
+      position: absolute;
+      left: 10px;
+      top: 5px;
+      font-size: 16pt;
+    }
+
+    .keys {
+      -webkit-app-region: no-drag;
+
+      position: absolute;
+      right: 5px;
+      top: 0;
+      height: 100%;
+
+      button {
+        background-color: transparent;
+        font-size: 18pt;
+        color: $main-white;
+        border: none;
+        cursor: pointer;
+        height: 100%;
+      }
+
+      button:hover {
+        background-color: $main-accent-05;
+      }
+
+      button.cancel:hover {
+        background-color: $main-red;
+      }
+    }
+
+
+    .refresh {
+
+      border-style: solid;
+      border-width: 0 1px 0 0;
+      padding-right: 6px;
+      position: absolute;
+      right: 120px;
+      top: 5px;
+      display: flex;
+      max-width: 70%;
+      align-items: center;
+      justify-content: flex-end;
+      color: $tlc-header-font;
+
+      button {
+        background-color: transparent;
+        font-size: 18pt;
+        color: $tlc-header-font;
+        border: none;
+        cursor: pointer;
+        border-radius: 16px;
+        -webkit-app-region: no-drag;
+
+      }
+
+      button:hover {
+        background-color: $tlc-header-font-alt;
+      }
+
+    }
+  }
+
+  .head-web {
+    .refresh {
+      right: 5px !important;
+    }
+  }
+
+
+  // ########################## TABBAR #########################
+
+
+
+
+  .tab-bar--single {
+    .glx-tab-bar-l {
+      width: calc(100% - 10px) !important;
+    }
+
+    .glx-tab-bar-r {
+      width: 10px !important;
+    }
+  }
+
+  .glx-tab-bar-l:-moz-drag-over,
+  .glx-tab-bar-r:-moz-drag-over {
+    background: blue !important;
+  }
+
+  .head-web {
+    .glx-tab-bar-l {
+      width: calc(50% + 20px);
+    }
+
+    .glx-tab-bar-r {
+      width: calc(50% - 20px);
+    }
+  }
+
+  .head-native {
+    .glx-tab-bar-l {
+      width: calc(50% + 82px);
+    }
+
+    .glx-tab-bar-r {
+      width: calc(50% - 82px);
+    }
+  }
+
+  .tab-bar {
+
+    .glx-drop-nonce--active{
+      color: red;
+    }
+    .glx-drop-nonce--active-border{
+      border-right: 1px solid red;
+    }
+
+    .glx-electron-no-drag {
+      padding: 2px;
+      width: 4px;
+      height: 100%;
+    }
+
+    position: absolute;
+    left: 42px;
+    color: $tlc-header-font-alt;
+    height: 40px;
+    overflow-y: hidden;
+
+    .glx-tab-bar-r, .glx-tab-bar-l {
+      display: flex;
+      overflow-y: hidden;
+      column-gap: 4px;
+      float: left;
+    }
+
+
+    .tab-bar--item {
+      white-space: nowrap;
+      padding-left: 8px;
+      padding-right: 8px;
+      -webkit-app-region: no-drag;
+      cursor: pointer;
+      line-height: 40px;
+      text-align: center;
+
+      button {
+        color: $tlc-header-font-alt;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+
+      svg {
+        transform: translateY(3px);
+      }
+    }
+
+    .tab-bar--item-selected,
+    .tab-bar--item:hover {
+      color: $tlc-header-font;
+      background: $main-accent-03;
+
+      button {
+        color: $tlc-header-font;
+      }
+    }
+
+    .tab-bar--button {
+      height: 100%;
+      text-overflow: ellipsis;
+      max-width: 200px;
+      svg {
+        margin-bottom: 1px;
+        margin-right: 3px;
+      }
+    }
+
+    .tab-bar--button-close {
+      transform: translateY(-2px);
+    }
+  }
+
+
+  .head-native .tab-bar {
+    width: calc(100% - 206px);
+  }
+
+  .head-web .tab-bar {
+    width: calc(100% - 92px);
+  }
+
+  .tab-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  // ########################## SIDEBAR #########################
+
+
+  .sidebar--container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .sidebar--container-up {
+    margin-top: 8px;
+  }
+
+  .sidebar--container-down {
+    margin-bottom: 8px;
+  }
+
+  .sidebar--container-up, .sidebar--container-down {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+  }
+
+  .menu-button {
+    text-align: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+
+    .label--num-right {
+      right: 0;
+    }
+    .label--num-left {
+      left: 0;
+    }
+    .label--num-bottom {
+      right: 0;
+      bottom: -8px;
+    }
+    .label--num {
+      position: absolute;
+      width: 14px;
+      border-radius: 7px;
+      height: 14px;
+      background-color: $main-contrast;
+      color: white;
+      transform: translateY(-4px);
+    }
+  }
+
+  .menu-button:hover {
+    svg {
+      color: $main-contrast;
+    }
+  }
+.sidebar-head-block{
+  @extend .glx-mx-8;
+  height: 70px;
+}
+  .sidebar-panel {
+    z-index: 2000;
+    position: absolute;
+    background: $tlc-sidebar;
+    padding: 0px;
+    height: calc(100% - 40px);
+    width: 400px;
+    left: 44px;
+  }
+
+  .sidebar-panel-scroll {
+    position: relative;
+    height: calc(100% - 70px);
+    overflow-x: hidden;
+    hr{
+      border: 1px solid $main-accent-03;
+    }
+  }
+
+
+  .sidebar-panel-scroll-mini {
+    height: calc(100% - 200px);
+    overflow-x: hidden;
+  }
+
+  .sidebar-panel-scroll::-webkit-scrollbar,
+  .sidebar-panel-scroll-mini::-webkit-scrollbar{
+    display: none;
+  }
+
+
+  .icon-blue {
+    color: $main-blue;
+  }
+
+
+  .menu-item {
+    position: relative;
+    height: 52px;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  .menu-item:hover {
+    background: $main-accent-03;
+  }
+
+  .menu-item--sub-menu {
+    font-weight: bold;
+  }
+
+  .menu-item-level--0 .menu-item--space {
+    width: 2px;
+  }
+
+  .menu-item-level--1 .menu-item--space {
+    width: 26px;
+  }
+
+  .menu-item-level--2 .menu-item--space {
+    width: 52px;
+  }
+
+  .menu-item-level--3 .menu-item--space {
+    width: 78px;
+  }
+
+  .menu-item-level--4 .menu-item--space {
+    width: 104px;
+  }
+
+
+  .menu-item--content {
+
+    z-index: 100;
+    cursor: pointer;
+
+
+  }
+
+  .menu-item--sub-menu-icon {
+    cursor: pointer;
+    z-index: 100;
+
+
+    button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.edit-side-panel{
+  position: absolute;
+  top: 40px;
+  right: 0;
+  height: calc(100% - 40px);
+  background-color: $tlc-sidebar;
+  z-index: 90;
+  display: flex;
+  .edit-side-panel--drag{
+    cursor: col-resize;
+  }
+  .edit-side-panel--content{
+    flex-grow: 1;
+  }
+  .edit-side-panel--resize{
+    width: 4px;
+    height: 100%;
+  }
+}

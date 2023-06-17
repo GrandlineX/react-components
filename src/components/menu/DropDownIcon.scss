@@ -1,0 +1,99 @@
+
+.glx-icon-button:disabled {
+  color: $main-accent-03;
+  cursor: default;
+}
+
+.glx-icon-button:disabled:hover {
+  background: none;
+  border-radius: 4px;
+}
+
+.glx-icon-button-wr {
+  position: relative;
+  button>svg{
+    transform: translateY(2px);
+  }
+}
+
+.glx-icon-button {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border: none;
+  background: none;
+  color: $main-text;
+  font-size: 18px;
+
+  svg {
+    margin-top: 2px;
+  }
+}
+
+.glx-icon-button:hover {
+  background: $main-accent-03;
+  border-radius: 4px;
+}
+
+.glx-icon--drop--left {
+  left: -150px;
+}
+.glx-icon--drop--top {
+  left: -150px;
+}
+.glx-icon--drop {
+  @extend .glx-animation-fade-in-super-fast;
+  background: $main-background-alt;
+  position: absolute;
+  width: 180px;
+  z-index: 30;
+  button {
+    background-color: $main-button;
+    cursor: pointer;
+    margin-bottom: 2px;
+    text-align: left;
+    width: 100%;
+    color: white;
+    border: none;
+    padding: 4px;
+    font-size: 12pt;
+
+    svg {
+      margin-right: 4px;
+    }
+  }
+
+  button:hover {
+    background: $main-contrast;
+  }
+  button:disabled {
+    cursor: default !important;
+    background-color: $main-button !important;
+  }
+}
+.glx-icon--drop-submenu{
+  position: relative;
+
+  .glx-icon--drop-submenu-block{
+    @extend  .glx-animation-fade-in-super-fast;;
+    width: 180px;
+    position: absolute;
+    top: 0;
+    left: 182px;
+  }
+  .glx-icon--drop-submenu-block--left{
+    @extend .glx-animation-fade-in-super-fast;
+    left: -182px;
+    width: 180px;
+    position: absolute;
+    top: 0;
+  }
+  .glx-icon--drop-submenu-block--top{
+    @extend .glx-animation-fade-in-super-fast;
+    left: -182px;
+    width: 180px;
+    position: absolute;
+    top: 0;
+  }
+}

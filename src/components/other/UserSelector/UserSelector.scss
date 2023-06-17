@@ -1,0 +1,27 @@
+
+.glx-user-block{
+  @extend .glx-flex-r;
+  position: relative;
+  .glx-user-block--drawer{
+    z-index: 88;
+    width: calc(100% - 32px);
+    position: absolute;
+    top: 0;
+    transform: translateY(32px);
+
+    >div{
+       @extend .glx-no-select,.glx-pointer;
+      padding: 4px;
+
+    }
+    >div:hover{
+      background-color: $main-accent-04 !important;
+    }
+    >div:nth-child(even){
+      background-color: $main-accent-03;
+    }
+    >div:nth-child(odd){
+      background-color: $main-accent-01;
+    }
+  }
+}

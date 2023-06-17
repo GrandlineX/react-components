@@ -1,0 +1,21 @@
+
+.glx-usage-comp{
+  @extend .glx-default-text;
+
+  .glx-usage-comp-bar{
+    width: 100%;
+    height: 4px;
+    background-color: lightgray;
+  }
+
+  .glx-usage-comp-label{
+    padding-top: 2px;
+    text-align: left;
+  }
+
+  .glx-usage-comp-map-bar{
+    @extend .glx-flex-r,.glx-py-2,.glx-w-full;
+    height: 40px;
+    align-items: flex-end;
+  }
+}

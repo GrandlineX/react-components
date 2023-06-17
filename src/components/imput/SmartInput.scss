@@ -1,0 +1,40 @@
+
+.glx-smart-input--search{
+  .glx-user-block--drawer{
+    width: calc(100% - 32px) !important;
+  }
+}
+.glx-smart-input{
+  @extend .glx-flex-r,.glx-min-w-300;
+  // outline: 1px solid green;
+  position: relative;
+  .glx-user-block--drawer{
+    z-index: 88;
+    width: 100%;
+    position: absolute;
+    top: 4px;
+    transform: translateY(32px);
+
+    >div{
+       @extend .glx-no-select,.glx-pointer;
+      padding: 4px;
+
+    }
+    >div:hover, .option-element-active{
+      background-color: $main-accent-04 !important;
+    }
+    >div:nth-child(even){
+      background-color: $main-accent-03;
+    }
+    >div:nth-child(odd){
+      background-color: $main-accent-01;
+    }
+  }
+  input{
+    min-height: 30px;
+    width: 100%;
+  }
+  .smart-detail{
+    font-size: 10pt;
+  }
+}

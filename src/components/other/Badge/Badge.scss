@@ -1,0 +1,45 @@
+.glx-badge {
+  @extend .glx-p-6,.glx-flex-g-4,.glx-no-select;
+  display: flex;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background: $main-contrast;
+  button{
+    border: none;
+    background-color: transparent;
+  }
+}
+
+
+.glx-badge--red{
+  background: $main-red;
+  color: $main-white;
+}
+
+
+.glx-badge--black{
+  background: $main-black;
+  color: $main-white;
+}
+
+
+.glx-badge--green{
+  background: $main-green;
+}
+.glx-badge--orange{
+  background: $main-orange;
+  color: $main-black;
+  button{
+    color: $main-black;
+  }
+}
+.glx-badge--yellow{
+  background: $main-yellow;
+  color: $main-black;
+  button{
+    color: $main-black;
+  }
+}
+

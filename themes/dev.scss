@@ -1,0 +1,63 @@
+@import "../style/style";
+
+.root{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 100% !important;
+  padding: 0;
+  margin: 0;
+}
+.root-dark{
+  color-scheme: dark;
+  background:$main-background;
+  color: $main-text;
+  ::-moz-selection { /* Code for Firefox */
+    color: black;
+    background: white;
+  }
+  ::selection {
+    color: black;
+    background: white;
+  }
+}
+.root-light{
+  @extend .glx-theme-light;
+  color-scheme: unset;
+  background:$main-background;
+  color: $main-text;
+  ::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: black;
+  }
+  ::selection {
+    color: white;
+    background: black;
+  }
+}
+
+body,html{
+   font-family: Arial, serif;
+}
+
+#root,body,html{
+  height: 100% !important;
+  padding: 0;
+  margin: 0;
+}
+.glx-ee-preview--bg{
+  background: $main-background-alt;
+}
+.glx-ee-preview{
+  @extend .glx-w-full-8,.glx-my-8,.glx-p-8;
+  .glx-ee-component{
+    @extend .glx-flex, .glx-flex-column,.glx-flex-center;
+    min-height: 300px;
+    border: 1px solid $main-accent-05;
+  }
+}
+
+
+.glx-demo-stepper{
+  height: calc(100% - 80px);
+}

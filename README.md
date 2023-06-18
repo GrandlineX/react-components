@@ -18,7 +18,7 @@
 
 
 ## Demo and Storybook 
-[Storybook]([https://www.grandlinex.com/react-components/)
+[Storybook](https://www.grandlinex.com/react-components/)
 
 ## Licence 
 

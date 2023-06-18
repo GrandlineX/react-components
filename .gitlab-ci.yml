@@ -6,6 +6,8 @@ include:
   - project: 'grandlinex/templates'
     file: '/build/electron-bundle.yml'
   - project: 'grandlinex/templates'
+    file: '/deploy/npm-deploy.yml'
+  - project: 'grandlinex/templates'
     file: '/deploy/npm-gitlab-deploy.yml'
 
 make:build:prod:

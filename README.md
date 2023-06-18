@@ -12,8 +12,13 @@
 
 - GlX-Styled-SCSS-Framework 
 - GlX-Styled-React-Components 
-- Icon Pack ([Ionicons v5](https://ionic.io/ionicons))
-  - [See react-icon](https://github.com/GrandlineX/react-icons)
+- Icon Pack ([Ionicons v5](https://ionic.io/ionicons)) 
+  - [![NPM](https://img.shields.io/static/v1?label=NPM&message=Package&color=red&logo=NPM)](https://www.npmjs.com/package/@grandlinex/react-icons)
+  - [See react-icon](https://github.com/GrandlineX/react-icons) 
+
+
+## Demo and Storybook
+### [Storybook]([https://www.grandlinex.com/react-components/)
 
 ## Licence 
 

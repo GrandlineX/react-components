@@ -9,6 +9,15 @@
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
+  "keywords": [
+    "grandlinex",
+    "typescript",
+    "framework",
+    "react",
+    "components",
+    "ui",
+    "library"
+  ],
   "devDependencies": {
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-react": "^7.22.5",
@@ -84,5 +93,9 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GrandlineX/react-components.git"
   }
 }

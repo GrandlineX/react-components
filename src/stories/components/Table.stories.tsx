@@ -10,6 +10,13 @@ const meta = {
   // @ts-ignore
   component: Table,
   tags: ['autodocs'],
+  /*  parameters: {
+    docs: {
+      description: {
+        component: 'Table component',
+      },
+    },
+  }, */
   argTypes: {
     //    backgroundColor: { control: 'color' },
   },
@@ -17,7 +24,13 @@ const meta = {
 
 export default meta;
 
-type data = { id: number; idd: string; date: string; boolean: boolean };
+type data = {
+  id: number;
+  idd: string;
+  date: string;
+  boolean: boolean;
+  json?: { name: string } | null;
+};
 const shortA: data[] = [];
 for (let i = 1; i < 20; i++) {
   shortA.push({
@@ -25,6 +38,7 @@ for (let i = 1; i < 20; i++) {
     idd: sid(),
     date: new Date().toISOString().substring(0, 16),
     boolean: true,
+    json: i % 2 === 0 ? { name: 'test' } : null,
   });
 }
 const defaultProps: ColumTableProps<data>[] = [
@@ -48,6 +62,10 @@ const defaultProps: ColumTableProps<data>[] = [
     headerName: 'Boolean',
     dataType: 'boolean',
     editable: true,
+  },
+  {
+    field: 'json.name',
+    headerName: 'Json field',
   },
 ];
 

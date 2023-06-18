@@ -192,7 +192,7 @@ export function getCellValue<T = any>(rot: T | any, col: ColumTableProps<T>) {
   let value = rot;
   for (const cur of path) {
     value = value[cur];
-    if (value === undefined) {
+    if (value === undefined || value === null) {
       return '';
     }
   }

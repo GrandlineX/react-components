@@ -17,8 +17,8 @@
   - [See react-icon](https://github.com/GrandlineX/react-icons) 
 
 
-## Demo and Storybook
-### [Storybook]([https://www.grandlinex.com/react-components/)
+## Demo and Storybook 
+[Storybook]([https://www.grandlinex.com/react-components/)
 
 ## Licence 
 

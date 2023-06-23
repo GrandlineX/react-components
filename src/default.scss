@@ -1,5 +1,5 @@
 // THEME COLORS
-$main-dark-blue: #1d47b0;
+$main-dark-blue: var(--glx-main-dark-blue,#1d47b0);
 $main-blue:var(--glx-main-blue,#3663d2);
 $main-blue-transparent:var(--glx-main-blue, rgba(54, 99, 210, 0.45));
 $main-yellow:var(--glx-main-yellow, #ffd700);

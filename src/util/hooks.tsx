@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { TabItem } from '../layouts/TabLayout/lib/index';
 
-// eslint-disable-next-line import/prefer-default-export
 export function useQData<T>(
   q: () => Promise<T | null>,
   init?: T | undefined
@@ -135,8 +134,18 @@ export function useTabStore() {
   };
   const closeTab = (el: string, pos: 'left' | 'right') => {
     if (pos === 'left') {
+      if (tabsLeft[currentTabLeft - 1]) {
+        setCurrentTabLeft(currentTabLeft - 1);
+      } else if (tabsLeft[0]) {
+        setCurrentTabLeft(0);
+      }
       setTabsLeft(tabsLeft.filter((e) => e.key !== el));
     } else {
+      if (tabsRight[currentTabRight - 1]) {
+        setCurrentTabRight(currentTabRight - 1);
+      } else if (tabsLeft[0]) {
+        setCurrentTabRight(0);
+      }
       setTabsRight(tabsRight.filter((e) => e.key !== el));
     }
   };

@@ -36,13 +36,12 @@ const Tooltip: React.FC<ToolTipProp> = (props) => {
   }, [chRef, open]);
 
   return (
-    <span className={`glx-tooltip-container ${className}`}>
-      <span
-        ref={chRef}
-        className="glx-tooltip-children"
-        onMouseEnter={(el) => setOpen(true)}
-        onMouseLeave={(el) => setOpen(false)}
-      >
+    <span
+      className={`glx-tooltip-container ${className}`}
+      onMouseEnter={(el) => setOpen(true)}
+      onMouseLeave={(el) => setOpen(false)}
+    >
+      <span ref={chRef} className="glx-tooltip-children">
         {children}
       </span>
 

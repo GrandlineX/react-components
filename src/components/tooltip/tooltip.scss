@@ -9,6 +9,7 @@
 }
 
 .glx-tooltip-content {
+  @extend .glx-no-select;
   background: $tlc-card;
   color: $tlc-card-font;
   border-radius: 2px;

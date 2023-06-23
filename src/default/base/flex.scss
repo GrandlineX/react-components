@@ -3,8 +3,8 @@
 }
 // Flex Container
 .glx-flex-r {
+  @extend .glx-flex;
   flex-direction: row;
-  display: flex;
 
 }
 .glx-flex-row {
@@ -13,7 +13,7 @@
 
 }
 .glx-flex-c {
-  display: flex;
+  @extend .glx-flex;
   flex-direction: column;
 }
 .glx-flex-column {

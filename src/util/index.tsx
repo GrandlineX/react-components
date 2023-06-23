@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import md5 from './MD5';
 import copyToClipboard from './Clipboard';
 
@@ -69,8 +69,18 @@ export const getGravatarUrl = (email: string) => {
 };
 export type ReactFC<A> = React.FC<React.PropsWithChildren<A>>;
 
-function loop(n: number, fc: (x: number) => any) {
-  return [...Array(n).keys()].map(fc);
+function loop<X = ReactNode>(
+  count: number,
+  fc: (x: number) => X,
+  start = 0,
+  step = 1
+) {
+  if (step === 0) throw new Error('Step cannot be 0');
+  const arr: X[] = [];
+  for (let i = start; i < count; i += step) {
+    arr.push(fc(i));
+  }
+  return arr;
 }
 
 export { md5, copyToClipboard, sGen, loop };

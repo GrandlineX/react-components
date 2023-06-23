@@ -5,7 +5,7 @@ import { Grid } from '../../components';
 const meta = {
   title: 'Layout/Grid',
   component: Grid,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'dev'],
   parameters: {
     layout: 'centered',
     fullscreen: true,

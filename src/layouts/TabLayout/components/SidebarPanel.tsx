@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useAutoClose18 } from '../../../util/hooks';
+import { PContext, PanelContext } from '../context/PanelContextContext';
 
 export type SideBarPanelProps = {
   selectPanel: string | null;
   setPanel: (panel: string | null) => void;
-  panelRenderer: (panel: string | null) => React.ReactNode;
+  panelRenderer: React.ReactNode | null;
 };
 export const SidebarPanel: React.FC<{ c: SideBarPanelProps }> = function (
-  props
+  props,
 ) {
   const { c } = props;
   const { selectPanel, setPanel, panelRenderer } = c;
@@ -18,6 +19,9 @@ export const SidebarPanel: React.FC<{ c: SideBarPanelProps }> = function (
       setPanel(null);
     },
   });
+  const context = useMemo(() => {
+    return new PContext({ panel: selectPanel || 'none' });
+  }, [selectPanel]);
 
   useEffect(() => {
     if (selectPanel && !open) {
@@ -28,12 +32,15 @@ export const SidebarPanel: React.FC<{ c: SideBarPanelProps }> = function (
   }, [selectPanel, open, setOpen]);
 
   if (selectPanel === null) return null;
+
   return (
     <div
       ref={menuRef}
       className="sidebar-panel glx-animation-fade-in-super-fast"
     >
-      {panelRenderer(selectPanel)}
+      <PanelContext.Provider value={context}>
+        {panelRenderer}
+      </PanelContext.Provider>
     </div>
   );
 };

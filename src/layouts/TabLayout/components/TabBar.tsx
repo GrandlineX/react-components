@@ -73,7 +73,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
   async function onDrop(
     e: React.DragEvent<HTMLDivElement>,
     target: 'left' | 'right',
-    position?: number
+    position?: number,
   ) {
     const id = e.dataTransfer.getData('id');
     const type: any = e.dataTransfer.getData('type');
@@ -136,7 +136,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
                 [
                   dLeft && index === tabsLeft.length - 1,
                   'glx-drop-nonce--active-border',
-                ]
+                ],
               )}
             >
               <span
@@ -207,7 +207,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
               [
                 dRight && index === tabsRight.length - 1,
                 'glx-drop-nonce--active-border',
-              ]
+              ],
             )}
           >
             <span

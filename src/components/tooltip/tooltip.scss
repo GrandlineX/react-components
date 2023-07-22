@@ -9,7 +9,7 @@
 }
 
 .glx-tooltip-content {
-  @extend .glx-no-select;
+  @extend .glx-no-select,.glx-animation-fade-in-super-fast;
   background: $tlc-card;
   color: $tlc-card-font;
   border-radius: 2px;

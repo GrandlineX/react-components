@@ -1,10 +1,11 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { createRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export type ToolTipProp = {
   text?: string;
   width?: number;
   className?: string;
-  position?: 'bottom' | 'right' | 'left';
+  position?: 'bottom' | 'right' | 'left' | 'top';
   children?: React.ReactNode;
 };
 const Tooltip: React.FC<ToolTipProp> = (props) => {
@@ -13,51 +14,80 @@ const Tooltip: React.FC<ToolTipProp> = (props) => {
   const nPosClass = `glx-tooltip-content-${nPos}`;
   const [open, setOpen] = useState<boolean>(false);
   const [left, setLeft] = useState<number>(0);
+  const [top, setTop] = useState<number>(0);
   const chRef = createRef<HTMLSpanElement>();
   const tRef = createRef<HTMLDivElement>();
-  const nWidth = width || 200;
-  useEffect(() => {
-    const w = chRef.current?.offsetWidth || 0;
-    const tw = tRef.current?.offsetWidth || 0;
-    let nw = 0;
-    switch (nPos) {
-      case 'bottom':
-        nw = (-tw + w) * 0.5;
-        break;
-      case 'right':
-        nw = w;
-        break;
-      case 'left':
-        nw = -nWidth - 10;
-        break;
-      default:
-    }
-    setLeft(nw);
-  }, [chRef, open]);
 
   return (
     <span
       className={`glx-tooltip-container ${className}`}
-      onMouseEnter={(el) => setOpen(true)}
-      onMouseLeave={(el) => setOpen(false)}
+      onMouseEnter={() => {
+        setOpen(true);
+      }}
+      onMouseMove={(el) => {
+        const ch = tRef.current?.clientHeight || 0;
+        const cw = tRef.current?.clientWidth || 0;
+        let nTop = 0;
+        let nLeft = 0;
+        switch (position) {
+          case 'top':
+            nTop = el.clientY - 15 - ch;
+            nLeft = el.clientX - cw / 2;
+            break;
+          case 'bottom':
+            nTop = el.clientY + 10;
+            nLeft = el.clientX - cw / 2;
+            break;
+          case 'left':
+            nTop = el.clientY - ch / 2;
+            nLeft = el.clientX - 10 - cw;
+            break;
+          case 'right':
+          default:
+            nTop = el.clientY - ch / 2;
+            nLeft = el.clientX + 10;
+            break;
+        }
+
+        if (nTop + ch >= window.innerHeight) {
+          nTop = window.innerHeight - ch - 2;
+        }
+        if (nTop <= 0) {
+          nTop = 2;
+        }
+        if (nLeft + cw >= window.innerWidth) {
+          nLeft = window.innerWidth - cw - 4;
+        }
+        if (nLeft <= 0) {
+          nLeft = 2;
+        }
+
+        setLeft(nLeft);
+        setTop(nTop);
+      }}
+      onMouseLeave={() => setOpen(false)}
     >
       <span ref={chRef} className="glx-tooltip-children">
         {children}
       </span>
 
-      {text ? (
-        <div
-          ref={tRef}
-          style={{
-            left: `${left}px`,
-            display: open ? 'block' : 'none',
-            width: nWidth,
-          }}
-          className={`glx-tooltip-content glx-fade-in-fast ${nPosClass}`}
-        >
-          {text}
-        </div>
-      ) : null}
+      {text
+        ? createPortal(
+            <div
+              ref={tRef}
+              style={{
+                left: `${left}px`,
+                top: `${top}px`,
+                display: open ? 'block' : 'none',
+                width,
+              }}
+              className={`glx-tooltip-content glx-fade-in-fast ${nPosClass}`}
+            >
+              {text}
+            </div>,
+            document.body,
+          )
+        : null}
     </span>
   );
 };

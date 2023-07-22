@@ -53,6 +53,7 @@ export const EditSidePanel = ({
         className={cnx('edit-side-panel--resize', [
           !drag,
           'edit-side-panel--drag',
+          'glx-no-select',
         ])}
         onMouseDown={(event) => {
           const startPosition = event.pageX;

@@ -50,7 +50,7 @@ const Sidebar: React.FC<SideBarProps> = function (props) {
                     'label--num',
                     [l.pos === 'left', 'label--num-left'],
                     [l.pos === 'right', 'label--num-right'],
-                    [l.pos === 'bottom', 'label--num-bottom']
+                    [l.pos === 'bottom', 'label--num-bottom'],
                   )}
                   style={
                     l.color

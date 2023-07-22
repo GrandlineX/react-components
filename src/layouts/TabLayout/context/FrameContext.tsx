@@ -1,19 +1,32 @@
 import React, { useContext } from 'react';
+import { TabItem } from '../lib';
 
 export type WCMode = 'left' | 'right';
 
-export class WindowContext {
+export class FrameContext {
   mode: WCMode;
 
-  constructor(conf: { mode: WCMode }) {
+  item: TabItem | null;
+
+  classNameExtend?: string;
+
+  constructor(conf: {
+    mode: WCMode;
+    item: TabItem | null;
+    classNameExtend?: string;
+  }) {
     this.mode = conf.mode;
+    this.item = conf.item;
+    this.classNameExtend = conf.classNameExtend;
   }
 }
 
-const FrameContext = React.createContext(new WindowContext({ mode: 'left' }));
+const TabContext = React.createContext(
+  new FrameContext({ mode: 'left', item: null }),
+);
 
-const useFrameContext = () => {
-  return useContext(FrameContext);
+const useTabContext = () => {
+  return useContext(TabContext);
 };
 
-export { useFrameContext, FrameContext };
+export { useTabContext, TabContext };

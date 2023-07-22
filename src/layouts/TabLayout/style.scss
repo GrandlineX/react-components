@@ -277,7 +277,13 @@
   // ########################## TABBAR #########################
 
 
+  .glx-tab-bar-l {
+    @extend .glx-no-scroll;
+  }
 
+  .glx-tab-bar-r {
+    @extend .glx-no-scroll;
+  }
 
   .tab-bar--single {
     .glx-tab-bar-l {
@@ -414,7 +420,10 @@
   }
 
   .sidebar--container-up {
+    @extend .glx-no-scroll;
     margin-top: 8px;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .sidebar--container-down {

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { TabBarProps } from './TabBar';
-import { TabItem } from '../lib';
-import { FrameContext, WindowContext } from '../context/FrameContext';
+import { TabContext, FrameContext } from '../context/FrameContext';
 import { Sidebar, SideBarProps } from './Sidebar';
 import { Header, HeaderProps } from './Header';
 import Spinner from '../../../components/loading/Spinner';
@@ -11,30 +10,22 @@ import { BlockingModal, ModalProps } from './BlockingModal';
 import { SpotlightModal, SpotlightProps } from './SpotlightModal';
 import { KeyBind, useKeyListener } from '../../../util/hooks';
 
-const lC = new WindowContext({ mode: 'left' });
-const rC = new WindowContext({ mode: 'right' });
-
 export type TabLayoutProps = {
   init: boolean;
   tabs: TabBarProps;
   disableSideBar?: boolean;
   preload: () => Promise<void>;
-  tabRenderer: (
-    item: TabItem,
-    context: WindowContext,
-    classNameExtend?: string
-  ) => React.ReactNode;
-  globalRenderer?: () => React.ReactNode;
+  tabRenderer: React.ReactNode;
+  globalRenderer?: React.ReactNode;
   sideBar?: SideBarProps;
   header: HeaderProps;
-  panel?: SideBarPanelProps;
   blockingModal?: ModalProps;
   spotlightProps?: SpotlightProps;
   spotlightOpen?: boolean;
   hotKeys?: KeyBind[];
-};
+} & SideBarPanelProps;
 
-const TabLayout = function ({
+const TabLayout = ({
   header,
   init,
   preload,
@@ -44,14 +35,39 @@ const TabLayout = function ({
   tabs,
   globalRenderer,
   blockingModal,
-  panel,
+  selectPanel,
+  setPanel,
+  panelRenderer,
   spotlightProps,
   spotlightOpen,
   hotKeys,
-}: TabLayoutProps) {
+}: TabLayoutProps) => {
   const { tabsRight, tabsLeft, currentTabRight, currentTabLeft } = tabs;
-  const tabLeft = tabsLeft[currentTabLeft];
-  const tabRight = tabsRight[currentTabRight];
+
+  const tabRight = useMemo(() => {
+    return tabsRight[currentTabRight];
+  }, [currentTabRight, tabsRight]);
+
+  const rC = useMemo(() => {
+    return new FrameContext({
+      mode: 'right',
+      item: tabRight || null,
+      classNameExtend: tabRight ? 'main-no--sidebar-half' : undefined,
+    });
+  }, [tabRight]);
+
+  const tabLeft = useMemo(() => {
+    return tabsLeft[currentTabLeft];
+  }, [currentTabLeft, tabsLeft]);
+
+  const lC = useMemo(() => {
+    return new FrameContext({
+      mode: 'left',
+      item: tabLeft || null,
+      classNameExtend: tabRight ? 'main-no--sidebar-half' : undefined,
+    });
+  }, [tabLeft]);
+
   const [error, setError] = useState<boolean>(false);
 
   useKeyListener(hotKeys || []);
@@ -89,35 +105,6 @@ const TabLayout = function ({
     );
   }
 
-  if (globalRenderer) {
-    return (
-      <div className="tab-layout--root">
-        {blockingModal ? (
-          <BlockingModal
-            message={blockingModal.message}
-            progress={blockingModal.progress}
-          />
-        ) : null}
-
-        {spotlightOpen && spotlightProps ? (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <SpotlightModal {...spotlightProps} />
-        ) : null}
-        <Header tabs={tabs} prop={header} />
-        <div className="main--sidebar">
-          {disableSideBar || !sideBar ? null : (
-            <Sidebar
-              botMenu={sideBar.botMenu}
-              topMenu={sideBar.topMenu}
-              onClickItem={sideBar.onClickItem}
-            />
-          )}
-        </div>
-        {globalRenderer()}
-      </div>
-    );
-  }
-
   return (
     <div className="tab-layout--root">
       {blockingModal ? (
@@ -131,7 +118,15 @@ const TabLayout = function ({
         <SpotlightModal {...spotlightProps} />
       ) : null}
       <Header tabs={tabs} prop={header} />
-      {panel ? <SidebarPanel c={panel} /> : null}
+      {panelRenderer ? (
+        <SidebarPanel
+          c={{
+            selectPanel,
+            setPanel,
+            panelRenderer,
+          }}
+        />
+      ) : null}
       <div className="main--sidebar">
         {disableSideBar || !sideBar ? null : (
           <Sidebar
@@ -142,27 +137,19 @@ const TabLayout = function ({
         )}
       </div>
 
-      <FrameContext.Provider value={lC}>
-        <TabFrame
-          tab={tabLeft}
-          classNameExtend={tabRight ? 'main-no--sidebar-half' : ''}
-          tabRenderer={(r, classNameExtend) => (
-            <>{tabRenderer(r, lC, classNameExtend)}</>
-          )}
-        />
-      </FrameContext.Provider>
+      {globalRenderer || (
+        <>
+          <TabContext.Provider value={lC}>
+            <TabFrame tabRenderer={tabRenderer} />
+          </TabContext.Provider>
 
-      {tabRight ? (
-        <FrameContext.Provider value={rC}>
-          <TabFrame
-            tab={tabRight}
-            classNameExtend={tabRight ? 'main-no--sidebar-half' : ''}
-            tabRenderer={(r, classNameExtend) => (
-              <>{tabRenderer(r, rC, classNameExtend)}</>
-            )}
-          />
-        </FrameContext.Provider>
-      ) : null}
+          {tabRight ? (
+            <TabContext.Provider value={rC}>
+              <TabFrame tabRenderer={tabRenderer} />
+            </TabContext.Provider>
+          ) : null}
+        </>
+      )}
     </div>
   );
 };
@@ -170,7 +157,6 @@ TabLayout.defaultProps = {
   disableSideBar: false,
   sideBar: undefined,
   globalRenderer: undefined,
-  panel: undefined,
   blockingModal: undefined,
   spotlightOpen: undefined,
   spotlightProps: undefined,

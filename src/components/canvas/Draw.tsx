@@ -21,11 +21,11 @@ const Draw = ({ width, height, onChange }: CanvasProps) => {
   const [data, setData] = useState<string[]>([]);
   const [isPainting, setIsPainting] = useState(false);
   const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(
-    undefined
+    undefined,
   );
 
   const getCoordinates = (
-    event: MouseEvent | TouchEvent
+    event: MouseEvent | TouchEvent,
   ): Coordinate | undefined => {
     if (!canvasRef.current) {
       return undefined;
@@ -78,7 +78,7 @@ const Draw = ({ width, height, onChange }: CanvasProps) => {
 
   const drawLine = (
     originalMousePosition: Coordinate,
-    newMousePosition: Coordinate
+    newMousePosition: Coordinate,
   ) => {
     if (!canvasRef.current) {
       return;
@@ -108,7 +108,7 @@ const Draw = ({ width, height, onChange }: CanvasProps) => {
         }
       }
     },
-    [isPainting, mousePosition]
+    [isPainting, mousePosition],
   );
 
   const exitPaint = useCallback(() => {

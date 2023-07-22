@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { useAutoClose18 } from '../../../util/hooks';
-import { PContext, PanelContext } from '../context/PanelContextContext';
+import { PanelContext, PContext } from '../context/PanelContextContext';
 
 export type SideBarPanelProps = {
   selectPanel: string | null;

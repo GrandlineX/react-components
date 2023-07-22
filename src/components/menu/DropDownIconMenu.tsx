@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getIcon, INames, IOChevronForward } from '@grandlinex/react-icons';
 import { cnx } from '../../util';
 import { useAutoClose18 } from '../../util/hooks';
@@ -38,7 +38,7 @@ const DropDownIconMenu: React.FC<{
   const [height, setHeight] = useState<number>(0);
   function closeAll(men?: { key: string; value: any }) {
     const keys = Object.keys(active).filter((key) =>
-      key.startsWith('submenu_')
+      key.startsWith('submenu_'),
     );
     const newActive = { ...active };
     for (const key of keys) {
@@ -73,7 +73,7 @@ const DropDownIconMenu: React.FC<{
             'glx-icon--drop',
             [!!left, 'glx-icon--drop--left'],
             [!!top, 'glx-icon--drop--top'],
-            [!!top && height === 0, 'glx-hidden']
+            [!!top && height === 0, 'glx-hidden'],
           )}
         >
           {menu.map((el) =>
@@ -96,7 +96,7 @@ const DropDownIconMenu: React.FC<{
                     className={cnx(
                       [!!left, 'glx-icon--drop-submenu-block--left'],
                       [!!top, 'glx-icon--drop-submenu-block--top'],
-                      [!left && !top, 'glx-icon--drop-submenu-block']
+                      [!left && !top, 'glx-icon--drop-submenu-block'],
                     )}
                   >
                     {el.subMenu.map((del) => (
@@ -149,7 +149,7 @@ const DropDownIconMenu: React.FC<{
                 {el.icon ? getIcon(el.icon)({}) : null}
                 {el.label}
               </button>
-            )
+            ),
           )}
         </div>
       ) : null}

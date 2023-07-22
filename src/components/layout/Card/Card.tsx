@@ -245,10 +245,7 @@ const Card: React.FC<CardProps> = (props) => {
           </div>
           <Grid flex flexR flexEnd vCenter>
             {menu ? (
-              <DropDownIconMenu
-                top
-                menu={menu}
-              >
+              <DropDownIconMenu top menu={menu}>
                 <IOEllipsisVertical />
               </DropDownIconMenu>
             ) : null}

@@ -41,7 +41,7 @@ const NotificationElement: React.FC<{
         'glx-notification',
         'glx-flex-row',
         [el.selected, 'glx-notification--sel'],
-        [el.active, ' glx-notification--unread']
+        [el.active, ' glx-notification--unread'],
       )}
     >
       <div

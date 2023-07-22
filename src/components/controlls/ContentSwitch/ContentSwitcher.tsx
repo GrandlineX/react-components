@@ -21,12 +21,12 @@ const ContentSwitcher: React.FC<ContentSwitcherProps> = (props) => {
   const { onChange, selectedIndex, items, parentState } = props;
   const [cur, setCur] = useState<number>(selectedIndex ?? 0);
   const [open, setOpen] = useState<boolean | null>(
-    items.length > 3 ? false : null
+    items.length > 3 ? false : null,
   );
 
   const ref = createRef<HTMLDivElement>();
   const [refField, setRefField] = useState<RefObject<HTMLDivElement>[]>(
-    items.map(() => createRef<HTMLDivElement>())
+    items.map(() => createRef<HTMLDivElement>()),
   );
   const fc = (event: WheelEvent) => {
     const sel = ref.current;

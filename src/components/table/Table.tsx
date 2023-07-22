@@ -15,12 +15,7 @@ import {
   useTableStore,
 } from './TableHook';
 import Form from '../form/Form';
-import {
-  FormConf,
-  FormErrorType,
-  InputOption,
-  InputOptionType,
-} from '../form/FormTypes';
+import { FormConf, InputOption, InputOptionType } from '../form/FormTypes';
 
 function defaultCellrenderer(value: any) {
   if (typeof value === 'boolean') {
@@ -139,17 +134,13 @@ function TableRow<T>(props: TableRowProps<T>) {
             <Form
               options={formC}
               defaultState={fEdit}
-              onChange={(f) => {
-                setFEdit(f);
+              onChange={({ form }) => {
+                setFEdit(form);
               }}
               submit={{
                 loading: true,
                 buttonText: 'Save',
-                onSubmit: async (
-                  form: any,
-                  setError: (err: FormErrorType | null) => void,
-                  clear: () => void
-                ) => {
+                onSubmit: async ({ form, setError, clear }) => {
                   const res = await api.editMode?.(form, setError, clear);
                   if (res) {
                     setEdit(false);

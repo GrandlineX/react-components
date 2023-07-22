@@ -6,8 +6,8 @@ import {
   ISize,
   IWrapperFull,
 } from '@grandlinex/react-icons';
-import Tooltip from '../../tooltip/Tooltip';
 import { cnx } from '../../../util';
+import Grid from '../../layout/Grid/Grid';
 
 const cc = IWrapperFull();
 const names = Object.keys(cc) as INames[];
@@ -24,7 +24,7 @@ export default function IconSel(props: {
   const [search, setSearch] = useState('');
   const filtered = useMemo(() => {
     return names.filter(
-      (e) => search === '' || e.toLowerCase().includes(search.toLowerCase())
+      (e) => search === '' || e.toLowerCase().includes(search.toLowerCase()),
     );
   }, [search]);
   return (
@@ -34,9 +34,14 @@ export default function IconSel(props: {
           ? getIcon(cur)({
               size: ISize.SM,
             })
-          : 'none'}
+          : 'N/D'}
         {open && !disabled ? (
-          <>
+          <Grid
+            flex
+            flexC
+            className="glx-icon-sel--dropdown--container"
+            gap={12}
+          >
             <div>
               <input
                 type="text"
@@ -72,7 +77,7 @@ export default function IconSel(props: {
                 </div>
               ))}
             </div>
-          </>
+          </Grid>
         ) : null}
       </div>
       <div

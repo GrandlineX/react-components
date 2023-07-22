@@ -31,7 +31,7 @@ const Button: React.FC<ButtonProps> = (props) => {
         className,
         [!!cancel, 'cancel'],
         [!!half, 'button--grid-half'],
-        [!!color, `button--${color}`, 'button--default']
+        [!!color, `button--${color}`, 'button--default'],
       )}
       type="button"
       onClick={onClick}

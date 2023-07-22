@@ -339,7 +339,7 @@ export function FormRow({
                   onChange={(event) => {
                     onChange?.(
                       event.target.files?.[0] || null,
-                      event.target.value
+                      event.target.value,
                     );
                     updateForm(key, event.target.value);
                   }}
@@ -482,7 +482,7 @@ export function FormRow({
                 key={`sub-container-${value?.key}`}
                 className={cnx(
                   `glx-form--input glx-form--input--split-${input.length}`,
-                  [!value?.noUnderline, 'glx-form--underline']
+                  [!value?.noUnderline, 'glx-form--underline'],
                 )}
               >
                 {value?.label ? (
@@ -496,7 +496,7 @@ export function FormRow({
                 {value?.iType}
                 {(() => {
                   const fieldErr = error?.field?.find(
-                    (e) => e.key === value?.key
+                    (e) => e.key === value?.key,
                   );
                   if (fieldErr) {
                     return (

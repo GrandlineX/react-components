@@ -29,7 +29,7 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
   const [selected, setSelected] = useState<TagProps[]>(
     value?.map((val) => {
       return items?.find((e) => e.key === val) || { key: val, text: val };
-    })
+    }),
   );
   const [text, setText] = useState<string>('');
   const ref = useAutoClose<HTMLDivElement>(() => {
@@ -41,7 +41,7 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
         (s) =>
           (s.text?.toLowerCase().includes(text.toLowerCase()) ||
             s.key?.toLowerCase().includes(text.toLowerCase())) &&
-          !selected.find((e) => e.key === s.key)
+          !selected.find((e) => e.key === s.key),
       ) || []
     );
   }, [items, text, selected]);
@@ -53,10 +53,10 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
       setSelected(cur);
       onChange?.(
         cur.map((x) => x.key),
-        { mode: 'NEW', id: e.key }
+        { mode: 'NEW', id: e.key },
       );
     },
-    [onChange, selected]
+    [onChange, selected],
   );
 
   return (
@@ -67,7 +67,7 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
           'glx-flex-row',
           'glx-pb-8',
           'glx-flex-wrap',
-          'glx-flex-g-8'
+          'glx-flex-g-8',
         )}
       >
         {selected.map((e) => (
@@ -80,7 +80,7 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
               const cur = selected.filter((x) => x.key !== e.key);
               onChange?.(
                 cur.map((x) => x.key),
-                { mode: 'DEL', id: e.key }
+                { mode: 'DEL', id: e.key },
               );
               setSelected(cur);
             }}

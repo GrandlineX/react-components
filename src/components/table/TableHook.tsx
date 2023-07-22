@@ -51,7 +51,7 @@ export type TableProps<T = any> = {
   editMode?: (
     row: T,
     setError: (err: FormErrorType | null) => void,
-    clear: () => void
+    clear: () => void,
   ) => Promise<boolean>;
 };
 //* **************************** TableProps ********************************************************
@@ -67,7 +67,7 @@ export type ITableFc<T = any> = {
   editMode?: (
     row: T,
     setError: (err: FormErrorType | null) => void,
-    clear: () => void
+    clear: () => void,
   ) => Promise<boolean>;
   hasEditMode(): boolean;
   rowSelected(index: number | string | T): boolean;
@@ -79,7 +79,7 @@ export type ITableFc<T = any> = {
   getColumDefs(add?: TableActionFc<T>[]): ColumTableProps<T>[];
 };
 export function useTableStore<T = any>(
-  props: TableProps<T>
+  props: TableProps<T>,
 ): {
   data: {
     rowData: T[];

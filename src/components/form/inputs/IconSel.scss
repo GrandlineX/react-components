@@ -1,7 +1,14 @@
-.glx-icon-sel--dropdown-input{
+.glx-icon-sel--dropdown--container{
   position: absolute;
   top: 28px;
   left: 0;
+  outline: 1px solid $main-contrast;
+  background-color: $main-background;
+  padding: 4px;
+  height: 240px;
+  z-index: 100;
+}
+.glx-icon-sel--dropdown-input{
   height: 180px;
   overflow-y: scroll;
   display: flex;
@@ -9,22 +16,16 @@
   flex-wrap: wrap;
   gap: 1px;
   width: 270px;
-  background-color: $main-background;
-  z-index: 10;
+
 }
 .glx-icon-sel--dropdown{
-  position: absolute;
-  top: 60px;
-  left: 0;
+  flex-grow: 1;
   flex-basis: 50px;
-  height: 180px;
   overflow-y: scroll;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1px;
   width: 270px;
-  background-color: $main-background;
-  z-index: 10;
   align-content: flex-start;
 }

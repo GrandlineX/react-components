@@ -20,7 +20,7 @@ export default function IconTextSel(props: {
     sel || {
       icon: null,
       text: '',
-    }
+    },
   );
   return (
     <Grid className={className} flex flexR gap={8}>

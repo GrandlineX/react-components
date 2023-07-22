@@ -10,6 +10,11 @@ const meta = {
   },
   parameters: {
     layout: 'centered',
+    docs: {
+      source: {
+        code: 'disabled',
+      },
+    },
   },
 } satisfies Meta<typeof Card>;
 

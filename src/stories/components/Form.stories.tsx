@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, FormConf, InputOptionType, IUser } from '../../components';
 import { sleep } from '../../util';
 
@@ -370,5 +370,53 @@ export const FormCustomSubmit: Story = {
       buttonNode: (submit) => <button onClick={submit}>Custom Submit</button>,
     },
     compact: true,
+  },
+};
+export const Multy: Story = {
+  name: 'Multiple fields write',
+  args: {
+    className: 'glx-pb-8',
+    options: [
+      [{ type: InputOptionType.TEXT, key: 'key01', label: '1. Text' }],
+      [
+        {
+          type: InputOptionType.TEXT,
+          key: 'key02',
+          label: '2. Text',
+        },
+      ],
+    ],
+    submit: {
+      onSubmit: async () => {
+        await sleep(4000);
+      },
+      buttonCenter: true,
+      loadingMessage: 'Loading...',
+      loading: true,
+      buttonNode: (submit) => <button onClick={submit}>Custom Submit</button>,
+    },
+    compact: true,
+  },
+  render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [formData, setForm] = useState<any>(undefined);
+    return (
+      <Form
+        defaultState={formData}
+        options={args.options}
+        className={args.className}
+        submit={args.submit}
+        compact={args.compact}
+        onChange={({ changed, update }) => {
+          const { value } = changed!;
+          const out = {
+            key01: value,
+            key02: value,
+          };
+          setForm(out);
+          update(out);
+        }}
+      />
+    );
   },
 };

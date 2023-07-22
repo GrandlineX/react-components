@@ -3,7 +3,7 @@ import { TabItem } from '../layouts/TabLayout/lib/index';
 
 export function useQData<T>(
   q: () => Promise<T | null>,
-  init?: T | undefined
+  init?: T | undefined,
 ): [T | null | undefined, (dat: T | null | undefined) => void, () => void] {
   const [element, setElement] = useState<T | null | undefined>(init);
   async function refresh() {
@@ -26,7 +26,7 @@ export function useQData<T>(
 export function useAutoClose<T extends HTMLElement>(
   closeFc: () => void,
   disabeld: boolean,
-  extendSearch?: string
+  extendSearch?: string,
 ) {
   const menuRef = useRef<T>(null);
 

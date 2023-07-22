@@ -65,28 +65,32 @@ export interface InputOption {
       key: string,
       form: any,
       updateForm: (key: string, value: any) => void,
-      items?: InputOptionItem[] | undefined
+      items?: InputOptionItem[] | undefined,
     ) => React.ReactNode;
     init: any;
   };
 }
 
+export type FormChangeEvent = {
+  form: any;
+  changed: { key: string; value: FormTypes } | null;
+  setError: (err: FormErrorType | null) => void;
+  clear: () => void;
+  update: (form: any) => void;
+};
 export interface FormProps extends BaseProps {
   title?: React.ReactNode;
   options: FormConf;
   defaultState?: any;
   defaultError?: FormErrorType;
-  onChange?: (form: any) => void;
+  onChange?: (event: FormChangeEvent) => void;
   submit?: {
-    onSubmit: (
-      form: any,
-      setError: (err: FormErrorType | null) => void,
-      clear: () => void
-    ) => Promise<void>;
+    onSubmit: (event: FormChangeEvent) => Promise<void>;
     buttonText?: string;
     buttonNode?: (submit: () => void) => ReactNode;
     buttonCenter?: boolean;
     loading?: boolean;
+    loadingNode?: ReactNode;
     loadingMessage?: ReactNode;
   };
   compact?: boolean;

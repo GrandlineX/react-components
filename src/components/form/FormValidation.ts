@@ -3,7 +3,7 @@ import { FormConf, FormConfEl, FormErrorType, InputOption } from './FormTypes';
 // eslint-disable-next-line import/prefer-default-export
 export function requiredFieldValidation(
   conf: FormConf,
-  form: any
+  form: any,
 ): FormErrorType | null {
   const error: FormErrorType = {
     global: [],

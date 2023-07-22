@@ -1,15 +1,7 @@
 import React, { createRef, useEffect, useState } from 'react';
-import { getIcon, IOClose, ISize } from '@grandlinex/react-icons';
-import { TabItem } from '../lib';
-import { cnx, trimmer } from '../../../util';
-import { Tooltip } from '../../../components';
-
-export type TabContainerFunctions = {
-  addTab: (el: TabItem, pos: 'left' | 'right', position?: number) => void;
-  closeTab: (el: string, pos: 'left' | 'right') => void;
-  setCurrentTab: (index: number, pos: 'left' | 'right') => void;
-  error: (message: string) => void;
-};
+import { TabContainerFunctions, TabItem } from '../lib';
+import { cnx } from '../../../util';
+import TabBarElement from './TabBarElement';
 
 export type TabKeyMap = { keyCtrl: boolean; keyTab: boolean; keyW: boolean };
 export type TabBarProps = {
@@ -70,11 +62,11 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
     };
   });
 
-  async function onDrop(
+  const onDrop = async (
     e: React.DragEvent<HTMLDivElement>,
     target: 'left' | 'right',
     position?: number,
-  ) {
+  ) => {
     const id = e.dataTransfer.getData('id');
     const type: any = e.dataTransfer.getData('type');
 
@@ -96,7 +88,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
 
     closeTab(id, type);
     addTab(tab, target, position);
-  }
+  };
 
   return (
     <div
@@ -121,46 +113,21 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
         }}
         onDrop={async (e) => onDrop(e, 'left')}
       >
-        {tabsLeft.map(({ titel, key, icon }, index) => (
-          <Tooltip key={key} text={titel} position="right">
-            <div
-              draggable
-              onDragStart={(e) => {
-                e.dataTransfer.setData('id', key);
-                e.dataTransfer.setData('type', 'left');
-              }}
-              onDrop={async (e) => onDrop(e, 'left', index)}
-              className={cnx(
-                'tab-bar--item',
-                [index === currentTabLeft, ' tab-bar--item-selected'],
-                [
-                  dLeft && index === tabsLeft.length - 1,
-                  'glx-drop-nonce--active-border',
-                ],
-              )}
-            >
-              <span
-                className="tab-bar--button"
-                role="button"
-                onClick={() => {
-                  setCurrentTab(index, 'left');
-                }}
-              >
-                {icon ? getIcon(icon)({}) : null}
-                {trimmer(titel)}
-              </span>
-
-              <button
-                type="button"
-                className="tab-bar--button-close"
-                onClick={() => {
-                  closeTab(key, 'left');
-                }}
-              >
-                <IOClose size={ISize.SL} />
-              </button>
-            </div>
-          </Tooltip>
+        {tabsLeft.map((item, index) => (
+          <TabBarElement
+            key={`${item.key}_tab_left`}
+            index={index}
+            item={item}
+            current={currentTabLeft}
+            drag={dLeft}
+            tabs={tabsLeft}
+            closeTab={closeTab}
+            onDrop={onDrop}
+            context="left"
+            addTab={addTab}
+            setCurrentTab={setCurrentTab}
+            error={error}
+          />
         ))}
         {tabsLeft.length === 0 ? (
           <div
@@ -192,45 +159,21 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
         }}
         onDrop={async (e) => onDrop(e, 'right')}
       >
-        {tabsRight.map(({ titel, key, icon }, index) => (
-          <div
-            key={key}
-            draggable
-            onDragStart={(e) => {
-              e.dataTransfer.setData('id', key);
-              e.dataTransfer.setData('type', 'right');
-            }}
-            onDrop={async (e) => onDrop(e, 'left', index)}
-            className={cnx(
-              'tab-bar--item',
-              [index === currentTabRight, ' tab-bar--item-selected'],
-              [
-                dRight && index === tabsRight.length - 1,
-                'glx-drop-nonce--active-border',
-              ],
-            )}
-          >
-            <span
-              className="tab-bar--button"
-              role="button"
-              onClick={() => {
-                setCurrentTab(index, 'right');
-              }}
-            >
-              {icon ? getIcon(icon)({}) : null}
-              {trimmer(titel)}
-            </span>
-
-            <button
-              type="button"
-              className="tab-bar--button-close"
-              onClick={() => {
-                closeTab(key, 'right');
-              }}
-            >
-              <IOClose size={ISize.SL} />
-            </button>
-          </div>
+        {tabsRight.map((item, index) => (
+          <TabBarElement
+            key={`${item.key}_tab_right`}
+            index={index}
+            item={item}
+            current={currentTabRight}
+            drag={dRight}
+            tabs={tabsRight}
+            closeTab={closeTab}
+            onDrop={onDrop}
+            context="right"
+            addTab={addTab}
+            setCurrentTab={setCurrentTab}
+            error={error}
+          />
         ))}
         {tabsRight.length === 0 ? (
           <div

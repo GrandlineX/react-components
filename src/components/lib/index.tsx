@@ -21,7 +21,7 @@ export function isCnxInput(obj: unknown): obj is CnxInputCondition {
 }
 export function classN(
   className?: CnxInput | CnxInput[],
-  merge?: CnxInput | CnxInput[]
+  merge?: CnxInput | CnxInput[],
 ) {
   const out: CnxInput[] = [];
   if (!className && !merge) {

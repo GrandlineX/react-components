@@ -68,42 +68,6 @@ export const Store: Story = {
               show: () => true,
             },
             {
-              key: 'Home',
-              icon: 'IOHome',
-              name: 'Home',
-              show: () => true,
-            },
-            {
-              key: 'Home',
-              icon: 'IOHome',
-              name: 'Home',
-              show: () => true,
-            },
-            {
-              key: 'Home',
-              icon: 'IOHome',
-              name: 'Home',
-              show: () => true,
-            },
-            {
-              key: 'Home',
-              icon: 'IOHome',
-              name: 'Home',
-              show: () => true,
-            },
-            {
-              key: 'Home',
-              icon: 'IOHome',
-              name: 'Home',
-              show: () => true,
-            },
-            {
-              key: 'Home',
-              icon: 'IOHome',
-              name: 'Home',
-              show: () => true,
-            },
-            {
               key: 'Notification',
               icon: 'IONotifications',
               name: 'Notification',
@@ -130,24 +94,6 @@ export const Store: Story = {
             },
           ],
           botMenu: [
-            {
-              key: 'Settings',
-              icon: 'IOSettings',
-              name: 'Settings',
-              show: () => true,
-            },
-            {
-              key: 'Settings',
-              icon: 'IOSettings',
-              name: 'Settings',
-              show: () => true,
-            },
-            {
-              key: 'Settings',
-              icon: 'IOSettings',
-              name: 'Settings',
-              show: () => true,
-            },
             {
               key: 'Settings',
               icon: 'IOSettings',
@@ -546,6 +492,7 @@ export const Spotlight: Story = {
               },
             },
           ],
+          hint: 'Type / for cmd list',
         }}
         spotlightOpen={open}
         hotKeys={[

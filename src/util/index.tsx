@@ -73,7 +73,7 @@ function loop<X = ReactNode>(
   count: number,
   fc: (x: number) => X,
   start = 0,
-  step = 1
+  step = 1,
 ) {
   if (step === 0) throw new Error('Step cannot be 0');
   const arr: X[] = [];

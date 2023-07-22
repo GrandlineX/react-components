@@ -29,7 +29,7 @@ export interface PortStepperProps {
 
 function getPos(
   ref: RefObject<HTMLDivElement> | null,
-  offset?: number
+  offset?: number,
 ): number {
   if (!ref) {
     return 0;
@@ -41,7 +41,7 @@ function getPos(
 function scrollTo(
   container: RefObject<HTMLDivElement> | null,
   element: RefObject<HTMLDivElement> | null,
-  offset?: number
+  offset?: number,
 ): boolean {
   if (!container || !container.current || !element) {
     return false;
@@ -89,7 +89,7 @@ const PortalStepper: React.FC<PortStepperProps> = (props) => {
   const { width, height, conf, className, offset, style, collapse } = props;
   const [cur, setCur] = useState<number>(0);
   const [refField, setRefField] = useState<RefObject<HTMLDivElement>[]>(
-    conf.map(() => createRef<HTMLDivElement>())
+    conf.map(() => createRef<HTMLDivElement>()),
   );
   const bodyRef = createRef<HTMLDivElement>();
 

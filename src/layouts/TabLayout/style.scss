@@ -589,3 +589,18 @@
     height: 100%;
   }
 }
+.glx-context-menu{
+  @extend .glx-no-select,.glx-default-text;
+  position: absolute;
+  min-width: 120px;
+  outline: 1p solid $main-accent-03;
+  >div{
+    padding: 4px;
+    border-bottom: 1px solid $main-accent-03;
+    background-color: $tlc-sidebar;
+    cursor: pointer;
+  }
+  >div:hover{
+    background-color: $main-accent-05;
+  }
+}

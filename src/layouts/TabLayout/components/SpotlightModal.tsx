@@ -6,13 +6,13 @@ export type DefaultSearch = (
   search: string,
   setSearch: (x: string) => void,
   setCommand: (x: CommandAction) => void,
-  close: () => void
+  close: () => void,
 ) => SpotlightOption[] | null;
 export type CommandSearch = (
   args: string[],
   setSearch: (x: string) => void,
   setCommand: (x: CommandAction) => void,
-  close: () => void
+  close: () => void,
 ) => SpotlightOption[] | null;
 export type CommandAction = {
   action: CommandSearch;
@@ -24,6 +24,7 @@ export type SpotlightProps = {
   closeFcn: () => void;
   defaultSearch?: DefaultSearch;
   action?: CommandAction[];
+  hint?: React.ReactNode;
 };
 
 export type SpotlightOption = {
@@ -47,6 +48,7 @@ export function SpotlightModal({
   closeFcn,
   action,
   defaultSearch,
+  hint,
 }: SpotlightProps) {
   const [search, setSearch] = useState('');
   const [command, setCommand] = useState<CommandAction | null>(null);
@@ -180,6 +182,8 @@ export function SpotlightModal({
           />
         </Grid>
       </Grid>
+      <Grid />
+      {(emptyRes || res).length === 0 && hint}
       <Grid
         divRef={refScroll}
         className="tab-layout--spotlight-option glx-no-scroll"
@@ -214,7 +218,7 @@ export function SpotlightModal({
                 <div>{component || text}</div>
               </Grid>
             </Grid>
-          )
+          ),
         )}
       </Grid>
     </Grid>
@@ -223,4 +227,5 @@ export function SpotlightModal({
 SpotlightModal.defaultProps = {
   defaultSearch: undefined,
   action: undefined,
+  hint: undefined,
 };

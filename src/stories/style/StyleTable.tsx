@@ -27,7 +27,7 @@ function resolveStyleMetaProps(data: StyleMeta, depth?: number): StyleMetaProp {
       const sm = findStlyeMeta(ex);
       if (sm) {
         resolveStyleMetaProps(sm, (depth || 0) + 1).forEach(([name, value]) =>
-          ext.set(name, value)
+          ext.set(name, value),
         );
       }
     });

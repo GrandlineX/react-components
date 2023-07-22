@@ -1,6 +1,17 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.2.0]
+### Added
+- Tab Context menu
+### Changed
+- Tooltip Rework, now uses react portal
+- replace render fc for tab layout.
+    - Use new Context PanelContext and TabContext
+- Update Deps.
+- Sidebar Icons now can scroll if panel is full
+- Form Update interface
+- IconSel default name
 ## [0.1.2]
 
 ### Added

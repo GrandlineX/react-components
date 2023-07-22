@@ -36,7 +36,7 @@ export function SmartInput(prop: SmartInputInputProps) {
     onType,
   } = prop;
   const [selected, setSelected] = useState<SmartInputElement | null>(
-    value || null
+    value || null,
   );
   const [search, setSearch] = useState<string>('');
   const [open, setOpen] = useState(false);
@@ -134,7 +134,7 @@ export function SmartInput(prop: SmartInputInputProps) {
           'glx-default-text',
           [!!searchFC, 'glx-smart-input--search'],
         ],
-        className
+        className,
       )}
     >
       {selected ? (

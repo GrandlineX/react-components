@@ -20,18 +20,11 @@ export type SidePanelNavigationProps = {
   autoFocus?: boolean;
 };
 const SidePanelNavigation: React.FC<SidePanelNavigationProps> = function (
-  props
+  props,
 ) {
-  const {
-    headerText,
-    searchText,
-    itemList,
-    getter,
-    defaultOnClick,
-    autoFocus,
-  } = props;
+  const { searchText, itemList, getter, defaultOnClick, autoFocus } = props;
   const [search, setSearch] = useState<string>('');
-  const [data, setDat, reload] = useQData(async () => {
+  const [data] = useQData(async () => {
     const tData = [];
     for (const item of itemList) {
       tData.push({
@@ -60,13 +53,13 @@ const SidePanelNavigation: React.FC<SidePanelNavigationProps> = function (
           defaultState={{
             search: '',
           }}
-          onChange={(form) => {
+          onChange={({ form }) => {
             setSearch(form.search);
           }}
         />
       </div>
       <div className="sidebar-panel-scroll">
-        {data?.map((x, index) => {
+        {data?.map((x) => {
           return (
             <SidePanelNavigationBlock
               key={`nav-${x.sel.key}`}

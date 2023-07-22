@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FormErrorType, FormProps } from './FormTypes';
-import { def, getFormInputs, FormRow } from './FormRender';
+import { FormErrorType, FormProps, FormTypes } from './FormTypes';
+import { def, FormRow, getFormInputs } from './FormRender';
 import { cnx, uuid } from '../../util';
 import LPulse from '../loading/LPulse';
 import { Button } from '../button/Button';
@@ -20,21 +20,30 @@ const Form: React.FC<FormProps> = (props) => {
   } = props;
   const [form, setForm] = useState(defaultState || def(options));
   const [spinning, setSpinning] = useState<boolean | null | undefined>(
-    undefined
+    undefined,
   );
   const [error, setError] = useState<FormErrorType | null | undefined>(
-    undefined
+    undefined,
   );
 
-  const updateForm = (key: string, value: any) => {
+  const updateForm = (key: string, value: FormTypes) => {
     const out = {
       ...form,
     };
     out[key] = value;
-    if (onChange) {
-      onChange(out);
-    }
     setForm(out);
+    if (onChange) {
+      onChange({
+        form: out,
+        setError,
+        update: setForm,
+        changed: { key, value },
+        clear: () => {
+          setForm(def(options));
+          setError(undefined);
+        },
+      });
+    }
   };
   const fError = defaultError || error;
   const submitForm = () => {
@@ -55,9 +64,15 @@ const Form: React.FC<FormProps> = (props) => {
         }
       }
       submit
-        .onSubmit(pre, setError, () => {
-          setForm(def(options));
-          setError(undefined);
+        .onSubmit({
+          form: pre,
+          setError,
+          changed: null,
+          update: setForm,
+          clear: () => {
+            setForm(def(options));
+            setError(undefined);
+          },
         })
         .then(() => {
           if (submit.loading) {
@@ -71,32 +86,30 @@ const Form: React.FC<FormProps> = (props) => {
     <Grid
       className={classN(
         ['glx-form', [!!compact, 'glx-form--compact']],
-        className
+        className,
       )}
     >
       {title}
-      {spinning ? (
-        <LPulse />
-      ) : (
-        options.map((el) => (
-          <FormRow
-            key={el.reduce((a, b) => {
-              if (!b) {
-                return `${a}_empty`;
-              }
-              if (Array.isArray(b)) {
-                return `${a}_${b.map((dx) => dx.key).join('_')}`;
-              }
-              return `${a}_${b.key}`;
-            }, '')}
-            option={el}
-            form={form}
-            updateForm={updateForm}
-            submitForm={submitForm}
-            error={fError}
-          />
-        ))
-      )}
+      {spinning
+        ? submit?.loadingNode || <LPulse />
+        : options.map((el) => (
+            <FormRow
+              key={el.reduce((a, b) => {
+                if (!b) {
+                  return `${a}_empty`;
+                }
+                if (Array.isArray(b)) {
+                  return `${a}_${b.map((dx) => dx.key).join('_')}`;
+                }
+                return `${a}_${b.key}`;
+              }, '')}
+              option={el}
+              form={form}
+              updateForm={updateForm}
+              submitForm={submitForm}
+              error={fError}
+            />
+          ))}
       {spinning && submit?.loadingMessage ? (
         <div className="glx-py-12">{submit.loadingMessage}</div>
       ) : null}
@@ -107,7 +120,7 @@ const Form: React.FC<FormProps> = (props) => {
           'glx-flex-row',
           'glx-flex-wrap',
           'glx-flex-g-8',
-          [!!submit?.buttonCenter, 'glx-flex-center']
+          [!!submit?.buttonCenter, 'glx-flex-center'],
         )}
       >
         {fError?.global && fError.global.length > 0
@@ -129,7 +142,7 @@ const Form: React.FC<FormProps> = (props) => {
             'glx-flex-row',
             'glx-flex-g-4',
             'glx-pr-8',
-            [!!submit.buttonCenter, 'glx-flex-center', 'glx-flex-end']
+            [!!submit.buttonCenter, 'glx-flex-center', 'glx-flex-end'],
           )}
         >
           {submit.buttonNode ? (

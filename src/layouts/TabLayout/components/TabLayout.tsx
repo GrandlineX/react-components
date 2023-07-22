@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { TabBarProps } from './TabBar';
-import { TabContext, FrameContext } from '../context/FrameContext';
+import { FrameContext, TabContext } from '../context/FrameContext';
 import { Sidebar, SideBarProps } from './Sidebar';
 import { Header, HeaderProps } from './Header';
 import Spinner from '../../../components/loading/Spinner';

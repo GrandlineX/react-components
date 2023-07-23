@@ -1,6 +1,7 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { createRef, useEffect, useMemo, useState } from 'react';
 import { getIcon, INames, ISize } from '@grandlinex/react-icons';
 import { Grid } from '../../../components';
+import { useUIContext } from '../../../util';
 
 export type DefaultSearch = (
   search: string,
@@ -40,16 +41,13 @@ const cmd = (a: CommandAction, space = false) => {
   return `/${a.commandTag}${space ? ' ' : ''}`;
 };
 
-const defErr = [
-  [{ key: 'err01', optionAction: null, text: 'No commands found' }],
-  [{ key: 'err02', optionAction: null, text: 'No results found' }],
-];
 export function SpotlightModal({
   closeFcn,
   action,
   defaultSearch,
   hint,
 }: SpotlightProps) {
+  const ui = useUIContext();
   const [search, setSearch] = useState('');
   const [command, setCommand] = useState<CommandAction | null>(null);
   const ref = createRef<HTMLInputElement>();
@@ -59,9 +57,28 @@ export function SpotlightModal({
   let res: SpotlightOption[] = [];
   let emptyRes: SpotlightOption[] | null = null;
 
+  const defErr = useMemo(() => {
+    return [
+      [
+        {
+          key: 'err01',
+          optionAction: null,
+          text: ui.translation.get('glx.spotlight.empty.commands'),
+        },
+      ],
+      [
+        {
+          key: 'err02',
+          optionAction: null,
+          text: ui.translation.get('glx.spotlight.empty.result'),
+        },
+      ],
+    ];
+  }, [ui.translation]);
+
   if (search.startsWith('/')) {
     if (!action) {
-      res = [{ key: 'err01', optionAction: null, text: 'No commands found' }];
+      [res] = defErr;
     } else {
       const sel = action.filter((a) => {
         return cmd(a).startsWith(search) || search.startsWith(cmd(a));
@@ -96,9 +113,7 @@ export function SpotlightModal({
     if (defaultSearch) {
       res = defaultSearch(search, setSearch, setCommand, closeFcn) || defErr[1];
     } else {
-      emptyRes = [
-        { key: 'err02', optionAction: null, text: 'No results found' },
-      ];
+      [, emptyRes] = defErr;
     }
   } else if (search === '' && command) {
     setCommand(null);
@@ -171,7 +186,7 @@ export function SpotlightModal({
             type="text"
             autoFocus
             spellCheck={false}
-            placeholder="Spotlight..."
+            placeholder={ui.translation.get('glx.spotlight.placeholder')}
             onChange={(e) => {
               setSearch(e.target.value);
             }}

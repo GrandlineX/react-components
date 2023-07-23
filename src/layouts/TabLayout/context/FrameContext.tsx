@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
-import { TabItem } from '../lib';
-
-export type WCMode = 'left' | 'right';
+import { TabItem, WCMode } from '../lib';
 
 export class FrameContext {
   mode: WCMode;

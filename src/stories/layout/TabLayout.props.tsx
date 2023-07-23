@@ -149,6 +149,7 @@ export const minimalProps: TabLayoutProps = {
     closeTab: (el: string, pos: 'left' | 'right') => {},
     setCurrentTab: (index: number, pos: 'left' | 'right') => {},
     error: (message: string) => {},
+    moveTab: (key: string, dest: 'left' | 'right', position?: number) => {},
   },
   tabRenderer: <DevRender />,
   header: {

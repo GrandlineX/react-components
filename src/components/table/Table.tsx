@@ -5,7 +5,7 @@ import {
   IOClose,
   IOPencil,
 } from '@grandlinex/react-icons';
-import { cnx } from '../../util';
+import { cnx, GLang, useUIContext } from '../../util';
 import {
   ColumTableProps,
   getCellValue,
@@ -17,9 +17,11 @@ import {
 import Form from '../form/Form';
 import { FormConf, InputOption, InputOptionType } from '../form/FormTypes';
 
-function defaultCellrenderer(value: any) {
+function defaultCellrenderer(value: any, t: GLang) {
   if (typeof value === 'boolean') {
-    return value ? 'Yes' : 'No';
+    return value
+      ? t.get('glx.table.value.bool.true')
+      : t.get('glx.table.value.bool.false');
   }
   if (typeof value === 'number' || typeof value === 'string') {
     return value;
@@ -30,6 +32,7 @@ function defaultCellrenderer(value: any) {
   return '';
 }
 function TableRow<T>(props: TableRowProps<T>) {
+  const ui = useUIContext();
   const { api, rowData, index, extendRowRenderer } = props;
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -39,7 +42,7 @@ function TableRow<T>(props: TableRowProps<T>) {
     const xc = [];
     if (api.hasEditMode()) {
       xc.push(() => ({
-        name: 'Edit',
+        name: ui.translation.get('glx.table.action.edit'),
         icon: edit ? <IOClose /> : <IOPencil />,
         onClick: () => {
           setEdit(!edit);
@@ -48,7 +51,7 @@ function TableRow<T>(props: TableRowProps<T>) {
     }
     if (extendRowRenderer) {
       xc.push(() => ({
-        name: 'Show More',
+        name: ui.translation.get('glx.table.action.more'),
         icon: open ? <IOChevronUp /> : <IOChevronDown />,
         onClick: () => {
           setOpen(!open);
@@ -117,7 +120,7 @@ function TableRow<T>(props: TableRowProps<T>) {
                 data: rowData,
                 index,
                 value: val,
-              }) || defaultCellrenderer(val)}
+              }) || defaultCellrenderer(val, ui.translation)}
             </td>
           );
         })}
@@ -139,7 +142,7 @@ function TableRow<T>(props: TableRowProps<T>) {
               }}
               submit={{
                 loading: true,
-                buttonText: 'Save',
+                buttonText: ui.translation.get('glx.table.action.save'),
                 onSubmit: async ({ form, setError, clear }) => {
                   const res = await api.editMode?.(form, setError, clear);
                   if (res) {

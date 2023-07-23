@@ -3,6 +3,7 @@ import Tooltip from '../tooltip/Tooltip';
 import { IconButton } from '../button/IconButton';
 import CheckBox from '../form/inputs/CheckBox';
 import { FormErrorType } from '../form/FormTypes';
+import { useUIContext } from '../../util';
 
 export type BaseRowEvent<T = any> = {
   data: T;
@@ -86,6 +87,7 @@ export function useTableStore<T = any>(
   };
   api: ITableFc<T>;
 } {
+  const ui = useUIContext();
   const { extendRowRenderer, editMode } = props;
   const isSelectable = (props.isSelectable as string) ?? null;
   const [rowData, setRowData] = useState<T[]>(props.rowData || []);
@@ -93,6 +95,7 @@ export function useTableStore<T = any>(
   const [rowAction] = useState<TableActionFc<T>[]>(props.rowAction || []);
   const [selection, setSelection] = useState<(number | string)[]>([]);
   const [hasExtend] = useState<boolean>(!!extendRowRenderer);
+
   function getKey(index: number | string | T): number | string {
     if (!isSelectable) {
       throw new Error('TableStore: isSelectable is not set');
@@ -124,7 +127,7 @@ export function useTableStore<T = any>(
 
     if (isSelectable) {
       def.push({
-        headerName: 'Sel.',
+        headerName: ui.translation.get('glx.table.header.sel'),
         field: '',
         cellRenderer: (dat) => (
           <div className="glx-flex-row glx-flex-g-2">
@@ -151,7 +154,7 @@ export function useTableStore<T = any>(
       }
 
       def.push({
-        headerName: 'Action',
+        headerName: ui.translation.get('glx.table.header.action'),
         field: '',
         cellRenderer: (dat) => (
           <div className="glx-flex-row glx-flex-g-2">

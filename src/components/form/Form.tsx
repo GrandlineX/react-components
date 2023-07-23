@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FormErrorType, FormProps, FormTypes } from './FormTypes';
 import { def, FormRow, getFormInputs } from './FormRender';
-import { cnx, uuid } from '../../util';
+import { cnx, useUIContext, uuid } from '../../util';
 import LPulse from '../loading/LPulse';
 import { Button } from '../button/Button';
 import Grid from '../layout/Grid/Grid';
@@ -9,6 +9,7 @@ import { classN } from '../lib';
 import { requiredFieldValidation } from './FormValidation';
 
 const Form: React.FC<FormProps> = (props) => {
+  const ui = useUIContext();
   const {
     options,
     onChange,
@@ -28,7 +29,7 @@ const Form: React.FC<FormProps> = (props) => {
   );
 
   const validate = (set?: boolean) => {
-    const err = requiredFieldValidation(options, form);
+    const err = requiredFieldValidation(options, form, ui.translation);
     if (set && err) {
       setError(err);
     }
@@ -160,7 +161,8 @@ const Form: React.FC<FormProps> = (props) => {
             submit.buttonNode(submitForm)
           ) : (
             <Button cancel disabled={spinning || false} onClick={submitForm}>
-              {submit.buttonText || `Submit`}
+              {submit.buttonText ||
+                ui.translation.get('glx.form.required.submit')}
             </Button>
           )}
         </div>

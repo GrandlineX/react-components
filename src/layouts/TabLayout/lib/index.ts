@@ -1,5 +1,7 @@
 import { INames } from '@grandlinex/react-icons';
 
+export type WCMode = 'left' | 'right';
+
 export type TabItem = {
   key: string;
   view: string;
@@ -8,8 +10,9 @@ export type TabItem = {
   data?: any;
 };
 export type TabContainerFunctions = {
-  addTab: (el: TabItem, pos: 'left' | 'right', position?: number) => void;
-  closeTab: (el: string, pos: 'left' | 'right') => void;
-  setCurrentTab: (index: number, pos: 'left' | 'right') => void;
+  addTab: (el: TabItem, pos: WCMode, position?: number) => void;
+  moveTab: (key: string, dest: WCMode, position?: number) => void;
+  closeTab: (el: string, pos: WCMode) => void;
+  setCurrentTab: (index: number, pos: WCMode) => void;
   error: (message: string) => void;
 };

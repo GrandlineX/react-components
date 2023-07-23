@@ -17,7 +17,7 @@ export type HeaderProps = {
     close: () => void;
   };
   refresh?: () => void;
-  icon?: JSX.Element;
+  icon?: React.ReactNode;
 };
 
 export type HeaderPropFull = {

@@ -1,5 +1,6 @@
 import React, { createRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useUIContext } from '../../util';
 
 export type ToolTipProp = {
   text?: string;
@@ -9,6 +10,7 @@ export type ToolTipProp = {
   children?: React.ReactNode;
 };
 const Tooltip: React.FC<ToolTipProp> = (props) => {
+  const ui = useUIContext();
   const { children, text, width, position, className } = props;
   const nPos = position || 'bottom';
   const nPosClass = `glx-tooltip-content-${nPos}`;
@@ -85,7 +87,7 @@ const Tooltip: React.FC<ToolTipProp> = (props) => {
             >
               {text}
             </div>,
-            document.body,
+            ui.portalRoot,
           )
         : null}
     </span>

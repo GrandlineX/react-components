@@ -1,9 +1,11 @@
 import { FormConf, FormConfEl, FormErrorType, InputOption } from './FormTypes';
+import { GLang } from '../../util';
 
 // eslint-disable-next-line import/prefer-default-export
 export function requiredFieldValidation(
   conf: FormConf,
   form: any,
+  t: GLang,
 ): FormErrorType | null {
   const error: FormErrorType = {
     global: [],
@@ -38,7 +40,7 @@ export function requiredFieldValidation(
             ) {
               error.field?.push({
                 key: fel.key,
-                message: 'Required fields are not allowed to be empty',
+                message: t.get('glx.form.required.field'),
               });
             }
           }

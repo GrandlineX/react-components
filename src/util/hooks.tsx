@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { TabItem } from '../layouts/TabLayout/lib/index';
+import { TabItem, WCMode } from '../layouts/TabLayout/lib/index';
 
 export function useQData<T>(
   q: () => Promise<T | null>,
@@ -121,6 +121,24 @@ export function useTabStore() {
   const [tabsLeft, setTabsLeft] = useState<TabItem[]>([]);
   const [tabsRight, setTabsRight] = useState<TabItem[]>([]);
 
+  const moveTab = (key: string, dest: WCMode, position?: number) => {
+    if (dest === 'left') {
+      const tab = tabsLeft.find((e) => e.key === key);
+      const nTabs = tabsLeft.filter((e) => e.key !== key);
+      if (tab) {
+        setTabsLeft(nTabs);
+        setTabsRight([...tabsRight, tab]);
+      }
+    }
+    if (dest === 'right') {
+      const tab = tabsRight.find((e) => e.key === key);
+      const nTabs = tabsRight.filter((e) => e.key !== key);
+      if (tab) {
+        setTabsRight(nTabs);
+        setTabsLeft([...tabsLeft, tab]);
+      }
+    }
+  };
   const addTab = (el: TabItem, pos: 'left' | 'right') => {
     if (pos === 'left') {
       const n = [...tabsLeft, el];
@@ -174,6 +192,7 @@ export function useTabStore() {
     tabState,
     addTab,
     closeTab,
+    moveTab,
     setCurrentTab,
     setPanel,
     reset,

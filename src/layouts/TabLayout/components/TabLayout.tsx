@@ -66,7 +66,7 @@ const TabLayout = ({
       item: tabLeft || null,
       classNameExtend: tabRight ? 'main-no--sidebar-half' : undefined,
     });
-  }, [tabLeft]);
+  }, [tabLeft, tabRight]);
 
   const [error, setError] = useState<boolean>(false);
 
@@ -89,6 +89,7 @@ const TabLayout = ({
             addTab: () => {},
             closeTab: () => {},
             error: () => {},
+            moveTab: () => {},
             tabsLeft: [],
             tabsRight: [],
             currentTabLeft: 0,

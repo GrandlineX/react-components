@@ -34,6 +34,7 @@
     "no-param-reassign": "warn",
     "no-restricted-syntax": "warn",
     "class-methods-use-this": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/naming-convention": "warn",
     "no-underscore-dangle": "warn",
     "no-await-in-loop": "warn",

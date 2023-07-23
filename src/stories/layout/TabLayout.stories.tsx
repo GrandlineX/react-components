@@ -54,6 +54,7 @@ export const Store: Story = {
           currentTabRight: store.tabState.currentTabRight,
           addTab: store.addTab,
           closeTab: store.closeTab,
+          moveTab: store.moveTab,
           setCurrentTab: store.setCurrentTab,
           error: (message: string) => {},
         }}
@@ -361,6 +362,7 @@ export const Spotlight: Story = {
           currentTabRight: store.tabState.currentTabRight,
           addTab: store.addTab,
           closeTab: store.closeTab,
+          moveTab: store.moveTab,
           setCurrentTab: store.setCurrentTab,
           error: (message: string) => {},
         }}

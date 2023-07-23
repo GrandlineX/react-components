@@ -5,9 +5,9 @@ import {
   IOClose,
   ISize,
 } from '@grandlinex/react-icons';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { cnx, trimmer } from '../../../util';
+import { cnx, trimmer, useUIContext } from '../../../util';
 import { Grid, Tooltip } from '../../../components';
 import { TabContainerFunctions, TabItem } from '../lib';
 
@@ -21,7 +21,7 @@ export default function TabBarElement({
   current,
   tabs,
   drag,
-  addTab,
+  moveTab,
 }: {
   item: TabItem;
   index: number;
@@ -29,20 +29,14 @@ export default function TabBarElement({
   drag: boolean;
   tabs: TabItem[];
   context: 'left' | 'right';
-  onDrop(
-    e: React.DragEvent<HTMLDivElement>,
-    target: 'left' | 'right',
-    position?: number,
-  ): void;
+  onDrop(e: React.DragEvent<HTMLDivElement>, position?: number): void;
 } & TabContainerFunctions) {
+  const ui = useUIContext();
+
   const [contextPos, setContextPos] = useState<{
     top: number;
     left: number;
   } | null>(null);
-
-  const oContext = useMemo(() => {
-    return context === 'left' ? 'right' : 'left';
-  }, [context]);
 
   useEffect(() => {
     const fc = () => {
@@ -70,7 +64,7 @@ export default function TabBarElement({
             e.dataTransfer.setData('id', item.key);
             e.dataTransfer.setData('type', context);
           }}
-          onDrop={async (e) => onDrop(e, oContext, index)}
+          onDrop={async (e) => onDrop(e, index)}
           className={cnx(
             'tab-bar--item',
             [index === current, ' tab-bar--item-selected'],
@@ -125,12 +119,20 @@ export default function TabBarElement({
                 flexRow
                 gap={8}
                 onClick={() => {
-                  closeTab(item.key, context);
-                  addTab(item, oContext);
+                  moveTab(item.key, context);
                 }}
               >
-                {context === 'left' ? <IOArrowForward /> : <IOArrowBack />} Move
-                to {oContext}
+                {context === 'left' ? (
+                  <>
+                    <IOArrowForward />{' '}
+                    {ui.translation.get('glx.context.menu.move.to.right')}
+                  </>
+                ) : (
+                  <>
+                    <IOArrowBack />{' '}
+                    {ui.translation.get('glx.context.menu.move.to.left')}
+                  </>
+                )}
               </Grid>
               <Grid
                 flex
@@ -141,10 +143,10 @@ export default function TabBarElement({
                 }}
               >
                 <IOClose />
-                Close
+                {ui.translation.get('glx.context.menu.close')}
               </Grid>
             </Grid>,
-            document.body,
+            ui.portalRoot,
           )
         : null}
     </>

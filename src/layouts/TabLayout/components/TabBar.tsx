@@ -1,5 +1,5 @@
 import React, { createRef, useEffect, useState } from 'react';
-import { TabContainerFunctions, TabItem } from '../lib';
+import { TabContainerFunctions, TabItem, WCMode } from '../lib';
 import { cnx } from '../../../util';
 import TabBarElement from './TabBarElement';
 
@@ -20,6 +20,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
     addTab,
     closeTab,
     error,
+    moveTab,
     setCurrentTab,
   } = c;
   const refLeft = createRef<HTMLDivElement>();
@@ -64,30 +65,11 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
 
   const onDrop = async (
     e: React.DragEvent<HTMLDivElement>,
-    target: 'left' | 'right',
     position?: number,
   ) => {
     const id = e.dataTransfer.getData('id');
-    const type: any = e.dataTransfer.getData('type');
-
-    if (target === type) {
-      return;
-    }
-    let tab;
-
-    if (type === 'left') {
-      tab = tabsLeft.find((el) => el.key === id);
-    } else if (type === 'right') {
-      tab = tabsRight.find((el) => el.key === id);
-    }
-
-    if (!tab) {
-      error('NoTab');
-      return;
-    }
-
-    closeTab(id, type);
-    addTab(tab, target, position);
+    const type = e.dataTransfer.getData('type') as WCMode;
+    moveTab(id, type, position);
   };
 
   return (
@@ -111,7 +93,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
         onMouseEnter={() => {
           setDRight(false);
         }}
-        onDrop={async (e) => onDrop(e, 'left')}
+        onDrop={async (e) => onDrop(e)}
       >
         {tabsLeft.map((item, index) => (
           <TabBarElement
@@ -127,6 +109,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
             addTab={addTab}
             setCurrentTab={setCurrentTab}
             error={error}
+            moveTab={moveTab}
           />
         ))}
         {tabsLeft.length === 0 ? (
@@ -157,7 +140,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
         onMouseEnter={() => {
           setDLeft(false);
         }}
-        onDrop={async (e) => onDrop(e, 'right')}
+        onDrop={async (e) => onDrop(e)}
       >
         {tabsRight.map((item, index) => (
           <TabBarElement
@@ -173,6 +156,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
             addTab={addTab}
             setCurrentTab={setCurrentTab}
             error={error}
+            moveTab={moveTab}
           />
         ))}
         {tabsRight.length === 0 ? (

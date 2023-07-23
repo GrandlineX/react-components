@@ -6,7 +6,7 @@ import {
   ISize,
   IWrapperFull,
 } from '@grandlinex/react-icons';
-import { cnx } from '../../../util';
+import { cnx, useUIContext } from '../../../util';
 import Grid from '../../layout/Grid/Grid';
 
 const cc = IWrapperFull();
@@ -17,6 +17,7 @@ export default function IconSel(props: {
   onChange: (ev: INames | null) => void;
   className?: string;
 }) {
+  const ui = useUIContext();
   const { onChange, sel, className, disabled } = props;
 
   const [cur, setCur] = useState<INames | null>(sel || null);
@@ -45,7 +46,9 @@ export default function IconSel(props: {
             <div>
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder={ui.translation.get(
+                  'glx.input.icon.sel.placeholder',
+                )}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />

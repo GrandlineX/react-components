@@ -18,7 +18,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const shortA: number[] = [];
-const limit = 10;
+const limit = 20;
 
 for (let i = 1; i < limit; i++) {
   shortA.push(i);
@@ -33,6 +33,7 @@ export const Default: Story = {
       key: `p${e}`,
       name: `Very long name for demo #${e}`,
       render: <p>El_{e}</p>,
+      hidden: e % 4 === 0,
     })),
   },
 };

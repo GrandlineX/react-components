@@ -351,18 +351,27 @@ export const FormCustomSubmit: Story = {
   args: {
     className: 'glx-pb-8',
     options: [
-      [{ type: InputOptionType.TEXT, key: 'key01', label: '1. Text' }],
+      [
+        {
+          type: InputOptionType.TEXT,
+          key: 'key01',
+          label: '1. Text',
+          required: true,
+        },
+      ],
       [
         {
           type: InputOptionType.PASSWORD,
           key: 'key02',
           label: '2. Password',
+          required: true,
         },
       ],
     ],
     submit: {
-      onSubmit: async () => {
+      onSubmit: async ({ validateRequired }) => {
         await sleep(4000);
+        validateRequired(true);
       },
       buttonCenter: true,
       loadingMessage: 'Loading...',

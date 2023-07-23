@@ -1,16 +1,15 @@
 import React from 'react';
 import '../themes/dev.scss';
 import { createRoot } from 'react-dom/client';
-import { Store } from './stories/layout/TabLayout.stories';
-import { minimalProps } from './stories/layout/TabLayout.props';
+import { Default as test } from './stories/components/PortalStepper.stories';
+import PortalStepper from './components/controlls/PortalStepper/PortalStepper';
 
 const root = createRoot(document.getElementById('root')!);
 
-const Comp = Store.render as React.FC<any>;
 root.render(
   <div className="root root-dark">
     {/** ***************************************************** */}
 
-    <Comp {...minimalProps} init />
+    <PortalStepper {...(test.args as any)} />
   </div>,
 );

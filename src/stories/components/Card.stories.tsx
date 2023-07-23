@@ -28,6 +28,9 @@ const hover = [
   {
     onClick: () => {},
     icon: 'IOPlayCircleOutline',
+    tooltip: {
+      text: 'Play',
+    },
   },
   {
     onClick: () => {},

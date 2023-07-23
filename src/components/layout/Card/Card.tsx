@@ -10,12 +10,14 @@ import { cnx } from '../../../util';
 import HNavigator from '../Navigator/HNavigator';
 import DropDownIconMenu, { MenuItem } from '../../menu/DropDownIconMenu';
 import Grid from '../Grid/Grid';
+import Tooltip, { ToolTipProp } from '../../tooltip/Tooltip';
 
 export type CardColor = 'red' | 'black' | 'yellow' | 'green' | 'orange';
 export type CardIconType = {
   icon: INames | ReactNode;
   onClick: () => void;
   key?: string;
+  tooltip?: ToolTipProp;
 };
 
 export type CardProps = {
@@ -122,13 +124,29 @@ const Card: React.FC<CardProps> = (props) => {
           ) : null}
           {hover ? (
             <div className="glx-card--hover">
-              {hover.map((el) => (
-                <div key={el.key} className="glx-card--btn-wrap">
-                  <button type="button" onClick={el.onClick}>
-                    {el.icon}
-                  </button>
-                </div>
-              ))}
+              {hover.map((el) =>
+                el.tooltip ? (
+                  <Tooltip
+                    key={el.key}
+                    className={el.tooltip.className}
+                    text={el.tooltip.text}
+                    position={el.tooltip.position}
+                    width={el.tooltip.width}
+                  >
+                    <div className="glx-card--btn-wrap">
+                      <button type="button" onClick={el.onClick}>
+                        {el.icon}
+                      </button>
+                    </div>
+                  </Tooltip>
+                ) : (
+                  <div key={el.key} className="glx-card--btn-wrap">
+                    <button type="button" onClick={el.onClick}>
+                      {el.icon}
+                    </button>
+                  </div>
+                ),
+              )}
             </div>
           ) : null}
         </div>

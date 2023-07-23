@@ -33,7 +33,8 @@ export function requiredFieldValidation(
               !form ||
               form[fel.key] === '' ||
               form[fel.key] === undefined ||
-              form[fel.key] === null
+              form[fel.key] === null ||
+              (Array.isArray(form[fel.key]) && form[fel.key].length === 0)
             ) {
               error.field?.push({
                 key: fel.key,
@@ -46,5 +47,8 @@ export function requiredFieldValidation(
     }
   });
 
+  if (error.field?.length === 0 && error.global?.length === 0) {
+    return null;
+  }
   return error;
 }

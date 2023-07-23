@@ -4,6 +4,7 @@ import { IOChevronDown } from '@grandlinex/react-icons';
 export interface ContentSwitcherItem {
   key: string;
   name: string;
+  hidden?: boolean;
 }
 
 export interface ContentSwitcherItemFc extends ContentSwitcherItem {
@@ -73,22 +74,24 @@ const ContentSwitcher: React.FC<ContentSwitcherProps> = (props) => {
       ) : null}
       {open ? (
         <div className="glx-content-switcher--toggle-dropdown">
-          {items.map(({ key, name }, index) => (
-            <div className="glx-content-switcher--toggle-item">
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  if (parentState) {
-                    parentState[1](index);
-                  }
-                  setCur(index);
-                  onChange({ key, name, index });
-                }}
-              >
-                {name}
-              </button>
-            </div>
-          ))}
+          {items.map(({ key, name, hidden }, index) =>
+            hidden ? null : (
+              <div className="glx-content-switcher--toggle-item">
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    if (parentState) {
+                      parentState[1](index);
+                    }
+                    setCur(index);
+                    onChange({ key, name, index });
+                  }}
+                >
+                  {name}
+                </button>
+              </div>
+            ),
+          )}
         </div>
       ) : null}
       <div
@@ -97,28 +100,30 @@ const ContentSwitcher: React.FC<ContentSwitcherProps> = (props) => {
           open !== null ? ' glx-content-switcher-show-toggle' : ''
         }`}
       >
-        {items.map(({ key, name }, index) => (
-          <div
-            ref={refField[index]}
-            key={key}
-            role="button"
-            onClick={() => {
-              if (parentState) {
-                parentState[1](index);
-              }
-              setCur(index);
-              onChange({ key, name, index });
-            }}
-            className={`glx-content-switcher--item glx-no-select${
-              (parentState && parentState[0] === index) ||
-              (!parentState && index === cur)
-                ? ' glx-content-switcher--active'
-                : ''
-            }`}
-          >
-            {name}
-          </div>
-        ))}
+        {items.map(({ key, name, hidden }, index) =>
+          hidden ? null : (
+            <div
+              ref={refField[index]}
+              key={key}
+              role="button"
+              onClick={() => {
+                if (parentState) {
+                  parentState[1](index);
+                }
+                setCur(index);
+                onChange({ key, name, index });
+              }}
+              className={`glx-content-switcher--item glx-no-select${
+                (parentState && parentState[0] === index) ||
+                (!parentState && index === cur)
+                  ? ' glx-content-switcher--active'
+                  : ''
+              }`}
+            >
+              {name}
+            </div>
+          ),
+        )}
       </div>
     </div>
   );

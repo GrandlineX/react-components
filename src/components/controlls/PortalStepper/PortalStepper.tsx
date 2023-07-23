@@ -3,6 +3,7 @@ import React, {
   CSSProperties,
   RefObject,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { IOChevronDown, IOChevronForward } from '@grandlinex/react-icons';
@@ -13,6 +14,7 @@ import { cnx } from '../../../util';
 export interface PortStepperConf {
   key: string;
   name: string;
+  hidden?: boolean;
   collapsed?: boolean;
   render?: React.ReactNode;
 }
@@ -31,10 +33,10 @@ function getPos(
   ref: RefObject<HTMLDivElement> | null,
   offset?: number,
 ): number {
-  if (!ref) {
-    return 0;
+  if (!ref || !ref.current) {
+    return -1;
   }
-  const min = ref.current?.offsetTop || 0;
+  const min = ref.current.offsetTop || 0;
   return min - (offset || 0);
 }
 
@@ -88,8 +90,9 @@ PortalStepperEl.defaultProps = {
 const PortalStepper: React.FC<PortStepperProps> = (props) => {
   const { width, height, conf, className, offset, style, collapse } = props;
   const [cur, setCur] = useState<number>(0);
-  const [refField, setRefField] = useState<RefObject<HTMLDivElement>[]>(
-    conf.map(() => createRef<HTMLDivElement>()),
+  const refField = useMemo<RefObject<HTMLDivElement>[]>(
+    () => conf.map(() => createRef<HTMLDivElement>()),
+    [conf],
   );
   const bodyRef = createRef<HTMLDivElement>();
 
@@ -100,13 +103,17 @@ const PortalStepper: React.FC<PortStepperProps> = (props) => {
     let last = null;
 
     refField.forEach((el, index) => {
-      if (getPos(el, (offset || 0) + 10) < scrollTop) {
+      const pos = getPos(el, (offset || 0) + 10);
+      if (pos < scrollTop && pos !== -1) {
         last = index;
       }
     });
 
     if (scrollTop + offsetHeight === scrollHeight) {
       last = refField.length - 1;
+    }
+    if ((last && last < 0) || !last || conf[last].hidden) {
+      last = conf.findIndex((e) => !e.hidden);
     }
 
     setCur(last || 0);
@@ -135,14 +142,16 @@ const PortalStepper: React.FC<PortStepperProps> = (props) => {
       />
 
       <div ref={bodyRef} className="portal-stepper--content">
-        {conf.map((el, index) => (
-          <PortalStepperEl
-            key={el.key}
-            rRef={refField[index]}
-            el={el}
-            collapse={collapse}
-          />
-        ))}
+        {conf.map((el, index) =>
+          el.hidden ? null : (
+            <PortalStepperEl
+              key={el.key}
+              rRef={refField[index]}
+              el={el}
+              collapse={collapse}
+            />
+          ),
+        )}
       </div>
     </div>
   );

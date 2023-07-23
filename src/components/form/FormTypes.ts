@@ -75,6 +75,7 @@ export type FormChangeEvent = {
   form: any;
   changed: { key: string; value: FormTypes } | null;
   setError: (err: FormErrorType | null) => void;
+  validateRequired: (setError?: boolean) => FormErrorType | null;
   clear: () => void;
   update: (form: any) => void;
 };

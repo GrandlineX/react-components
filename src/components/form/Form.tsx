@@ -6,6 +6,7 @@ import LPulse from '../loading/LPulse';
 import { Button } from '../button/Button';
 import Grid from '../layout/Grid/Grid';
 import { classN } from '../lib';
+import { requiredFieldValidation } from './FormValidation';
 
 const Form: React.FC<FormProps> = (props) => {
   const {
@@ -26,6 +27,14 @@ const Form: React.FC<FormProps> = (props) => {
     undefined,
   );
 
+  const validate = (set?: boolean) => {
+    const err = requiredFieldValidation(options, form);
+    if (set && err) {
+      setError(err);
+    }
+    return err;
+  };
+
   const updateForm = (key: string, value: FormTypes) => {
     const out = {
       ...form,
@@ -37,6 +46,7 @@ const Form: React.FC<FormProps> = (props) => {
         form: out,
         setError,
         update: setForm,
+        validateRequired: validate,
         changed: { key, value },
         clear: () => {
           setForm(def(options));
@@ -69,6 +79,7 @@ const Form: React.FC<FormProps> = (props) => {
           setError,
           changed: null,
           update: setForm,
+          validateRequired: validate,
           clear: () => {
             setForm(def(options));
             setError(undefined);

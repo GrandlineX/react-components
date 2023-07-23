@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { GLang } from './GLang';
+import getSaveWindow from './BuildHelper';
 
 class UIContextData {
   portalRoot: HTMLElement;
@@ -14,7 +15,7 @@ class UIContextData {
 
 const UIContext = React.createContext(
   new UIContextData({
-    portalRoot: document.body,
+    portalRoot: getSaveWindow().document.body,
     lang: new GLang({
       label: 'DefaultEnglish',
       code: 'en',

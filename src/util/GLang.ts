@@ -1,3 +1,5 @@
+import getSaveWindow from './BuildHelper';
+
 export interface LangDataDataElement {
   key: string;
   value: string;
@@ -18,7 +20,7 @@ export class GLang {
     if (langDat) {
       this.loadLang(langDat);
     }
-    const win = window as any;
+    const win = getSaveWindow() as any;
     if (win && !win.missingTrans) {
       win.missingTrans = new Set<string>();
       win.getMissingTrans = () => {
@@ -33,7 +35,7 @@ export class GLang {
   }
 
   getMissingSet() {
-    const win = window as any;
+    const win = getSaveWindow() as any;
     if (win && win.missingTrans) {
       return win.missingTrans as Set<string>;
     }

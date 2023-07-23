@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import md5 from './MD5';
 import copyToClipboard from './Clipboard';
+import getSaveWindow from './BuildHelper';
 
 export * from './GLang';
 export * from './MainContext';
@@ -86,4 +87,4 @@ function loop<X = ReactNode>(
   return arr;
 }
 
-export { md5, copyToClipboard, sGen, loop };
+export { md5, copyToClipboard, sGen, loop, getSaveWindow };

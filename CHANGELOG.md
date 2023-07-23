@@ -1,6 +1,12 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.2.3]
+### Added
+- Add i18 interface for components
+- Add UIContext to override Component portal root and set Translations
+- Extend TabLayout Functions
+- Webpack Hotfix
 ## [0.2.1]
 ### Added
 - Add required field validation to form event

@@ -1,14 +1,14 @@
 import React, { createRef, useEffect, useState } from 'react';
 import { TabContainerFunctions, TabItem, WCMode } from '../lib';
 import { cnx } from '../../../util';
-import TabBarElement from './TabBarElement';
+import { TabBarElement, TabContextMenu } from './TabBarElement';
 
-export type TabKeyMap = { keyCtrl: boolean; keyTab: boolean; keyW: boolean };
 export type TabBarProps = {
   tabsLeft: TabItem[];
   tabsRight: TabItem[];
   currentTabLeft: number;
   currentTabRight: number;
+  contextMenu?: TabContextMenu[];
 } & TabContainerFunctions;
 const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
   const { c } = prop;
@@ -22,6 +22,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
     error,
     moveTab,
     setCurrentTab,
+    contextMenu,
   } = c;
   const refLeft = createRef<HTMLDivElement>();
   const refRight = createRef<HTMLDivElement>();
@@ -65,11 +66,12 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
 
   const onDrop = async (
     e: React.DragEvent<HTMLDivElement>,
+    target: WCMode,
     position?: number,
   ) => {
     const id = e.dataTransfer.getData('id');
     const type = e.dataTransfer.getData('type') as WCMode;
-    moveTab(id, type, position);
+    moveTab(id, type, target, position);
   };
 
   return (
@@ -93,7 +95,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
         onMouseEnter={() => {
           setDRight(false);
         }}
-        onDrop={async (e) => onDrop(e)}
+        onDrop={async (e) => onDrop(e, 'left')}
       >
         {tabsLeft.map((item, index) => (
           <TabBarElement
@@ -104,12 +106,13 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
             drag={dLeft}
             tabs={tabsLeft}
             closeTab={closeTab}
-            onDrop={onDrop}
+            onDrop={(e, position) => onDrop(e, 'left', position)}
             context="left"
             addTab={addTab}
             setCurrentTab={setCurrentTab}
             error={error}
             moveTab={moveTab}
+            contextMenu={contextMenu}
           />
         ))}
         {tabsLeft.length === 0 ? (
@@ -140,7 +143,7 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
         onMouseEnter={() => {
           setDLeft(false);
         }}
-        onDrop={async (e) => onDrop(e)}
+        onDrop={async (e) => onDrop(e, 'right')}
       >
         {tabsRight.map((item, index) => (
           <TabBarElement
@@ -151,12 +154,13 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
             drag={dRight}
             tabs={tabsRight}
             closeTab={closeTab}
-            onDrop={onDrop}
+            onDrop={(e, position) => onDrop(e, 'left', position)}
             context="right"
             addTab={addTab}
             setCurrentTab={setCurrentTab}
             error={error}
             moveTab={moveTab}
+            contextMenu={contextMenu}
           />
         ))}
         {tabsRight.length === 0 ? (

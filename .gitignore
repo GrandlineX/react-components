@@ -11,3 +11,6 @@ package-lock.json
 /docker-compose.yml
 /css/style.css
 /storybook-static/
+/sonar-project.properties
+/.scannerwork/.sonar_lock
+/.scannerwork/report-task.txt

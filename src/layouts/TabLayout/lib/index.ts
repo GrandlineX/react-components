@@ -11,7 +11,12 @@ export type TabItem = {
 };
 export type TabContainerFunctions = {
   addTab: (el: TabItem, pos: WCMode, position?: number) => void;
-  moveTab: (key: string, dest: WCMode, position?: number) => void;
+  moveTab: (
+    key: string,
+    dest: WCMode,
+    target: WCMode,
+    position?: number,
+  ) => void;
   closeTab: (el: string, pos: WCMode) => void;
   setCurrentTab: (index: number, pos: WCMode) => void;
   error: (message: string) => void;

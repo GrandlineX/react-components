@@ -121,7 +121,15 @@ export function useTabStore() {
   const [tabsLeft, setTabsLeft] = useState<TabItem[]>([]);
   const [tabsRight, setTabsRight] = useState<TabItem[]>([]);
 
-  const moveTab = (key: string, dest: WCMode, position?: number) => {
+  const moveTab = (
+    key: string,
+    dest: WCMode,
+    target: WCMode,
+    position?: number,
+  ) => {
+    if (dest === target) {
+      return;
+    }
     if (dest === 'left') {
       const tab = tabsLeft.find((e) => e.key === key);
       const nTabs = tabsLeft.filter((e) => e.key !== key);

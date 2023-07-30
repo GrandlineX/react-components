@@ -7,9 +7,16 @@ class UIContextData {
 
   translation: GLang;
 
-  constructor(conf: { portalRoot: HTMLElement; lang: GLang }) {
+  tooltipDisabled: boolean;
+
+  constructor(conf: {
+    portalRoot: HTMLElement;
+    lang: GLang;
+    tooltipDisabled?: boolean;
+  }) {
     this.portalRoot = conf.portalRoot;
     this.translation = conf.lang;
+    this.tooltipDisabled = conf.tooltipDisabled ?? false;
   }
 }
 

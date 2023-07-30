@@ -2,6 +2,7 @@ export * from './components/Header';
 export * from './components/Sidebar';
 export * from './components/SidebarPanel';
 export * from './components/TabBar';
+export * from './components/TabBarElement';
 export * from './components/TabFrame';
 export * from './components/PanelMenuItem';
 export * from './components/SidePanelNavigation';

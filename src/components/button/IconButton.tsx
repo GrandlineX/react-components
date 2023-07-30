@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { getIcon, INames } from '@grandlinex/react-icons';
 import { cnx } from '../../util';
 import Tooltip, { ToolTipProp } from '../tooltip/Tooltip';
 
 export type IconButtonProps = {
-  onClick: () => void;
+  onClick: (event?: MouseEvent) => void;
   className?: string;
   color?:
     | 'red'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   IOCheckboxOutline,
   IOSquareOutline,
@@ -8,23 +8,35 @@ import { cnx } from '../../../util';
 
 export default function CheckBox(props: {
   checked: boolean;
+  value?: boolean;
   large?: boolean;
   disabled?: boolean;
   onChange: (ev: boolean) => void;
   className?: string;
 }) {
-  const { onChange, checked, className, large } = props;
+  const { onChange, checked, className, large, value, disabled } = props;
   const [ck, setChecked] = useState(checked);
+  const v = useMemo(() => {
+    if (value !== undefined) {
+      return value;
+    }
+    return ck;
+  }, [ck, value]);
   return (
     <span
       role="button"
       className={cnx(className)}
+      style={{
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      }}
       onClick={() => {
-        onChange(!ck);
-        setChecked(!ck);
+        if (!disabled) {
+          onChange(!v);
+          setChecked(!v);
+        }
       }}
     >
-      {ck ? (
+      {v ? (
         <IOCheckboxOutline size={large ? ISize.MD : ISize.SM} />
       ) : (
         <IOSquareOutline size={large ? ISize.MD : ISize.SM} />
@@ -36,4 +48,5 @@ CheckBox.defaultProps = {
   className: undefined,
   large: false,
   disabled: false,
+  value: undefined,
 };

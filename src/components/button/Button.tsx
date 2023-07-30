@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { cnx } from '../../util';
 
 export type ButtonProps = {
-  onClick: () => void;
+  onClick: (event?: MouseEvent) => void;
   text?: string;
   className?: string;
   color?:
@@ -18,13 +18,24 @@ export type ButtonProps = {
   cancel?: boolean;
   half?: boolean;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 };
 const Button: React.FC<ButtonProps> = (props) => {
-  const { onClick, text, cancel, disabled, children, half, color, className } =
-    props;
+  const {
+    onClick,
+    text,
+    cancel,
+    disabled,
+    children,
+    half,
+    color,
+    className,
+    style,
+  } = props;
 
   return (
     <button
+      style={style}
       className={cnx(
         'button--grid',
         'bubble',
@@ -50,5 +61,6 @@ Button.defaultProps = {
   cancel: undefined,
   half: undefined,
   children: undefined,
+  style: undefined,
 };
 export { Button };

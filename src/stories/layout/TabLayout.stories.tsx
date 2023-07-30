@@ -56,6 +56,15 @@ export const Store: Story = {
           closeTab: store.closeTab,
           moveTab: store.moveTab,
           setCurrentTab: store.setCurrentTab,
+          contextMenu: [
+            {
+              key: 'dummy',
+              text: 'Dummy',
+              order: 11,
+              icon: 'IOSunny',
+              onClick: () => {},
+            },
+          ],
           error: (message: string) => {},
         }}
         tabRenderer={p.tabRenderer}

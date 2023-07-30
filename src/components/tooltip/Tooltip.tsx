@@ -73,7 +73,7 @@ const Tooltip: React.FC<ToolTipProp> = (props) => {
         {children}
       </span>
 
-      {text
+      {text && !ui.tooltipDisabled
         ? createPortal(
             <div
               ref={tRef}

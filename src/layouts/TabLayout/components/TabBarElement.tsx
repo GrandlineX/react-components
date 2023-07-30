@@ -1,17 +1,19 @@
-import {
-  getIcon,
-  IOArrowBack,
-  IOArrowForward,
-  IOClose,
-  ISize,
-} from '@grandlinex/react-icons';
-import React, { useEffect, useState } from 'react';
+import { getIcon, INames, IOClose, ISize } from '@grandlinex/react-icons';
+import React, { MouseEvent, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { cnx, trimmer, useUIContext } from '../../../util';
 import { Grid, Tooltip } from '../../../components';
-import { TabContainerFunctions, TabItem } from '../lib';
+import { TabContainerFunctions, TabItem, WCMode } from '../lib';
 
-export default function TabBarElement({
+export type TabContextMenu = {
+  key: string;
+  translation?: string;
+  text?: string;
+  icon?: INames;
+  order: number;
+  onClick(event: MouseEvent, item: TabItem, context: WCMode): void;
+};
+export function TabBarElement({
   item,
   index,
   context,
@@ -22,16 +24,59 @@ export default function TabBarElement({
   tabs,
   drag,
   moveTab,
+  contextMenu,
 }: {
   item: TabItem;
   index: number;
   current: number;
   drag: boolean;
   tabs: TabItem[];
-  context: 'left' | 'right';
+  context: WCMode;
+  contextMenu?: TabContextMenu[];
   onDrop(e: React.DragEvent<HTMLDivElement>, position?: number): void;
 } & TabContainerFunctions) {
   const ui = useUIContext();
+  const oContext = useMemo(
+    () => (context === 'left' ? 'right' : 'left'),
+    [context],
+  );
+  const menu = useMemo<TabContextMenu[]>(() => {
+    const move: TabContextMenu =
+      context === 'left'
+        ? {
+            order: 10,
+            key: 'move-right',
+            translation: 'glx.context.menu.move.to.right',
+            icon: 'IOArrowForward',
+            onClick() {
+              moveTab(item.key, context, oContext);
+            },
+          }
+        : {
+            order: 10,
+            key: 'move-left',
+            translation: 'glx.context.menu.move.to.left',
+            icon: 'IOArrowBack',
+            onClick() {
+              moveTab(item.key, context, oContext);
+            },
+          };
+    const combined: TabContextMenu[] = [
+      move,
+      {
+        order: 20,
+        key: 'close',
+        translation: 'glx.context.menu.close',
+        icon: 'IOClose',
+        onClick() {
+          closeTab(item.key, context);
+        },
+      },
+      ...(contextMenu ?? []),
+    ];
+
+    return combined.sort((a, b) => a.order - b.order);
+  }, [closeTab, context, contextMenu, item.key, moveTab, oContext]);
 
   const [contextPos, setContextPos] = useState<{
     top: number;
@@ -64,6 +109,9 @@ export default function TabBarElement({
             e.dataTransfer.setData('id', item.key);
             e.dataTransfer.setData('type', context);
           }}
+          onClick={() => {
+            setCurrentTab(index, context);
+          }}
           onDrop={async (e) => onDrop(e, index)}
           className={cnx(
             'tab-bar--item',
@@ -81,13 +129,7 @@ export default function TabBarElement({
             });
           }}
         >
-          <span
-            className="tab-bar--button"
-            role="button"
-            onClick={() => {
-              setCurrentTab(index, context);
-            }}
-          >
+          <span className="tab-bar--button" role="button">
             {item.icon ? getIcon(item.icon)({}) : null}
             {trimmer(item.titel)}
           </span>
@@ -95,7 +137,8 @@ export default function TabBarElement({
           <button
             type="button"
             className="tab-bar--button-close"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               closeTab(item.key, context);
             }}
           >
@@ -114,37 +157,20 @@ export default function TabBarElement({
                 left: contextPos.left,
               }}
             >
-              <Grid
-                flex
-                flexRow
-                gap={8}
-                onClick={() => {
-                  moveTab(item.key, context);
-                }}
-              >
-                {context === 'left' ? (
-                  <>
-                    <IOArrowForward />{' '}
-                    {ui.translation.get('glx.context.menu.move.to.right')}
-                  </>
-                ) : (
-                  <>
-                    <IOArrowBack />{' '}
-                    {ui.translation.get('glx.context.menu.move.to.left')}
-                  </>
-                )}
-              </Grid>
-              <Grid
-                flex
-                flexRow
-                gap={8}
-                onClick={() => {
-                  closeTab(item.key, context);
-                }}
-              >
-                <IOClose />
-                {ui.translation.get('glx.context.menu.close')}
-              </Grid>
+              {menu.map((m) => (
+                <Grid
+                  flex
+                  flexRow
+                  gap={8}
+                  onClick={(e) => {
+                    m.onClick(e, item, context);
+                  }}
+                >
+                  {m.icon && getIcon(m.icon)({})}
+                  {m.translation && ui.translation.get(m.translation)}
+                  {m.text}
+                </Grid>
+              ))}
             </Grid>,
             ui.portalRoot,
           )
@@ -152,3 +178,6 @@ export default function TabBarElement({
     </>
   );
 }
+TabBarElement.defaultProps = {
+  contextMenu: undefined,
+};

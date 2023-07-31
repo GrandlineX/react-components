@@ -69,8 +69,12 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
     target: WCMode,
     position?: number,
   ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     const id = e.dataTransfer.getData('id');
     const type = e.dataTransfer.getData('type') as WCMode;
+    console.log('onDrop', id, type, target, position);
     moveTab(id, type, target, position);
   };
 

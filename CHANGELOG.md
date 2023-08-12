@@ -1,6 +1,14 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.3.3]
+### Added
+- Add file Audio Player
+### Changed
+- Ui context improvement
+- Fix file player onProgress
+- Set Playback rate
+
 ## [0.2.3]
 ### Added
 - Add i18 interface for components

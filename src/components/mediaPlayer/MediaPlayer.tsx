@@ -6,11 +6,16 @@ import React, {
 } from 'react';
 import {
   MediaPlayerParentFunction,
+  MediaPlayerPlaybackRates,
   MediaPlayerProps,
   playerSelector,
   PlayerType,
 } from './lib';
 import { FilePlayer, FilePlayerRefType } from './player/FilePlayer';
+import {
+  FileAudioPlayerRefType,
+  FileAudiPlayer,
+} from './player/FileAudioPlayer';
 
 export type MediaPlayerRefType = ElementRef<typeof MediaPlayer>;
 
@@ -18,7 +23,7 @@ export const MediaPlayer = forwardRef<
   MediaPlayerParentFunction,
   MediaPlayerProps<any>
 >((props, ref) => {
-  const refX = createRef<FilePlayerRefType>();
+  const refX = createRef<FilePlayerRefType | FileAudioPlayerRefType>();
   useImperativeHandle(ref, () => ({
     seekTo(to: number) {
       if (refX.current) {
@@ -50,8 +55,20 @@ export const MediaPlayer = forwardRef<
       }
       return -1;
     },
+    setPlayBackRate(rate: MediaPlayerPlaybackRates) {
+      if (refX.current) {
+        refX.current.setPlayBackRate(rate);
+      }
+    },
   }));
   switch (playerSelector(props)) {
+    case PlayerType.FILE_AUDIO:
+      return (
+        <FileAudiPlayer
+          ref={refX}
+          playerProps={props as MediaPlayerProps<HTMLAudioElement>}
+        />
+      );
     case PlayerType.FILE:
     default:
       return (

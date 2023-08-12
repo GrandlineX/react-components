@@ -5,7 +5,11 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { cnx } from '../../../util';
-import { FilePlayerProps, MediaPlayerParentFunction } from '../lib';
+import {
+  FilePlayerProps,
+  MediaPlayerParentFunction,
+  MediaPlayerPlaybackRates,
+} from '../lib';
 
 export type FilePlayerRefType = ElementRef<typeof FilePlayer>;
 export type FilePlayerParentFunction = MediaPlayerParentFunction;
@@ -43,6 +47,11 @@ export const FilePlayer = forwardRef<FilePlayerParentFunction, FilePlayerProps>(
           return refX.current.currentTime;
         }
         return -1;
+      },
+      setPlayBackRate(rate: MediaPlayerPlaybackRates) {
+        if (refX.current) {
+          refX.current.playbackRate = rate;
+        }
       },
     }));
 
@@ -85,6 +94,14 @@ export const FilePlayer = forwardRef<FilePlayerParentFunction, FilePlayerProps>(
           autoPlay={autoplay}
           crossOrigin={crossorigin}
           onProgress={(event) => {
+            const target = event.target as HTMLVideoElement;
+            onProgress?.({
+              target,
+              currentTime: target.currentTime,
+              duration: target.duration,
+            });
+          }}
+          onTimeUpdate={(event) => {
             const target = event.target as HTMLVideoElement;
             onProgress?.({
               target,

@@ -31,6 +31,32 @@ export const Default: Story = {
 };
 const ref = React.createRef<MediaPlayerRefType>();
 
+export const OnEvent: Story = {
+  storyName: 'On Events',
+  args: {
+    poster,
+    src,
+    width: '100%',
+    onStart: () => {
+      console.log('onStart');
+    },
+    onEnded: () => {
+      console.log('onEnded');
+    },
+    onPause: () => {
+      console.log('onPause');
+    },
+    onPlay: () => {
+      console.log('onPlay');
+    },
+    onDurationChange: (e) => {
+      console.log('onDurationChange', e);
+    },
+    onProgress: (e) => {
+      console.log('onProgress', e);
+    },
+  },
+};
 export const Custom_Controlls: Story = {
   args: {
     poster,
@@ -74,6 +100,19 @@ export const Custom_Controlls: Story = {
         >
           Pause
         </button>
+
+        <select
+          defaultValue={1.0}
+          onChange={(e) => {
+            ref.current?.setPlayBackRate(e.target.value as any);
+          }}
+        >
+          <option value={0.5}>0.5x</option>
+          <option value={1.0}>1x</option>
+          <option value={1.25}>1.25x</option>
+          <option value={1.5}>1.5x</option>
+          <option value={2.0}>2x</option>
+        </select>
       </Grid>
     ),
   },

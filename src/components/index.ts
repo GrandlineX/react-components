@@ -18,9 +18,9 @@ import Grid from './layout/Grid/Grid';
 import Draw from './canvas/Draw';
 import Usage from './progress/Usage';
 import UsageMap from './progress/UsageMap';
-import { MediaPlayer } from './mediaPlayer/MediaPlayer';
 import Icon, { IconProps } from './Icon/Icon';
 
+export * from './mediaPlayer';
 export * from './form/FormValidation';
 export * from './button/IconButton';
 export * from './controlls/PortalStepper/PortalStepper';
@@ -42,7 +42,6 @@ export {
   UsageMap,
   Form,
   LPulse,
-  MediaPlayer,
   LDots,
   LBalls,
   CheckBox,

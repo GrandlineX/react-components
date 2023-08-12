@@ -32,6 +32,7 @@ export type MediaPlayerProps<X> = {
   onDurationChange?: (event: PlayerUpdateEvent<X>) => void;
   onProgress?: (event: PlayerUpdateEvent<X>) => void;
   bottomRow?: ReactNode;
+  player?: PlayerType;
 };
 
 export type PlayerProps<X> = {
@@ -47,10 +48,22 @@ export type PlayerUpdateEvent<X> = {
 
 export enum PlayerType {
   FILE,
+  FILE_AUDIO,
 }
 export function playerSelector(props: MediaPlayerProps<any>): PlayerType {
+  if (props.player) {
+    return props.player;
+  }
   return PlayerType.FILE;
 }
+export type MediaPlayerPlaybackRates =
+  | 1.0
+  | 1.25
+  | 1.5
+  | 0.5
+  | 2.0
+  | -1.0
+  | -0.5;
 export type MediaPlayerParentFunction = {
   seekTo(to: number): void;
   getRawPlayer<Y>(): Y | null;
@@ -58,4 +71,5 @@ export type MediaPlayerParentFunction = {
   pause(): void;
   getDuration(): number;
   getCurrentTime(): number;
+  setPlayBackRate(rate: MediaPlayerPlaybackRates): void;
 };

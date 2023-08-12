@@ -6,7 +6,7 @@
 }
 
 .glx-form--compact{
-  .glx-form--input{
+  &,.glx-form--input{
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }

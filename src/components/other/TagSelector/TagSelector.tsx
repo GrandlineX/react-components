@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { getIcon } from '@grandlinex/react-icons';
 import { cnx } from '../../../util';
 import Badge, { BadgeProps } from '../Badge/Badge';
@@ -24,6 +24,7 @@ export type TagSelectorProps = {
 };
 export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
   const { items, onChange, placeholder, disabled, autoFocus, value } = prop;
+  const [keyNavigation, setKeyNavigation] = useState<number>(-1);
 
   const [focus, setFocus] = useState(autoFocus || false);
   const [selected, setSelected] = useState<TagProps[]>(
@@ -59,6 +60,58 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
     [onChange, selected],
   );
 
+  const remove = useCallback(
+    (key: string) => {
+      const cur = selected.filter((x) => x.key !== key);
+      onChange?.(
+        cur.map((x) => x.key),
+        { mode: 'DEL', id: key },
+      );
+      setSelected(cur);
+    },
+    [onChange, selected],
+  );
+  function keyListener(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      setFocus(false);
+    } else if (e.key === 'Enter') {
+      if (keyNavigation >= 0 && keyNavigation < fItems.length) {
+        setNew(fItems[keyNavigation]);
+        setKeyNavigation(-1);
+        ref.current?.focus();
+      } else if (fItems.length > 0) {
+        setNew(fItems[0]);
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (keyNavigation < fItems.length - 1) {
+        if (keyNavigation === -1) {
+          ref.current?.blur();
+        }
+        setKeyNavigation(keyNavigation + 1);
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (keyNavigation >= 0) {
+        if (keyNavigation === 0) {
+          ref.current?.focus();
+        }
+        setKeyNavigation(keyNavigation - 1);
+      }
+    } else if (e.key === 'Backspace' && e.shiftKey) {
+      e.preventDefault();
+      if (selected.length >= 1) {
+        remove(selected[selected.length - 1].key);
+      }
+    }
+  }
+  useEffect(() => {
+    const cc = ref.current;
+    cc?.addEventListener('keydown', keyListener);
+    return () => {
+      cc?.removeEventListener('keydown', keyListener);
+    };
+  });
   return (
     <div ref={ref} className={cnx(`glx-tag-selector`)}>
       <div
@@ -77,12 +130,7 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
             icon={e.icon}
             color={e.color}
             close={() => {
-              const cur = selected.filter((x) => x.key !== e.key);
-              onChange?.(
-                cur.map((x) => x.key),
-                { mode: 'DEL', id: e.key },
-              );
-              setSelected(cur);
+              remove(e.key);
             }}
           />
         ))}
@@ -94,22 +142,13 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
         autoFocus={autoFocus}
         placeholder={placeholder}
         disabled={disabled}
-        onKeyUpCapture={(event) => {
-          if (event.key === 'Enter') {
-            if (fItems.length >= 1) {
-              setNew(fItems[0]);
-            }
-          } else if (event.key === 'Escape' && focus) {
-            setFocus(false);
-          }
-        }}
         onChange={(e) => {
           setText(e.target.value);
         }}
       />
       {focus && fItems.length > 0 ? (
         <Grid flex flexC className="glx-tag-selector--drawer" gap={6}>
-          {fItems?.map((e) => (
+          {fItems?.map((e, i) => (
             <Grid
               key={e.key}
               flex
@@ -117,6 +156,7 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
               gap={12}
               onClick={() => setNew(e)}
               vCenter
+              className={[[i === keyNavigation, 'glx-tag-selector--selected']]}
             >
               <div
                 style={{

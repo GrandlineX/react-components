@@ -12,7 +12,7 @@
       @extend .glx-no-select;
       width: 100%;
     }
-    >div:hover{
+    >div:hover,.glx-tag-selector--selected{
       @extend .glx-no-select;
       background-color: $main-accent-05;
       width: 100%;

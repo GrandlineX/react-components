@@ -215,7 +215,7 @@ export function FormRow({
                   value={form[key]}
                   autoFocus={autoFocus}
                   required={required}
-                  placeholder={placeholder}
+                  aria-placeholder={placeholder}
                   disabled={disabled}
                   onChange={(ev) => {
                     onChange?.(ev.target.value);

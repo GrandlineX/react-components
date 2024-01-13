@@ -1,9 +1,9 @@
-import React, { createRef, useState } from 'react';
+import React, { createRef, ReactNode, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useUIContext } from '../../util';
+import { cnx, useUIContext } from '../../util';
 
 export type ToolTipProp = {
-  text?: string;
+  text?: string | ReactNode | ReactNode[];
   width?: number;
   className?: string;
   position?: 'bottom' | 'right' | 'left' | 'top';
@@ -22,7 +22,7 @@ const Tooltip: React.FC<ToolTipProp> = (props) => {
 
   return (
     <span
-      className={`glx-tooltip-container ${className}`}
+      className={cnx('glx-tooltip-container', className)}
       onMouseEnter={() => {
         setOpen(true);
       }}

@@ -43,3 +43,4 @@ Dockerfile
 nodemon.json
 .storybook
 .babelrc.json
+storybook-static

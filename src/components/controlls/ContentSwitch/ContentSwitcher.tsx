@@ -1,5 +1,6 @@
 import React, { createRef, RefObject, useEffect, useState } from 'react';
 import { IOChevronDown } from '@grandlinex/react-icons';
+import { useCnx } from '../../../util';
 
 export interface ContentSwitcherItem {
   key: string;
@@ -12,6 +13,7 @@ export interface ContentSwitcherItemFc extends ContentSwitcherItem {
 }
 
 export interface ContentSwitcherProps {
+  className?: string;
   onChange: (el: ContentSwitcherItemFc) => void;
   selectedIndex?: number;
   items: ContentSwitcherItem[];
@@ -19,8 +21,9 @@ export interface ContentSwitcherProps {
 }
 
 const ContentSwitcher: React.FC<ContentSwitcherProps> = (props) => {
-  const { onChange, selectedIndex, items, parentState } = props;
+  const { onChange, selectedIndex, items, parentState, className } = props;
   const [cur, setCur] = useState<number>(selectedIndex ?? 0);
+  const cnx = useCnx('glx-content-switcher-wrapper', className);
   const [open, setOpen] = useState<boolean | null>(
     items.length > 3 ? false : null,
   );
@@ -42,8 +45,6 @@ const ContentSwitcher: React.FC<ContentSwitcherProps> = (props) => {
   };
 
   useEffect(() => {
-    // ;
-
     const sel = ref.current;
     if (!sel || !parentState) {
       return;
@@ -63,7 +64,7 @@ const ContentSwitcher: React.FC<ContentSwitcherProps> = (props) => {
   });
 
   return (
-    <div className="glx-content-switcher-wrapper">
+    <div className={cnx}>
       {open !== null ? (
         <div
           className="glx-content-switcher--toggle-icon glx-no-select"
@@ -132,5 +133,6 @@ const ContentSwitcher: React.FC<ContentSwitcherProps> = (props) => {
 ContentSwitcher.defaultProps = {
   selectedIndex: 0,
   parentState: undefined,
+  className: undefined,
 };
 export default ContentSwitcher;

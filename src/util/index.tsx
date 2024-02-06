@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import md5 from './MD5';
 import copyToClipboard from './Clipboard';
 import getSaveWindow from './BuildHelper';
@@ -14,7 +14,7 @@ export async function sleep(ms: number) {
 
 export type CnxInputCondition = [boolean, string, string?];
 export type CnxInput = string | undefined | null | CnxInputCondition;
-export function cnx(...classes: CnxInput[]): string {
+export function cnx(...classes: CnxInput[]): string | undefined {
   const del: string[] = [];
 
   classes.forEach((sel) => {
@@ -31,7 +31,15 @@ export function cnx(...classes: CnxInput[]): string {
     }
   });
 
-  return del.join(' ');
+  const out = del.join(' ');
+  if (del.length === 0 || out === '') {
+    return undefined;
+  }
+  return out;
+}
+
+export function useCnx(...classes: CnxInput[]): string | undefined {
+  return useMemo(() => cnx(...classes), [classes]);
 }
 
 function sGen(inp: string) {

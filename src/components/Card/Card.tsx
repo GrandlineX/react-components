@@ -5,12 +5,12 @@ import {
   IOEllipsisVertical,
   ISize,
 } from '@grandlinex/react-icons';
-import Badge, { BadgeProps } from '../../other/Badge/Badge';
-import { cnx } from '../../../util';
 import HNavigator from '../Navigator/HNavigator';
-import DropDownIconMenu, { MenuItem } from '../../menu/DropDownIconMenu';
+import Badge, { BadgeProps } from '../other/Badge/Badge';
+import { cnx } from '../../util';
+import DropDownIconMenu, { MenuItem } from '../menu/DropDownIconMenu';
 import Grid from '../Grid/Grid';
-import Tooltip, { ToolTipProp } from '../../tooltip/Tooltip';
+import Tooltip, { ToolTipProp } from '../tooltip/Tooltip';
 
 export type CardColor = 'red' | 'black' | 'yellow' | 'green' | 'orange';
 export type CardIconType = {

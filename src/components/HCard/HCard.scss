@@ -1,0 +1,110 @@
+.glx-hcard--item {
+  @extend .glx-flex-row,.glx-flex-space-between;
+  margin: 4px;
+  text-align: center;
+  background-size: cover;
+  color: $tlc-card-font;
+  font-size: 11pt;
+  min-height: 120px;
+  max-height: 460px;
+  max-width: 360px;
+  min-width: 360px;
+  flex-grow: 1;
+  background-color: $tlc-card;
+  position: relative;
+  border-radius: 12px;
+}
+
+.glx-hcard--icon {
+  @extend .glx-p-4,.glx-h-full-4;
+  padding: 8px;
+  font-size: 24pt;
+  display: flex;
+  align-items: center;
+}
+
+.glx-hcard--icon-red .glx--icon{
+  color: $main-red !important;
+
+}
+
+.glx-hcard--icon-orange .glx--icon{
+  color: $main-orange !important;
+
+}
+
+.glx-hcard--icon-yellow .glx--icon{
+  color: $main-yellow !important;
+
+
+}
+
+.glx-hcard--icon-green .glx--icon{
+  color: $main-green !important;
+
+}
+
+.glx-hcard--icon-black {
+
+  color: black;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+}
+
+
+.glx-hround-top{
+  border-radius: 12px 0 0 12px;
+}
+
+
+.glx-hcard--img {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  mask-image: linear-gradient(to top, transparent 0%, black 100%);
+  -webkit-mask-image: linear-gradient(to left, transparent 0%, black 100%);
+}
+
+.glx-hcard--effect {
+  // background: radial-gradient(transparent 0%, $tlc-card 95%);
+  background: linear-gradient(to right, transparent 0%, $tlc-card 100%);
+  height: 100%;
+}
+
+.glx-hcard--iconCover {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+
+}
+.glx-hcard--skeleton {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  font-size: 70pt;
+}
+
+.glx-hcard--title{
+  text-align: left;
+  padding-left: 8px;
+  padding-bottom: 4px;
+  @extend .glx-py-2;
+  font-size: 12pt;
+  font-weight: 600;
+}
+.glx-hcard--content {
+  text-align: left;
+  padding-left: 8px;
+  font-size: 12pt;
+
+  padding-right: 4px;
+
+  span {
+    overflow-wrap: anywhere;
+    padding: 2px;
+  }
+}
+.glx-hcard--space {
+  width: 100%;
+  height: 4px;
+}

@@ -94,8 +94,8 @@
 
   button {
     @extend .glx-flex-column, .glx-flex-center;
-    width: 42px;
-    height: 42px;
+    width: 42px !important;
+    height: 42px !important;
     cursor: pointer;
     background: none;
     font-size: 14pt;

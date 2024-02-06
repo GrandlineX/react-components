@@ -2,7 +2,7 @@ import React, { createRef, useEffect } from 'react';
 
 import { IOChevronBack, IOChevronForward } from '@grandlinex/react-icons';
 import Grid from '../Grid/Grid';
-import { cnx } from '../../../util';
+import { cnx } from '../../util';
 
 export type HNavigatorProps = React.PropsWithChildren<{
   className?: string;

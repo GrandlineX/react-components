@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { IOArrowUndoCircle, IOColorFill } from '@grandlinex/react-icons';
-import Grid from '../layout/Grid/Grid';
+import Grid from '../Grid/Grid';
 import { IconButton } from '../button/IconButton';
 
 export interface CanvasProps {

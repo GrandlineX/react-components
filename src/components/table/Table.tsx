@@ -186,7 +186,7 @@ function Table<T = any>(props: TableProps<T>) {
       <thead>
         <tr>
           {api.getColumDefs().map((h) => (
-            <th>{h.headerName}</th>
+            <th key={`key_${h.headerName}`}>{h.headerName}</th>
           ))}
         </tr>
       </thead>

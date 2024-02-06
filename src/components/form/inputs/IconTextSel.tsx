@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { INames } from '@grandlinex/react-icons';
-import Grid from '../../layout/Grid/Grid';
+import Grid from '../../Grid/Grid';
 import IconSel from './IconSel';
 
 export type IcTexProps = {

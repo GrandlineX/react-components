@@ -12,7 +12,7 @@ export type ToolTipProp = {
 const Tooltip: React.FC<ToolTipProp> = (props) => {
   const ui = useUIContext();
   const { children, text, width, position, className } = props;
-  const nPos = position || 'bottom';
+  const nPos = position ?? 'bottom';
   const nPosClass = `glx-tooltip-content-${nPos}`;
   const [open, setOpen] = useState<boolean>(false);
   const [left, setLeft] = useState<number>(0);

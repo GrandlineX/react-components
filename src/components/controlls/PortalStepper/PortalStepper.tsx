@@ -9,7 +9,7 @@ import React, {
 import { IOChevronDown, IOChevronForward } from '@grandlinex/react-icons';
 import ContentSwitcher from '../ContentSwitch/ContentSwitcher';
 import { IconButton } from '../../button/IconButton';
-import { cnx } from '../../../util';
+import { cnx, useCnx } from '../../../util';
 
 export interface PortStepperConf {
   key: string;
@@ -89,6 +89,7 @@ PortalStepperEl.defaultProps = {
 };
 const PortalStepper: React.FC<PortStepperProps> = (props) => {
   const { width, height, conf, className, offset, style, collapse } = props;
+  const cName = useCnx('portal-stepper-main', className);
   const [cur, setCur] = useState<number>(0);
   const refField = useMemo<RefObject<HTMLDivElement>[]>(
     () => conf.map(() => createRef<HTMLDivElement>()),
@@ -126,10 +127,7 @@ const PortalStepper: React.FC<PortStepperProps> = (props) => {
     };
   });
   return (
-    <div
-      style={{ ...style, width, height }}
-      className={`portal-stepper-main ${className || ''}`}
-    >
+    <div style={{ ...style, width, height }} className={cName}>
       <ContentSwitcher
         parentState={[cur, setCur]}
         onChange={(el) => {

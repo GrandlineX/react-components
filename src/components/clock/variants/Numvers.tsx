@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '../../layout/Grid/Grid';
+import Grid from '../../Grid/Grid';
 import { ClockType } from '../type';
 import FNumber from '../component/FNumber';
 

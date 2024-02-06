@@ -3,7 +3,7 @@ import { getIcon } from '@grandlinex/react-icons';
 import { cnx } from '../../../util';
 import Badge, { BadgeProps } from '../Badge/Badge';
 import { useAutoClose } from '../../../util/hooks';
-import Grid from '../../layout/Grid/Grid';
+import Grid from '../../Grid/Grid';
 
 export type TagProps = BadgeProps & {
   key: string;

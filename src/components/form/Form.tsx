@@ -4,7 +4,7 @@ import { def, FormRow, getFormInputs } from './FormRender';
 import { cnx, useUIContext, uuid } from '../../util';
 import LPulse from '../loading/LPulse';
 import { Button } from '../button/Button';
-import Grid from '../layout/Grid/Grid';
+import Grid from '../Grid/Grid';
 import { classN } from '../lib';
 import { requiredFieldValidation } from './FormValidation';
 

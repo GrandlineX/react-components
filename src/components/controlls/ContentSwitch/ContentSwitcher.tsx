@@ -20,7 +20,7 @@ export interface ContentSwitcherProps {
   parentState?: [number, (p: number) => void];
 }
 
-const ContentSwitcher: React.FC<ContentSwitcherProps> = (props) => {
+const ContentSwitcher = (props: ContentSwitcherProps) => {
   const { onChange, selectedIndex, items, parentState, className } = props;
   const [cur, setCur] = useState<number>(selectedIndex ?? 0);
   const cnx = useCnx('glx-content-switcher-wrapper', className);

@@ -3,25 +3,31 @@ import { IOChevronForward } from '@grandlinex/react-icons';
 import { cnx } from '../../../util';
 
 export type IBreadcrumb = {
+  key: string;
   name: string;
-  action?: () => void;
+  active?: boolean;
 };
-export function Breadcrumbs(props: { items: IBreadcrumb[] }) {
-  const { items } = props;
+export type BreadcrumbsProps<T extends IBreadcrumb = IBreadcrumb> = {
+  items: T[];
+  onClick?: (item: T) => void;
+};
+export function Breadcrumbs<T extends IBreadcrumb = IBreadcrumb>({
+  items,
+  onClick,
+}: BreadcrumbsProps<T>) {
   return (
     <div className="glx-default-text glx-flex-r glx-flex-g-4">
       {items.map((e, index) => (
         <>
           <div
-            className={cnx([!!e.action, 'glx-underline glx-pointer'])}
-            onClick={() => {
-              e.action?.();
-            }}
+            key={e.key}
+            className={cnx([!!e.active, 'glx-underline glx-pointer'])}
+            onClick={e.active ? () => onClick?.(e) : undefined}
           >
             {e.name}
           </div>{' '}
           {index < items.length - 1 ? (
-            <div>
+            <div key={`${e.key}_arrow`}>
               <IOChevronForward />
             </div>
           ) : null}
@@ -30,3 +36,7 @@ export function Breadcrumbs(props: { items: IBreadcrumb[] }) {
     </div>
   );
 }
+
+Breadcrumbs.defaultProps = {
+  onClick: undefined,
+};

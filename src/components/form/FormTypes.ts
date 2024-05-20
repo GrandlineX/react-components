@@ -8,6 +8,7 @@ export type FormConfEl = InputOption | null | InputOption[];
 export type FormConf = FormConfEl[][];
 
 export enum InputOptionType {
+  'EMPTY',
   'TEXT',
   'TEXT_FIELD',
   'NUMBER',
@@ -26,26 +27,27 @@ export enum InputOptionType {
   'ICON',
   'ICON_TEXT',
   'CONTENT_SWITCH',
+  'IMAGE_SELECT',
 }
 
-export interface InputOptionItem {
+export interface InputOptionItem<X = any> {
   key: string;
   name: string;
   icon?: INames;
-  other?: any;
+  meta?: X;
 }
 
 export interface InputOption {
   key: string;
   label?: React.ReactNode;
   type: InputOptionType;
+  help?: React.ReactNode;
   submitOnEnter?: boolean;
   required?: boolean;
   value?: FormTypes;
   accept?: string;
   hint?: string;
   items?: InputOptionItem[];
-  org?: string;
   disabled?: boolean;
   placeholder?: string;
   restriction?: {
@@ -53,6 +55,7 @@ export interface InputOption {
     min?: number;
     max?: number;
     rows?: number;
+    extended?: boolean;
   };
   autoComplete?: 'on' | 'off';
   autoFocus?: boolean;
@@ -71,22 +74,22 @@ export interface InputOption {
   };
 }
 
-export type FormChangeEvent = {
-  form: any;
+export type FormChangeEvent<T> = {
+  form: T;
   changed: { key: string; value: FormTypes } | null;
   setError: (err: FormErrorType | null) => void;
   validateRequired: (setError?: boolean) => FormErrorType | null;
   clear: () => void;
-  update: (form: any) => void;
+  update: (form: T) => void;
 };
-export interface FormProps extends BaseProps {
+export interface FormProps<T> extends BaseProps {
   title?: React.ReactNode;
   options: FormConf;
-  defaultState?: any;
+  defaultState?: Partial<T>;
   defaultError?: FormErrorType;
-  onChange?: (event: FormChangeEvent) => void;
+  onChange?: (event: FormChangeEvent<T>) => void;
   submit?: {
-    onSubmit: (event: FormChangeEvent) => Promise<void>;
+    onSubmit: (event: FormChangeEvent<T>) => Promise<void>;
     buttonText?: string;
     buttonNode?: (submit: () => void) => ReactNode;
     buttonCenter?: boolean;

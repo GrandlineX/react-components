@@ -3,10 +3,13 @@ import * as path from 'path';
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
+    "@storybook/addon-webpack5-compiler-swc",
+    "@storybook/addon-onboarding",
     "@storybook/addon-links",
+    "@chromatic-com/storybook",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "storybook-addon-themes",
+    "@storybook/addon-themes",
     "@storybook/addon-viewport",
     {
       name: '@storybook/addon-storysource',

@@ -1,5 +1,5 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { ContentSwitcher } from '../../components';
 
 const meta = {
@@ -30,6 +30,7 @@ for (let i = 1; i < 20; i++) {
 
 export const Default: Story = {
   args: {
+    onChange: fn(),
     items: shortA.map((e) => ({
       key: `${e}`,
       name: `name-${e}`,
@@ -39,6 +40,7 @@ export const Default: Story = {
 
 export const Boolean_No: Story = {
   args: {
+    onChange: fn(),
     items: [
       {
         key: `false`,
@@ -54,6 +56,7 @@ export const Boolean_No: Story = {
 
 export const Boolean_Yes: Story = {
   args: {
+    onChange: fn(),
     items: [
       {
         key: `false`,

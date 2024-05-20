@@ -1,5 +1,5 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { IconButton } from '../../components';
 
 const meta = {
@@ -19,6 +19,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    onClick: fn(),
     toolTip: {
       text: 'Button',
       position: 'right',
@@ -29,6 +30,7 @@ export const Default: Story = {
 
 export const Blue: Story = {
   args: {
+    onClick: fn(),
     toolTip: {
       text: 'Button',
       position: 'right',

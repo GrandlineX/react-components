@@ -15,6 +15,27 @@ const defaultGLang = new GLang({
       value: 'Submit',
     },
     {
+      key: 'glx.form.field.empty',
+      value: 'Nothing selected',
+    },
+    {
+      key: 'glx.form.field.selection',
+      value: 'Selected',
+    },
+    {
+      key: 'glx.form.show.all',
+      value: 'Show all',
+    },
+    {
+      key: 'glx.form.more',
+      value: 'Show More',
+    },
+    {
+      key: 'glx.form.tagSelector.helpText',
+      value:
+        'Keyboard Shortcuts:\n\nEnter : Select item\nArrowUp, ArrowDown : Navigate Up/Down\nShift + Backspace : Remove last item',
+    },
+    {
       key: 'glx.table.header.action',
       value: 'Action',
     },

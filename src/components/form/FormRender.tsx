@@ -1,4 +1,5 @@
 import React, { KeyboardEventHandler } from 'react';
+import { IOHelpCircleOutline } from '@grandlinex/react-icons';
 import {
   FormConf,
   FormConfEl,
@@ -12,7 +13,9 @@ import CheckBox from './inputs/CheckBox';
 import IconSel from './inputs/IconSel';
 import IconTextSel from './inputs/IconTextSel';
 import ContentSwitcher from '../controlls/ContentSwitch/ContentSwitcher';
-import { cnx } from '../../util';
+import { cnx, useUIContext } from '../../util';
+import ImageSel from './inputs/ImageSel';
+import Tooltip from '../tooltip/Tooltip';
 
 /**
  * Get FormInputList
@@ -150,6 +153,7 @@ export function FormRow({
   submitForm: () => void;
   error: FormErrorType | null | undefined;
 }) {
+  const context = useUIContext();
   const enterHandler: KeyboardEventHandler<any> = (e) => {
     if (e.key === 'Enter' || e.code === 'Enter') {
       submitForm();
@@ -194,10 +198,11 @@ export function FormRow({
             autoFocus,
             accept,
             restriction,
-            org,
             placeholder,
+            help,
           } = cur;
 
+          let helpText: React.ReactNode | undefined;
           let iType: React.ReactNode;
           let noUnderline = false;
           /**
@@ -410,6 +415,9 @@ export function FormRow({
 
               break;
             case InputOptionType.TAG_SELECTOR:
+              helpText = context.translation.get(
+                'glx.form.tagSelector.helpText',
+              );
               iType = (
                 <TagSelector
                   key={key}
@@ -420,12 +428,32 @@ export function FormRow({
                   items={items?.map((e) => ({
                     key: e.key,
                     text: e.name,
-                    icon: e.icon || 'IOPricetagOutline',
-                    color: e.other,
+                    icon: e.icon ?? 'IOPricetagOutline',
+                    color: e.meta,
                   }))}
                   onChange={(els, dif) => {
                     onChange?.(els, dif);
                     updateForm(key, els);
+                  }}
+                />
+              );
+              break;
+            case InputOptionType.IMAGE_SELECT:
+              iType = (
+                <ImageSel
+                  items={
+                    items?.map((x) => ({
+                      title: x.name,
+                      ...x,
+                      ...x.meta,
+                    })) ?? []
+                  }
+                  extended={restriction?.extended}
+                  maxStep={restriction?.max}
+                  selected={form[key]}
+                  onChange={(els) => {
+                    onChange?.(els?.key);
+                    updateForm(key, els?.key);
                   }}
                 />
               );
@@ -444,7 +472,7 @@ export function FormRow({
                   searchFC={preload}
                   list={
                     items && items.length > 0
-                      ? items.map((e) => e.other)
+                      ? items.map((e) => e.meta)
                       : undefined
                   }
                 />
@@ -470,7 +498,10 @@ export function FormRow({
             default:
               return null;
           }
-          return { iType, key, label, required, noUnderline };
+          if (!helpText) {
+            helpText = help;
+          }
+          return { iType, key, label, required, noUnderline, helpText };
         });
         return (
           <div
@@ -491,6 +522,11 @@ export function FormRow({
                     {value.required ? (
                       <span className="glx-form--error-text">*</span>
                     ) : null}
+                    {value?.helpText && (
+                      <Tooltip text={value.helpText} preLine>
+                        <IOHelpCircleOutline size={16} />
+                      </Tooltip>
+                    )}
                   </div>
                 ) : null}
                 {value?.iType}

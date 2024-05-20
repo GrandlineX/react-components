@@ -41,7 +41,7 @@ export type CardProps = {
   children?: React.ReactNode;
   menu?: MenuItem[];
 };
-const Card: React.FC<CardProps> = (props) => {
+const Card = (props: CardProps) => {
   const {
     className,
     children,

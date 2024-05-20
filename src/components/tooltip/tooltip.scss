@@ -8,6 +8,10 @@
 
 }
 
+
+.glx-tooltip--pre-line {
+  white-space: pre-line;
+}
 .glx-tooltip-content {
   @extend .glx-no-select,.glx-animation-fade-in-super-fast;
   background: $tlc-card;

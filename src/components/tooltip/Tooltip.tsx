@@ -8,10 +8,11 @@ export type ToolTipProp = {
   className?: string;
   position?: 'bottom' | 'right' | 'left' | 'top';
   children?: React.ReactNode;
+  preLine?: boolean;
 };
-const Tooltip: React.FC<ToolTipProp> = (props) => {
+const Tooltip = (props: ToolTipProp) => {
   const ui = useUIContext();
-  const { children, text, width, position, className } = props;
+  const { preLine, children, text, width, position, className } = props;
   const nPos = position ?? 'bottom';
   const nPosClass = `glx-tooltip-content-${nPos}`;
   const [open, setOpen] = useState<boolean>(false);
@@ -83,7 +84,11 @@ const Tooltip: React.FC<ToolTipProp> = (props) => {
                 display: open ? 'block' : 'none',
                 width,
               }}
-              className={`glx-tooltip-content glx-fade-in-fast ${nPosClass}`}
+              className={cnx(
+                `glx-tooltip-content glx-fade-in-fast`,
+                nPosClass,
+                [!!preLine, 'glx-tooltip--pre-line'],
+              )}
             >
               {text}
             </div>,
@@ -99,5 +104,6 @@ Tooltip.defaultProps = {
   className: '',
   text: undefined,
   children: undefined,
+  preLine: undefined,
 };
 export default Tooltip;

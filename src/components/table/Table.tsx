@@ -31,7 +31,9 @@ function defaultCellrenderer(value: any, t: GLang) {
   }
   return '';
 }
-function TableRow<T>(props: TableRowProps<T>) {
+function TableRow<T extends Record<string, any>>(
+  props: Readonly<TableRowProps<T>>,
+) {
   const ui = useUIContext();
   const { api, rowData, index, extendRowRenderer } = props;
   const [open, setOpen] = useState(false);
@@ -134,7 +136,7 @@ function TableRow<T>(props: TableRowProps<T>) {
           ])}
         >
           <td colSpan={api.getColumDefs().length}>
-            <Form
+            <Form<T>
               options={formC}
               defaultState={fEdit}
               onChange={({ form }) => {
@@ -172,8 +174,8 @@ function TableRow<T>(props: TableRowProps<T>) {
 TableRow.defaultProps = {
   extendRowRenderer: undefined,
 };
-function Table<T = any>(props: TableProps<T>) {
-  const { api, data } = useTableStore(props);
+function Table<T extends Record<string, any>>(props: TableProps<T>) {
+  const { api, data } = useTableStore<T>(props);
   const { extendRowRenderer, className, fixedHeader, isSelectable } = props;
 
   return (
@@ -192,7 +194,7 @@ function Table<T = any>(props: TableProps<T>) {
       </thead>
       <tbody>
         {data.rowData.map((row, index) => (
-          <TableRow
+          <TableRow<T>
             key={isSelectable ? `row_${(row as any)[isSelectable]}` : undefined}
             api={api}
             rowData={row}

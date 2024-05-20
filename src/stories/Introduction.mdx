@@ -5,69 +5,65 @@ import pkg from '../../package.json';
 
 <style>
   {`
-    .subheading {
-      --mediumdark: '#999999';
-      font-weight: 700;
-      font-size: 13px;
-      color: #999;
-      letter-spacing: 6px;
-      line-height: 24px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      margin-top: 40px;
-    }
+      .subheading {
+        --mediumdark: '#999999';
+        font-weight: 700;
+        font-size: 13px;
+        color: #999;
+        letter-spacing: 6px;
+        line-height: 24px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        margin-top: 40px;
+      }
 
 
-    .tip {
-      display: inline-block;
-      border-radius: 1em;
-      font-size: 11px;
-      line-height: 12px;
-      font-weight: 700;
-      background: #E7FDD8;
-      color: #66BF3C;
-      padding: 4px 12px;
-      margin-right: 10px;
-      vertical-align: top;
-    }
+      .tip {
+        display: inline-block;
+        border-radius: 1em;
+        font-size: 11px;
+        line-height: 12px;
+        font-weight: 700;
+        background: #E7FDD8;
+        color: #66BF3C;
+        padding: 4px 12px;
+        margin-right: 10px;
+        vertical-align: top;
+      }
 
-    .tip-wrapper {
-      font-size: 13px;
-      line-height: 20px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-    }
+      .tip-wrapper {
+        font-size: 13px;
+        line-height: 20px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
 
-    .tip-wrapper code {
-      font-size: 12px;
-      display: inline-block;
-    }
-  `}
+      .tip-wrapper code {
+        font-size: 12px;
+        display: inline-block;
+      }
+    `}
 </style>
 
 <h1> GrandLineX React-Components <span>{pkg.version}</span></h1>
 
 This is a collection of React components used by GrandLineX.
 
-
 <div className="subheading">This package includes:</div>
 
-- GlX-Styled-SCSS-Framework
-- GlX-Styled-React-Components
-- Icon Pack ([Ionicons v5](https://ionic.io/ionicons))
-
+* GlX-Styled-SCSS-Framework
+* GlX-Styled-React-Components
+* Icon Pack ([Ionicons v5](https://ionic.io/ionicons))
 
 <div className="subheading">Configure</div>
 
-
 1. `npm i @grandlinex/react-components`
 2. Include style file in your main render file (CSS or SCSS)
-    ```js
-    // CSS
-    import '@grandlinex/react-components/css/style.css';
-    // OR SCSS
-    import '@grandlinex/react-components/style/style.scss';
-    ```
+   ```js
+   // CSS
+   import '@grandlinex/react-components/css/style.css';
+   // OR SCSS
+   import '@grandlinex/react-components/style/style.scss';
+   ```
 3. By default, the dark theme is enabled, to use the light theme add the following class `glx-theme-light` to your main container.
 4. Done 🎉
-

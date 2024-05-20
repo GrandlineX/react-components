@@ -19,10 +19,19 @@ export type IconButtonProps = {
   toolTip?: ToolTipProp;
   icon?: INames;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 };
-const IconButton: React.FC<IconButtonProps> = function (props) {
-  const { onClick, disabled, icon, children, color, className, toolTip } =
-    props;
+const IconButton = (props: IconButtonProps) => {
+  const {
+    onClick,
+    disabled,
+    icon,
+    children,
+    color,
+    className,
+    toolTip,
+    style,
+  } = props;
 
   return (
     <Tooltip
@@ -32,6 +41,7 @@ const IconButton: React.FC<IconButtonProps> = function (props) {
       position={toolTip?.position}
     >
       <button
+        style={style}
         className={cnx('glx-icon-button', className, [
           !!color,
           `glx-icon-button--${color}`,
@@ -56,5 +66,6 @@ IconButton.defaultProps = {
   toolTip: undefined,
   children: undefined,
   icon: undefined,
+  style: undefined,
 };
 export { IconButton };

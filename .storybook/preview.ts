@@ -1,7 +1,9 @@
-import type { Preview } from "@storybook/react";
+import type { Preview, ReactRenderer  } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import "../css/style.css";
 import "../css/dev.css";
+
+import { withThemeByClassName } from '@storybook/addon-themes';
 
 const preview: Preview = {
   parameters: {
@@ -25,17 +27,18 @@ const preview: Preview = {
         },
       ],
     },
-    themes: {
-      default: 'Dark',
-      list: [
-        { name: 'Dark', color: '#111' },
-        { name: 'Light', class: 'glx-theme-light', color: '#FFF' },
-      ],
-    },
+
     viewport: {
       viewports: INITIAL_VIEWPORTS,
     },
   },
+  decorators: [withThemeByClassName<ReactRenderer>({
+      defaultTheme: 'dark',
+      themes:{
+        dark: '',
+        light: 'glx-theme-light',
+      }
+  })],
 };
 
 export default preview;

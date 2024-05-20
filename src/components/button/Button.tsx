@@ -20,7 +20,7 @@ export type ButtonProps = {
   children?: React.ReactNode;
   style?: React.CSSProperties;
 };
-const Button: React.FC<ButtonProps> = (props) => {
+const Button = (props: ButtonProps) => {
   const {
     onClick,
     text,

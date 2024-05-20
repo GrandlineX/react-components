@@ -132,10 +132,17 @@ $default-padding-d: 2*$default-padding;
     color: white;
   }
 
+  @-moz-document url-prefix() {
+    input[type=range]{
+      -webkit-appearance: auto !important;
+    }
+  }
+
   input[type=range]{
     -webkit-appearance: none;
     border-bottom: none;
   }
+
 
   input[type=range]:active,input[type=range]:focus{
     border-bottom: none;
@@ -164,7 +171,7 @@ $default-padding-d: 2*$default-padding;
   }
 
   input[type=range]:focus::-webkit-slider-runnable-track {
-    background: $main-background;
+    background: $main-contrast;
   }
 
 

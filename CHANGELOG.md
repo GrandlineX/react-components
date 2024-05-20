@@ -1,6 +1,16 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.5.0]
+### Added
+- Add new component `ImageSelector`
+- Tooltip ` white-space: pre-line` option 
+- Label help text
+### Changed
+- Update dependencies
+- Update Form types
+- Update to Storybook 8
+
 ## [0.3.3]
 ### Added
 - Add file Audio Player

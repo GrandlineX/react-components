@@ -8,18 +8,17 @@ import Grid from '../Grid/Grid';
 import { classN } from '../lib';
 import { requiredFieldValidation } from './FormValidation';
 
-const Form: React.FC<FormProps> = (props) => {
+function Form<T extends Record<string, any> = any>({
+  options,
+  onChange,
+  submit,
+  title,
+  defaultState,
+  defaultError,
+  className,
+  compact,
+}: Readonly<FormProps<T>>) {
   const ui = useUIContext();
-  const {
-    options,
-    onChange,
-    submit,
-    title,
-    defaultState,
-    defaultError,
-    className,
-    compact,
-  } = props;
   const [form, setForm] = useState(defaultState || def(options));
   const [spinning, setSpinning] = useState<boolean | null | undefined>(
     undefined,
@@ -136,7 +135,7 @@ const Form: React.FC<FormProps> = (props) => {
         )}
       >
         {fError?.global && fError.global.length > 0
-          ? fError.global?.map((er: any, index) => {
+          ? fError.global?.map((er: any) => {
               return (
                 <div key={uuid()} className="glx-form--error">
                   {' '}
@@ -169,6 +168,6 @@ const Form: React.FC<FormProps> = (props) => {
       ) : null}
     </Grid>
   );
-};
+}
 
 export default Form;

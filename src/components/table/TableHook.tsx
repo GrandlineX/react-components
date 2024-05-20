@@ -79,7 +79,7 @@ export type ITableFc<T = any> = {
 
   getColumDefs(add?: TableActionFc<T>[]): ColumTableProps<T>[];
 };
-export function useTableStore<T = any>(
+export function useTableStore<T extends Record<string, any>>(
   props: TableProps<T>,
 ): {
   data: {

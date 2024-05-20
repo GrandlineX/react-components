@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Breadcrumbs } from '../../components';
 
@@ -19,15 +18,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    items: [
-      { name: 'Home' },
-      {
-        name: 'User',
-        action: () => {
-          console.log('Click');
-        },
-      },
-      { name: 'Profile' },
-    ],
+    items: ['Home', 'User', 'Profile'].map((x, i) => ({
+      key: x.toLowerCase(),
+      name: x,
+      active: i % 2 === 0,
+    })),
   },
 };

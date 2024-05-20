@@ -19,17 +19,30 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const fullConf: FormConf = [
-  [{ type: InputOptionType.TEXT, key: 'key01', label: '1. Text' }],
+  [
+    {
+      type: InputOptionType.TEXT,
+      key: 'key01',
+      label: '1. Text',
+      help: 'Simple Help Text ',
+    },
+  ],
   [{ type: InputOptionType.ICON_TEXT, key: 'key01b', label: '1b. Icon Text' }],
   [
     {
       type: InputOptionType.PASSWORD,
       key: 'key02',
       label: '2. Password',
+      help: 'Simple Help Text ',
     },
   ],
   [
-    { type: InputOptionType.TEXT, key: 'key03a', label: '3a. Text' },
+    {
+      type: InputOptionType.TEXT,
+      key: 'key03a',
+      label: '3a. Text',
+      help: 'Simple Help Text ',
+    },
     { type: InputOptionType.TEXT, key: 'key03b', label: '3b. Text' },
     {
       type: InputOptionType.TEXT,
@@ -38,7 +51,10 @@ const fullConf: FormConf = [
       disabled: true,
     },
   ],
-  [{ type: InputOptionType.NUMBER, key: 'key04', label: '4. Number' }],
+  [
+    { type: InputOptionType.NUMBER, key: 'key04', label: '4. Number' },
+    { type: InputOptionType.EMPTY, key: 'key04b' },
+  ],
   [
     {
       type: InputOptionType.CHECKBOX,
@@ -107,39 +123,39 @@ const fullConf: FormConf = [
           {
             key: 'first',
             name: 'First',
-            other: 'red',
+            meta: 'red',
             icon: 'IOGlobe',
           },
           {
             key: 'second',
             name: 'Second',
-            other: 'green',
+            meta: 'green',
             icon: 'IOBug',
           },
           {
             key: 'third',
             name: 'Third',
-            other: 'yellow',
+            meta: 'yellow',
           },
           {
             key: 'x1',
             name: 'X1-Badge',
-            other: 'black',
+            meta: 'black',
           },
           {
             key: 'x2',
             name: 'X2-Badge',
-            other: 'black',
+            meta: 'black',
           },
           {
             key: 'x3',
             name: 'X3-Badge',
-            other: 'black',
+            meta: 'black',
           },
           {
             key: 'x4',
             name: 'X4-Badge',
-            other: 'black',
+            meta: 'black',
           },
         ],
         onChange: async (fields: string[], change: any) => {
@@ -177,7 +193,7 @@ const fullConf: FormConf = [
         {
           key: '1',
           name: 'Random User',
-          other: {
+          meta: {
             userId: '1',
             subTitle: "Random User's Subtitle",
             firstName: 'Random',
@@ -188,7 +204,7 @@ const fullConf: FormConf = [
         {
           key: '2',
           name: 'Random User 2',
-          other: {
+          meta: {
             userId: '12',
             subTitle: "Random User's Subtitle 2",
             firstName: 'Random2',
@@ -221,6 +237,50 @@ const fullConf: FormConf = [
         {
           key: 'third',
           name: 'Third',
+        },
+      ],
+    },
+  ],
+  [
+    {
+      type: InputOptionType.IMAGE_SELECT,
+      key: 'key20',
+      label: '20. Image Select',
+      items: [
+        {
+          key: 'first',
+          meta: {
+            url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+          },
+          name: 'Earth',
+        },
+        {
+          key: 'second',
+          meta: {
+            url: 'https://fastly.picsum.photos/id/909/300/200.jpg?hmac=KA_47FNe3iWg6PLVYLhWOoAQPkO6pByurD0_H_K2phA',
+          },
+          name: 'Wave',
+        },
+        {
+          key: 'third',
+          meta: {
+            url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+          },
+          name: 'Earth',
+        },
+        {
+          key: 'fourth',
+          meta: {
+            url: 'https://fastly.picsum.photos/id/909/300/200.jpg?hmac=KA_47FNe3iWg6PLVYLhWOoAQPkO6pByurD0_H_K2phA',
+          },
+          name: 'Wave',
+        },
+        {
+          key: 'fifth',
+          meta: {
+            url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+          },
+          name: 'Earth',
         },
       ],
     },
@@ -299,6 +359,7 @@ export const FormPrefill: Story = {
         gravatarEmail: 'test@user.de',
       },
       key19: 1,
+      key20: 'first',
     },
   },
 };

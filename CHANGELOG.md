@@ -1,6 +1,13 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.5.1]
+### Added
+- Local Storage helper class
+- Style classes for mobile
+### Changed
+- Update dependencies
+
 ## [0.5.0]
 ### Added
 - Add new component `ImageSelector`

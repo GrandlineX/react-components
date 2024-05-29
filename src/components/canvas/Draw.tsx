@@ -14,7 +14,11 @@ export type Coordinate = {
   y: number;
 };
 
-const Draw = ({ width, height, onChange }: CanvasProps) => {
+const Draw = ({
+  width = window.innerWidth,
+  height = window.innerHeight,
+  onChange,
+}: CanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [color, setColor] = useState<string>('blue');
   const [lineWidth, setLineWidth] = useState<number>(5);
@@ -248,12 +252,6 @@ const Draw = ({ width, height, onChange }: CanvasProps) => {
       />
     </Grid>
   );
-};
-
-Draw.defaultProps = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-  onChange: undefined,
 };
 
 export default Draw;

@@ -24,7 +24,7 @@ export type SideBarProps = {
   botMenu: MenuItemType[];
   onClickItem?: (key: MenuItemType) => void;
 };
-const Sidebar: React.FC<SideBarProps> = function (props) {
+function Sidebar(props: SideBarProps) {
   const { topMenu, botMenu, onClickItem } = props;
   return (
     <div className="sidebar--container">
@@ -90,9 +90,6 @@ const Sidebar: React.FC<SideBarProps> = function (props) {
       </div>
     </div>
   );
-};
-Sidebar.defaultProps = {
-  onClickItem: undefined,
-};
+}
 
 export { Sidebar };

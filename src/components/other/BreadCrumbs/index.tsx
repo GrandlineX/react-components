@@ -10,10 +10,12 @@ export type IBreadcrumb = {
 export type BreadcrumbsProps<T extends IBreadcrumb = IBreadcrumb> = {
   items: T[];
   onClick?: (item: T) => void;
+  iconSize?: number;
 };
 export function Breadcrumbs<T extends IBreadcrumb = IBreadcrumb>({
   items,
   onClick,
+  iconSize,
 }: BreadcrumbsProps<T>) {
   return (
     <div className="glx-default-text glx-flex-r glx-flex-g-4">
@@ -27,8 +29,11 @@ export function Breadcrumbs<T extends IBreadcrumb = IBreadcrumb>({
             {e.name}
           </div>{' '}
           {index < items.length - 1 ? (
-            <div key={`${e.key}_arrow`}>
-              <IOChevronForward />
+            <div
+              key={`${e.key}_arrow`}
+              className="glx-flex glx-flex-r glx-flex-center glx-h-full"
+            >
+              <IOChevronForward size={iconSize} />
             </div>
           ) : null}
         </>
@@ -36,7 +41,3 @@ export function Breadcrumbs<T extends IBreadcrumb = IBreadcrumb>({
     </div>
   );
 }
-
-Breadcrumbs.defaultProps = {
-  onClick: undefined,
-};

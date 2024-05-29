@@ -21,7 +21,7 @@ export interface ContentSwitcherProps {
 }
 
 const ContentSwitcher = (props: ContentSwitcherProps) => {
-  const { onChange, selectedIndex, items, parentState, className } = props;
+  const { onChange, selectedIndex = 0, items, parentState, className } = props;
   const [cur, setCur] = useState<number>(selectedIndex ?? 0);
   const cnx = useCnx('glx-content-switcher-wrapper', className);
   const [open, setOpen] = useState<boolean | null>(
@@ -130,9 +130,4 @@ const ContentSwitcher = (props: ContentSwitcherProps) => {
   );
 };
 
-ContentSwitcher.defaultProps = {
-  selectedIndex: 0,
-  parentState: undefined,
-  className: undefined,
-};
 export default ContentSwitcher;

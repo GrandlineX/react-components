@@ -144,7 +144,3 @@ export const FileAudiPlayer = forwardRef<
     </>
   );
 });
-
-FileAudiPlayer.defaultProps = {
-  ref: undefined,
-};

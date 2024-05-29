@@ -98,12 +98,5 @@ const Tooltip = (props: ToolTipProp) => {
     </span>
   );
 };
-Tooltip.defaultProps = {
-  width: undefined,
-  position: undefined,
-  className: '',
-  text: undefined,
-  children: undefined,
-  preLine: undefined,
-};
+
 export default Tooltip;

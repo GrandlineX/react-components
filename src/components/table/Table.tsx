@@ -171,12 +171,14 @@ function TableRow<T extends Record<string, any>>(
     </>
   );
 }
-TableRow.defaultProps = {
-  extendRowRenderer: undefined,
-};
 function Table<T extends Record<string, any>>(props: TableProps<T>) {
   const { api, data } = useTableStore<T>(props);
-  const { extendRowRenderer, className, fixedHeader, isSelectable } = props;
+  const {
+    extendRowRenderer,
+    className,
+    fixedHeader,
+    isSelectable = false,
+  } = props;
 
   return (
     <table
@@ -206,13 +208,5 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
     </table>
   );
 }
-Table.defaultProps = {
-  defaultColDef: undefined,
-  onClickRow: undefined,
-  onCellValueChanged: undefined,
-  extendRowRenderer: undefined,
-  rowAction: undefined,
-  isSelectable: false,
-  onSelectionChange: undefined,
-};
+
 export default Table;

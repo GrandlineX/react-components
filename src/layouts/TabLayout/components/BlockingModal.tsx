@@ -17,6 +17,3 @@ export function BlockingModal(props: ModalProps) {
     </div>
   );
 }
-BlockingModal.defaultProps = {
-  progress: undefined,
-};

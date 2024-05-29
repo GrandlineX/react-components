@@ -274,23 +274,4 @@ const Card = (props: CardProps) => {
   );
 };
 
-Card.defaultProps = {
-  order: undefined,
-  className: undefined,
-  imgUrl: undefined,
-  imgBase: undefined,
-  iconCover: undefined,
-  skeleton: undefined,
-  icon: undefined,
-  color: undefined,
-  button: undefined,
-  date: undefined,
-  hoverButton: undefined,
-  noIcon: undefined,
-  badges: undefined,
-  title: undefined,
-  children: undefined,
-  menu: undefined,
-};
-
 export { Card };

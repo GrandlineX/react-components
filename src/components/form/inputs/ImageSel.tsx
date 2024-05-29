@@ -26,8 +26,8 @@ export default function ImageSel({
   selected,
   maxStep,
   onChange,
-  imgSize,
   extended,
+  imgSize = { width: 300, height: 200 },
 }: Readonly<ImageSelProps>) {
   const t = useUIContext();
   const step = useMemo(() => maxStep ?? 4, [maxStep]);
@@ -111,9 +111,3 @@ export default function ImageSel({
     </Grid>
   );
 }
-ImageSel.defaultProps = {
-  selected: undefined,
-  onChange: undefined,
-  extended: undefined,
-  imgSize: { width: 300, height: 200 },
-};

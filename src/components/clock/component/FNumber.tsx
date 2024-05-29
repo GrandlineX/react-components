@@ -63,6 +63,3 @@ export default function FNumber(props: {
     </Grid>
   );
 }
-FNumber.defaultProps = {
-  second: undefined,
-};

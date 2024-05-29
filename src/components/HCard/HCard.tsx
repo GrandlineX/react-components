@@ -135,8 +135,4 @@ function HCard({
   );
 }
 
-HCard.defaultProps = {
-  imageWidth: undefined,
-};
-
 export { HCard };

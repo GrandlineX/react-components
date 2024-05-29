@@ -199,12 +199,3 @@ export function SmartInput(prop: SmartInputInputProps) {
     </div>
   );
 }
-
-SmartInput.defaultProps = {
-  onChange: undefined,
-  value: undefined,
-  placeholder: undefined,
-  list: undefined,
-  disabled: undefined,
-  searchFC: undefined,
-};

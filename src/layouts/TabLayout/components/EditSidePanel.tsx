@@ -88,12 +88,3 @@ export const EditSidePanel = ({
     </div>
   );
 };
-EditSidePanel.defaultProps = {
-  className: undefined,
-  children: undefined,
-  defaultWidth: undefined,
-  defaultMinWidth: undefined,
-  defaultOffsetWidth: undefined,
-  initSize: undefined,
-  onResize: undefined,
-};

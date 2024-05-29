@@ -83,7 +83,7 @@ export function def(options: FormConf) {
 export const DefaultInput = ({
   inp,
   e,
-  numeric,
+  numeric = false,
   form,
   updateForm,
   enterHandler,
@@ -132,9 +132,6 @@ export const DefaultInput = ({
       }}
     />
   );
-};
-DefaultInput.defaultProps = {
-  numeric: false,
 };
 
 /**

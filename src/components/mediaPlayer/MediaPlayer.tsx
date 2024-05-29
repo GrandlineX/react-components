@@ -78,23 +78,4 @@ export const MediaPlayer = forwardRef<
         />
       );
   }
-}); // <X = any>(props: MediaPlayerProps<X>)
-
-MediaPlayer.defaultProps = {
-  className: undefined,
-  controls: true,
-  poster: undefined,
-  preload: undefined,
-  width: undefined,
-  height: undefined,
-  autoplay: undefined,
-  loop: undefined,
-  muted: undefined,
-  crossorigin: undefined,
-  onEnded: undefined,
-  onPause: undefined,
-  onPlay: undefined,
-  onStart: undefined,
-  onProgress: undefined,
-  onDurationChange: undefined,
-};
+});

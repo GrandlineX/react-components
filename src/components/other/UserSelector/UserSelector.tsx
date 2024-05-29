@@ -4,15 +4,21 @@ import { IUser } from './types';
 import UserBadge from './UserBadge';
 import { useAutoClose } from '../../../util/hooks';
 
-const UserSelector: React.FC<{
+const UserSelector = ({
+  value,
+  onChange,
+  searchFC,
+  placeholder,
+  disabled,
+  list,
+}: {
   searchFC?: (s: string) => Promise<IUser | null>;
   onChange?: (meta: IUser | null) => void;
   value?: IUser;
   list?: IUser[];
   placeholder?: string;
   disabled?: boolean;
-}> = (prop) => {
-  const { value, onChange, searchFC, placeholder, disabled, list } = prop;
+}) => {
   const [selected, setSelected] = useState<IUser | null>(value || null);
   const [search, setSearch] = useState<string>('');
   const [open, setOpen] = useState(false);
@@ -96,12 +102,4 @@ const UserSelector: React.FC<{
   );
 };
 
-UserSelector.defaultProps = {
-  onChange: undefined,
-  value: undefined,
-  placeholder: undefined,
-  list: undefined,
-  disabled: undefined,
-  searchFC: undefined,
-};
 export default UserSelector;

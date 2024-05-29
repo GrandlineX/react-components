@@ -178,6 +178,3 @@ export function TabBarElement({
     </>
   );
 }
-TabBarElement.defaultProps = {
-  contextMenu: undefined,
-};

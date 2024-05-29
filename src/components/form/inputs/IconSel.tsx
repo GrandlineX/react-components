@@ -18,7 +18,7 @@ export default function IconSel(props: {
   className?: string;
 }) {
   const ui = useUIContext();
-  const { onChange, sel, className, disabled } = props;
+  const { onChange, sel, className, disabled = false } = props;
 
   const [cur, setCur] = useState<INames | null>(sel || null);
   const [open, setOpen] = useState(false);
@@ -96,8 +96,3 @@ export default function IconSel(props: {
     </div>
   );
 }
-IconSel.defaultProps = {
-  className: undefined,
-  disabled: false,
-  sel: undefined,
-};

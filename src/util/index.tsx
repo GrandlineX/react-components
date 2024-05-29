@@ -1,10 +1,12 @@
 import React, { ReactNode, useMemo } from 'react';
 import md5 from './MD5';
+import LocalStorage from './LocalStorage';
 import copyToClipboard from './Clipboard';
 import getSaveWindow from './BuildHelper';
 
 export * from './GLang';
 export * from './MainContext';
+export * from './LocalStorage';
 
 export async function sleep(ms: number) {
   return new Promise((resolve) => {
@@ -95,4 +97,4 @@ function loop<X = ReactNode>(
   return arr;
 }
 
-export { md5, copyToClipboard, sGen, loop, getSaveWindow };
+export { md5, copyToClipboard, sGen, loop, getSaveWindow, LocalStorage };

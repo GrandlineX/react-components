@@ -239,8 +239,3 @@ export function SpotlightModal({
     </Grid>
   );
 }
-SpotlightModal.defaultProps = {
-  defaultSearch: undefined,
-  action: undefined,
-  hint: undefined,
-};

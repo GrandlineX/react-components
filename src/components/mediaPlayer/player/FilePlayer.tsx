@@ -149,7 +149,3 @@ export const FilePlayer = forwardRef<FilePlayerParentFunction, FilePlayerProps>(
     );
   },
 );
-
-FilePlayer.defaultProps = {
-  ref: undefined,
-};

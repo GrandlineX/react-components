@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import Tooltip from '../tooltip/Tooltip';
 import { IconButton } from '../button/IconButton';
 import CheckBox from '../form/inputs/CheckBox';
@@ -32,7 +32,8 @@ export type ColumTableProps<T = any> = DefaultColumTableProps<T> & {
 export type TableAction = {
   name: string;
   icon: React.ReactNode;
-  onClick: () => void;
+  onClick: (event: MouseEvent) => void;
+  disabled?: boolean;
 };
 export type TableActionFc<T = any> = (dat: BaseRowEvent<T>) => TableAction;
 //* **************************** TableAction ********************************************************
@@ -132,7 +133,7 @@ export function useTableStore<T extends Record<string, any>>(
         cellRenderer: (dat) => (
           <div className="glx-flex-row glx-flex-g-2">
             <CheckBox
-              onChange={(e) => {
+              onChange={() => {
                 if (rowSelected(dat.data)) {
                   rowUnSelect(dat.data);
                 } else {
@@ -160,6 +161,9 @@ export function useTableStore<T extends Record<string, any>>(
           <div className="glx-flex-row glx-flex-g-2">
             {rows.map((act) => {
               const x = act(dat);
+              if (x.disabled) {
+                return null;
+              }
               return (
                 <Tooltip text={x.name} position="left">
                   <IconButton onClick={x.onClick}>{x.icon}</IconButton>

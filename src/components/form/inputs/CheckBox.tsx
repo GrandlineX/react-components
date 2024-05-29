@@ -14,7 +14,14 @@ export default function CheckBox(props: {
   onChange: (ev: boolean) => void;
   className?: string;
 }) {
-  const { onChange, checked, className, large, value, disabled } = props;
+  const {
+    onChange,
+    checked,
+    className,
+    large = false,
+    value,
+    disabled = false,
+  } = props;
   const [ck, setChecked] = useState(checked);
   const v = useMemo(() => {
     if (value !== undefined) {
@@ -44,9 +51,3 @@ export default function CheckBox(props: {
     </span>
   );
 }
-CheckBox.defaultProps = {
-  className: undefined,
-  large: false,
-  disabled: false,
-  value: undefined,
-};

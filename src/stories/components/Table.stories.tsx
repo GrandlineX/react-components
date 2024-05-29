@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { IOTrash } from '@grandlinex/react-icons';
+import { IOText, IOTrash } from '@grandlinex/react-icons';
 import { ColumTableProps, Table } from '../../components';
 import { sid, sleep } from '../../util';
 
@@ -145,6 +145,14 @@ export const Action: Story = {
     rowAction: [
       (row) => {
         return {
+          icon: <IOText />,
+          name: 'Text',
+          onClick: () => {},
+          disabled: !row.data.json,
+        };
+      },
+      (row) => {
+        return {
           icon: <IOTrash />,
           name: 'Delete',
           onClick: () => {},
@@ -169,7 +177,11 @@ export const Nested: Story = {
               return {
                 icon: <IOTrash />,
                 name: 'Delete',
-                onClick: () => {},
+                onClick: (e) => {
+                  if (e.shiftKey) {
+                    console.log('shift');
+                  }
+                },
               };
             },
           ]}

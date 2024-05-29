@@ -1,0 +1,54 @@
+@media screen and (max-width: 600px) {
+  .glx-hide-on-xs {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .glx-hide-on-md {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .glx-hide-on-lg {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+}
+
+.glx-show-on-xs, .glx-show-on-md, .glx-show-on-lg {
+  visibility: hidden;
+  clear: both;
+  display: none;
+}
+
+
+@media screen and (min-width: 600px) {
+  .glx-show-on-xs {
+    visibility: visible;
+    clear: unset;
+    display: block;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .glx-show-on-md {
+    visibility: visible;
+    clear: unset;
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .glx-show-on-lg {
+    visibility: visible;
+    clear: unset;
+    display: block;
+  }
+}

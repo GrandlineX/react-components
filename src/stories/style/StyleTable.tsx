@@ -41,7 +41,7 @@ export function StyledCode({ children }: PropsWithChildren) {
   return <code className={cnx('styled-class')}>{children}</code>;
 }
 
-export function StyleTable({ data, showDescription }: StyleTableProps) {
+export function StyleTable({ data, showDescription = false }: StyleTableProps) {
   return (
     <table className="styled-table">
       <thead>
@@ -86,6 +86,3 @@ export function StyleTable({ data, showDescription }: StyleTableProps) {
     </table>
   );
 }
-StyleTable.defaultProps = {
-  showDescription: false,
-};

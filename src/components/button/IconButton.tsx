@@ -4,7 +4,7 @@ import { cnx } from '../../util';
 import Tooltip, { ToolTipProp } from '../tooltip/Tooltip';
 
 export type IconButtonProps = {
-  onClick: (event?: MouseEvent) => void;
+  onClick: (event: MouseEvent) => void;
   className?: string;
   color?:
     | 'red'
@@ -58,14 +58,5 @@ const IconButton = (props: IconButtonProps) => {
       </button>
     </Tooltip>
   );
-};
-IconButton.defaultProps = {
-  color: undefined,
-  className: undefined,
-  disabled: undefined,
-  toolTip: undefined,
-  children: undefined,
-  icon: undefined,
-  style: undefined,
 };
 export { IconButton };

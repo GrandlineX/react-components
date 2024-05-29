@@ -53,14 +53,5 @@ const Button = (props: ButtonProps) => {
     </button>
   );
 };
-Button.defaultProps = {
-  text: undefined,
-  color: undefined,
-  className: undefined,
-  disabled: undefined,
-  cancel: undefined,
-  half: undefined,
-  children: undefined,
-  style: undefined,
-};
+
 export { Button };

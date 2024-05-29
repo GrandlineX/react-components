@@ -32,16 +32,21 @@ function isShown(item: MenuItemInterface, search: string | undefined): number {
   return 0;
 }
 
-const PanelMenuItem: React.FC<{
+function PanelMenuItem({
+  item,
+  level = 0,
+  search = '',
+  noFilter,
+  homeFlag = false,
+  defaultOnClick,
+}: {
   item: MenuItemInterface;
   level?: number;
   search?: string;
   homeFlag?: boolean;
   defaultOnClick?: (key: string) => void;
   noFilter?: boolean;
-}> = function (props) {
-  const { item, level, search, noFilter, homeFlag, defaultOnClick } = props;
-
+}) {
   const [open, setOpen] = useState<boolean>(false);
 
   const { icon, text, key, children, isMenu } = item;
@@ -117,12 +122,5 @@ const PanelMenuItem: React.FC<{
         : null}
     </>
   );
-};
-PanelMenuItem.defaultProps = {
-  level: 0,
-  search: '',
-  homeFlag: false,
-  defaultOnClick: undefined,
-  noFilter: undefined,
-};
+}
 export { PanelMenuItem };

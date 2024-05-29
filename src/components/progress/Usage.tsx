@@ -1,12 +1,12 @@
 import React from 'react';
 import colorSelect from './Color';
 
-const Usage: React.FC<{
+function Usage(props: {
   value: number;
   label: string | React.ReactNode;
   colors?: [string, string, string];
   width?: string | number;
-}> = function (props) {
+}) {
   const { value, label, colors, width } = props;
   return (
     <div className="glx-usage-comp" style={{ width }}>
@@ -22,10 +22,6 @@ const Usage: React.FC<{
       <div className="glx-usage-comp-label">{label}</div>
     </div>
   );
-};
-Usage.defaultProps = {
-  colors: undefined,
-  width: undefined,
-};
+}
 
 export default Usage;

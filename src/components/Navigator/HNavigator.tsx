@@ -76,6 +76,3 @@ export default function HNavigator(props: HNavigatorProps) {
     </Grid>
   );
 }
-HNavigator.defaultProps = {
-  className: undefined,
-};

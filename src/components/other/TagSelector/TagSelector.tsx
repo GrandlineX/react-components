@@ -22,7 +22,7 @@ export type TagSelectorProps = {
   autoFocus?: boolean;
   onChange?: (items: string[], dif: TagSelectorChangeDiv) => void;
 };
-export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
+export const TagSelector = (prop: TagSelectorProps) => {
   const { items, onChange, placeholder, disabled, autoFocus, value } = prop;
   const [keyNavigation, setKeyNavigation] = useState<number>(-1);
 
@@ -176,12 +176,4 @@ export const TagSelector: React.FC<TagSelectorProps> = (prop) => {
       ) : null}
     </div>
   );
-};
-
-TagSelector.defaultProps = {
-  items: undefined,
-  onChange: undefined,
-  placeholder: undefined,
-  disabled: undefined,
-  autoFocus: undefined,
 };

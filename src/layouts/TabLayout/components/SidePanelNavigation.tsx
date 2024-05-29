@@ -19,9 +19,7 @@ export type SidePanelNavigationProps = {
   defaultOnClick?: (key: string) => void;
   autoFocus?: boolean;
 };
-const SidePanelNavigation: React.FC<SidePanelNavigationProps> = function (
-  props,
-) {
+function SidePanelNavigation(props: SidePanelNavigationProps) {
   const { searchText, itemList, getter, defaultOnClick, autoFocus } = props;
   const [search, setSearch] = useState<string>('');
   const [data] = useQData(async () => {
@@ -79,9 +77,6 @@ const SidePanelNavigation: React.FC<SidePanelNavigationProps> = function (
       </div>
     </>
   );
-};
-SidePanelNavigation.defaultProps = {
-  defaultOnClick: undefined,
-  autoFocus: undefined,
-};
+}
+
 export { SidePanelNavigation };

@@ -99,27 +99,3 @@ export default function Grid(props: GridProps) {
   // eslint-disable-next-line react/jsx-props-no-spreading
   return <div {...outProps}>{children}</div>;
 }
-
-Grid.defaultProps = {
-  className: undefined,
-  flex: undefined,
-  flexRow: undefined,
-  flexR: undefined,
-  flexColumn: undefined,
-  flexC: undefined,
-  divRef: undefined,
-  center: undefined,
-  vCenter: undefined,
-  hCenter: undefined,
-  gap: undefined,
-  grow: undefined,
-  flexStart: undefined,
-  flexEnd: undefined,
-  flexSpaceA: undefined,
-  flexSpaceB: undefined,
-  fullWidth: undefined,
-  layOut: undefined,
-  flexMobile: undefined,
-  flexWrap: undefined,
-  fullHeight: undefined,
-};

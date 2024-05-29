@@ -14,7 +14,16 @@ export interface MenuItem {
   isLabel?: boolean;
 }
 
-const DropDownIconMenu: React.FC<{
+const DropDownIconMenu = ({
+  menu,
+  children,
+  className,
+  onChange,
+  initialValue,
+  left = false,
+  top = false,
+  isSubMenu = false,
+}: {
   menu: MenuItem[];
   isSubMenu?: boolean;
   left?: boolean;
@@ -23,17 +32,7 @@ const DropDownIconMenu: React.FC<{
   onChange?: (key: string, mode?: boolean) => void;
   initialValue?: Record<string, boolean>;
   children?: React.ReactNode;
-}> = (props) => {
-  const {
-    menu,
-    left,
-    children,
-    className,
-    onChange,
-    initialValue,
-    isSubMenu,
-    top,
-  } = props;
+}) => {
   const [active, setActive] = useState<any | undefined>(initialValue ?? {});
   const [height, setHeight] = useState<number>(0);
   function closeAll(men?: { key: string; value: any }) {
@@ -157,13 +156,4 @@ const DropDownIconMenu: React.FC<{
   );
 };
 
-DropDownIconMenu.defaultProps = {
-  left: false,
-  top: false,
-  onChange: undefined,
-  className: undefined,
-  initialValue: undefined,
-  isSubMenu: false,
-  children: undefined,
-};
 export default DropDownIconMenu;

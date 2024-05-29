@@ -1,12 +1,12 @@
 import React from 'react';
 import colorSelect from './Color';
 
-const UsageMap: React.FC<{
+function UsageMap(props: {
   value: (number | { val: number; color: string })[];
   label: string | React.ReactNode;
   colors?: [string, string, string];
   width?: string | number;
-}> = function (props) {
+}) {
   const { value, label, colors, width } = props;
 
   return (
@@ -29,16 +29,12 @@ const UsageMap: React.FC<{
                 backgroundColor: v.color,
               }}
             />
-          )
+          ),
         )}
       </div>
       <div className="glx-usage-comp-label">{label}</div>
     </div>
   );
-};
-UsageMap.defaultProps = {
-  colors: undefined,
-  width: undefined,
-};
+}
 
 export default UsageMap;

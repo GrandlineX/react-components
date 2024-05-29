@@ -41,6 +41,7 @@
     "jsx-a11y/no-autofocus": "warn",
     "react/no-unused-prop-types": "warn",
     "linebreak-style": "off",
+    "react/require-default-props": "off",
     "react/function-component-definition": "off",
     "no-restricted-properties": "warn",
     "import/extensions": [

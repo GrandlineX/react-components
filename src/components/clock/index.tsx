@@ -12,11 +12,11 @@ export enum ClockEnum {
   'NUMERIC' = 'NUMERIC',
 }
 
-export const Clock: React.FC<{
+export const Clock = (props: {
   className?: string;
   mode?: ClockEnum;
   custom?: (clock: ClockType) => ReactNode;
-}> = (props) => {
+}) => {
   const { className, mode, custom } = props;
   const [clock, setClock] = useState<ClockType>({
     s: 'SS',
@@ -57,10 +57,4 @@ export const Clock: React.FC<{
       })()}
     </div>
   );
-};
-
-Clock.defaultProps = {
-  className: undefined,
-  custom: undefined,
-  mode: undefined,
 };

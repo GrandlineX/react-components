@@ -1,14 +1,14 @@
 import React from 'react';
 import { cnx } from '../../../util';
 
-const Persona: React.FC<{
+const Persona = (prop: {
   text?: string;
   img?: string;
   color?: string;
   size?: string;
   small?: boolean;
   lazy?: boolean;
-}> = (prop) => {
+}) => {
   const { text, color, size, small, img, lazy } = prop;
 
   return (
@@ -31,12 +31,4 @@ const Persona: React.FC<{
   );
 };
 
-Persona.defaultProps = {
-  color: undefined,
-  size: undefined,
-  img: undefined,
-  text: undefined,
-  small: undefined,
-  lazy: undefined,
-};
 export default Persona;

@@ -13,7 +13,16 @@ export type NotificationElementProps = {
   message: string;
   date?: string;
 };
-const NotificationElement: React.FC<{
+function NotificationElement({
+  el,
+  onClick,
+  button,
+  icon,
+  color,
+  image,
+  menu,
+  fallbackIcon,
+}: {
   el: NotificationElementProps;
   onClick?: () => void;
   icon?: ReactNode;
@@ -31,9 +40,7 @@ const NotificationElement: React.FC<{
     tooltip?: string;
     key: string;
   }[];
-}> = function (props) {
-  const { el, onClick, button, icon, color, image, menu, fallbackIcon } = props;
-
+}) {
   return (
     <div
       key={el.key}
@@ -111,15 +118,6 @@ const NotificationElement: React.FC<{
       ) : null}
     </div>
   );
-};
-NotificationElement.defaultProps = {
-  onClick: undefined,
-  button: undefined,
-  icon: undefined,
-  image: undefined,
-  menu: undefined,
-  color: undefined,
-  fallbackIcon: undefined,
-};
+}
 
 export { NotificationElement };

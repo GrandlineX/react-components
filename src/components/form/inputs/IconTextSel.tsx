@@ -14,7 +14,7 @@ export default function IconTextSel(props: {
   className?: string;
   placeholder?: string;
 }) {
-  const { onChange, sel, className, placeholder, disabled } = props;
+  const { onChange, sel, className, placeholder, disabled = false } = props;
 
   const [cur, setCur] = useState<IcTexProps>(
     sel || {
@@ -48,9 +48,3 @@ export default function IconTextSel(props: {
     </Grid>
   );
 }
-IconTextSel.defaultProps = {
-  className: undefined,
-  disabled: false,
-  sel: undefined,
-  placeholder: undefined,
-};

@@ -154,13 +154,4 @@ const TabLayout = ({
     </div>
   );
 };
-TabLayout.defaultProps = {
-  disableSideBar: false,
-  sideBar: undefined,
-  globalRenderer: undefined,
-  blockingModal: undefined,
-  spotlightOpen: undefined,
-  spotlightProps: undefined,
-  hotKeys: undefined,
-};
 export { TabLayout };

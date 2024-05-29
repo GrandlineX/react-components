@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { TabItem, WCMode } from '../layouts/TabLayout/lib/index';
 
 export function useQData<T>(
@@ -21,6 +21,31 @@ export function useQData<T>(
     }
   });
   return [element, setElement, refresh];
+}
+export function useAsync<T>(
+  callback: () => Promise<T>,
+  dependencies: any[] = [],
+): [T | undefined, boolean, any] {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+  const [value, setValue] = useState<T>();
+
+  const callbackMemoized = useCallback(() => {
+    setLoading(true);
+    setError(undefined);
+    setValue(undefined);
+    callback()
+      .then(setValue)
+      .catch(setError)
+      .finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencies);
+
+  useEffect(() => {
+    callbackMemoized();
+  }, [callbackMemoized]);
+
+  return [value, loading, error];
 }
 
 export function useAutoClose<T extends HTMLElement>(

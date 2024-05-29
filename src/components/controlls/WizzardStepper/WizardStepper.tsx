@@ -13,14 +13,14 @@ export type Step = {
   buttonTextBack?: string;
 };
 
-const WizardStepper: React.FC<{
+function WizardStepper(props: {
   className?: string;
   title: string;
   steps: Step[];
   initStep?: number;
   width?: number | string;
   onStep?: (pos: number) => void;
-}> = function (props) {
+}) {
   const { width, steps, title, className, initStep, onStep } = props;
   const [step, setStep] = useState<number>(initStep || 0);
   const [boxMessage, setBoxMessage] = useState<React.ReactNode | null>(null);
@@ -117,11 +117,5 @@ const WizardStepper: React.FC<{
       {loading ? <Spinner /> : null}
     </div>
   );
-};
-WizardStepper.defaultProps = {
-  className: undefined,
-  initStep: undefined,
-  onStep: undefined,
-  width: undefined,
-};
+}
 export default WizardStepper;

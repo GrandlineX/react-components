@@ -58,11 +58,11 @@ function scrollTo(
   return true;
 }
 
-const PortalStepperEl: React.FC<{
+const PortalStepperEl = (props: {
   rRef: RefObject<HTMLDivElement>;
   el: PortStepperConf;
   collapse?: boolean;
-}> = (props) => {
+}) => {
   const { rRef, el, collapse } = props;
   const [open, setOpen] = useState(!el.collapsed);
   return (
@@ -84,11 +84,8 @@ const PortalStepperEl: React.FC<{
     </div>
   );
 };
-PortalStepperEl.defaultProps = {
-  collapse: undefined,
-};
-const PortalStepper: React.FC<PortStepperProps> = (props) => {
-  const { width, height, conf, className, offset, style, collapse } = props;
+const PortalStepper = (props: PortStepperProps) => {
+  const { width, height, conf, className, offset = 0, style, collapse } = props;
   const cName = useCnx('portal-stepper-main', className);
   const [cur, setCur] = useState<number>(0);
   const refField = useMemo<RefObject<HTMLDivElement>[]>(
@@ -153,13 +150,5 @@ const PortalStepper: React.FC<PortStepperProps> = (props) => {
       </div>
     </div>
   );
-};
-PortalStepper.defaultProps = {
-  className: undefined,
-  offset: 0,
-  style: undefined,
-  collapse: undefined,
-  width: undefined,
-  height: undefined,
 };
 export default PortalStepper;

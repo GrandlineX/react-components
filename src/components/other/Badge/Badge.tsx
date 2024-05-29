@@ -9,7 +9,7 @@ export type BadgeProps = {
   icon?: INames;
   close?: () => void;
 };
-const Badge: React.FC<BadgeProps> = (prop) => {
+const Badge = (prop: BadgeProps) => {
   const { text, color, icon, close } = prop;
 
   return (
@@ -25,10 +25,4 @@ const Badge: React.FC<BadgeProps> = (prop) => {
   );
 };
 
-Badge.defaultProps = {
-  color: undefined,
-  text: undefined,
-  icon: undefined,
-  close: undefined,
-};
 export default Badge;

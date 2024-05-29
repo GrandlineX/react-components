@@ -3,14 +3,14 @@ import { getIcon, INames } from '@grandlinex/react-icons';
 import { MenuItemInterface, PanelMenuItem } from './PanelMenuItem';
 import { Grid } from '../../../components';
 
-const SidePanelNavigationBlock: React.FC<{
+function SidePanelNavigationBlock(props: {
   single: boolean;
   headerText: string;
   icon?: INames;
   data: MenuItemInterface[];
   search?: string;
   defaultOnClick?: (key: string) => void;
-}> = function (props) {
+}) {
   const { icon, data, search, single, headerText, defaultOnClick } = props;
 
   return (
@@ -38,11 +38,7 @@ const SidePanelNavigationBlock: React.FC<{
       {!single ? <hr className="glx-mx-8" /> : null}
     </>
   );
-};
-SidePanelNavigationBlock.defaultProps = {
-  search: undefined,
-  defaultOnClick: undefined,
-  icon: undefined,
-};
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export { SidePanelNavigationBlock };

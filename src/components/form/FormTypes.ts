@@ -33,6 +33,7 @@ export enum InputOptionType {
 export interface InputOptionItem<X = any> {
   key: string;
   name: string;
+  disabled?: boolean;
   icon?: INames;
   meta?: X;
 }

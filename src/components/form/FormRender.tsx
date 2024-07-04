@@ -16,6 +16,7 @@ import ContentSwitcher from '../controlls/ContentSwitch/ContentSwitcher';
 import { cnx, useUIContext } from '../../util';
 import ImageSel from './inputs/ImageSel';
 import Tooltip from '../tooltip/Tooltip';
+import FormDropdown from './inputs/FormDropdown';
 
 /**
  * Get FormInputList
@@ -211,25 +212,19 @@ export function FormRow({
           switch (type) {
             case InputOptionType.DROPDOWN:
               iType = (
-                <select
+                <FormDropdown
                   key={key}
                   className="glx-input-dark glx-w-full glx-m-2"
                   value={form[key]}
                   autoFocus={autoFocus}
                   required={required}
-                  aria-placeholder={placeholder}
                   disabled={disabled}
                   onChange={(ev) => {
                     onChange?.(ev.target.value);
                     updateForm(key, ev.target.value);
                   }}
-                >
-                  {items?.map((el) => (
-                    <option key={el.key} value={el.key}>
-                      {el.name}
-                    </option>
-                  ))}
-                </select>
+                  items={items ?? []}
+                />
               );
               noUnderline = true;
               break;

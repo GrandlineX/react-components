@@ -19,6 +19,10 @@ const defaultGLang = new GLang({
       value: 'Nothing selected',
     },
     {
+      key: 'glx.form.field.search',
+      value: 'Search...',
+    },
+    {
       key: 'glx.form.field.selection',
       value: 'Selected',
     },

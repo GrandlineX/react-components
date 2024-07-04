@@ -68,6 +68,13 @@ const fullConf: FormConf = [
       items: [
         { key: 'first', name: 'First' },
         { key: 'sec', name: 'Second' },
+        { key: 'third', name: 'Third', meta: { group: 'group1' } },
+        {
+          key: 'disabled',
+          name: 'Disabled',
+          meta: { group: 'group1' },
+          disabled: true,
+        },
       ],
       key: 'key06',
       label: '6. Dropdown',

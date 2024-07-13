@@ -159,10 +159,10 @@
     @extend .flex-center;
     background-color: $main-background;
     height: calc(100% - 40px);
+    overflow-x: hidden;
     h2 {
       font-size: 32pt;
     }
-    overflow-x: hidden;
   }
 
 
@@ -322,6 +322,12 @@
 
   .tab-bar {
 
+    position: absolute;
+    left: 42px;
+    color: $tlc-header-font-alt;
+    height: 40px;
+    overflow-y: hidden;
+
     .glx-drop-nonce--active{
       color: red;
     }
@@ -334,12 +340,6 @@
       width: 4px;
       height: 100%;
     }
-
-    position: absolute;
-    left: 42px;
-    color: $tlc-header-font-alt;
-    height: 40px;
-    overflow-y: hidden;
 
     .glx-tab-bar-r, .glx-tab-bar-l {
       display: flex;

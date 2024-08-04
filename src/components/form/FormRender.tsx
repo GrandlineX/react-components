@@ -423,6 +423,7 @@ export function FormRow({
                     icon: e.icon ?? 'IOPricetagOutline',
                     color: e.meta,
                   }))}
+                  maxOptions={restriction?.max}
                   onChange={(els, dif) => {
                     onChange?.(els, dif);
                     updateForm(key, els);

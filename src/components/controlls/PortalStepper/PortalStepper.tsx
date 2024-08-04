@@ -14,8 +14,10 @@ import { cnx, useCnx } from '../../../util';
 export interface PortStepperConf {
   key: string;
   name: string;
+  headerName?: string;
   hidden?: boolean;
   collapsed?: boolean;
+  collapse?: boolean;
   render?: React.ReactNode;
 }
 
@@ -72,7 +74,7 @@ const PortalStepperEl = (props: {
           className={cnx([!!collapse, 'glx-pointer'])}
           onClick={() => setOpen(!open)}
         >
-          {el.name}
+          {el.headerName ?? el.name}
         </span>
         {collapse ? (
           <IconButton className="glx-mx-8" onClick={() => setOpen(!open)}>
@@ -143,7 +145,7 @@ const PortalStepper = (props: PortStepperProps) => {
               key={el.key}
               rRef={refField[index]}
               el={el}
-              collapse={collapse}
+              collapse={el.collapse ?? collapse}
             />
           ),
         )}

@@ -21,9 +21,18 @@ export type TagSelectorProps = {
   disabled?: boolean;
   autoFocus?: boolean;
   onChange?: (items: string[], dif: TagSelectorChangeDiv) => void;
+  maxOptions?: number;
 };
 export const TagSelector = (prop: TagSelectorProps) => {
-  const { items, onChange, placeholder, disabled, autoFocus, value } = prop;
+  const {
+    items,
+    onChange,
+    placeholder,
+    disabled,
+    autoFocus,
+    value,
+    maxOptions = 10,
+  } = prop;
   const [keyNavigation, setKeyNavigation] = useState<number>(-1);
 
   const [focus, setFocus] = useState(autoFocus || false);
@@ -44,8 +53,8 @@ export const TagSelector = (prop: TagSelectorProps) => {
             s.key?.toLowerCase().includes(text.toLowerCase())) &&
           !selected.find((e) => e.key === s.key),
       ) || []
-    );
-  }, [items, text, selected]);
+    ).slice(0, maxOptions);
+  }, [items, maxOptions, text, selected]);
 
   const setNew = useCallback(
     (e: TagProps) => {

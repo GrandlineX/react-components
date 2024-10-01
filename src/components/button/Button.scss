@@ -10,10 +10,6 @@ button.button--base {
   display: inline-block;
   cursor: pointer;
   border-radius: 8px;
-
-  span {
-    margin-right: 6px;
-  }
 }
 
 .button--default::before {

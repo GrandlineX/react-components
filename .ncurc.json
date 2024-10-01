@@ -1,4 +1,9 @@
 {
   "upgrade": true,
-  "reject": []
+  "reject": [
+    "eslint",
+    "@typescript-eslint/parser",
+    "@typescript-eslint/eslint-plugin",
+    "ts-jest"
+  ]
 }

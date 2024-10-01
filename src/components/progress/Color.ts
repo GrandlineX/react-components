@@ -1,6 +1,6 @@
 export default function colorSelect(
   value: number,
-  colors: [string, string, string] = ['#1d47b0', '#ce8b2b', '#b4312d']
+  colors: [string, string, string] = ['#1d47b0', '#ce8b2b', '#b4312d'],
 ) {
   if (value < 85) {
     return colors[0];

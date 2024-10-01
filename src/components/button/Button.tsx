@@ -1,5 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { cnx } from '../../util';
+import Grid from '../Grid/Grid';
 
 export type ButtonProps = {
   onClick: (event?: MouseEvent) => void;
@@ -17,6 +18,7 @@ export type ButtonProps = {
   disabled?: boolean;
   cancel?: boolean;
   half?: boolean;
+  gap?: 0 | 2 | 4 | 6 | 8 | 10 | 12 | 24;
   children?: React.ReactNode;
   style?: React.CSSProperties;
 };
@@ -31,6 +33,7 @@ const Button = (props: ButtonProps) => {
     color,
     className,
     style,
+    gap,
   } = props;
 
   return (
@@ -48,8 +51,10 @@ const Button = (props: ButtonProps) => {
       onClick={onClick}
       disabled={disabled}
     >
-      <span>{children}</span>
-      {text}
+      <Grid flex flexR gap={gap} vCenter hCenter>
+        {children}
+        {text}
+      </Grid>
     </button>
   );
 };

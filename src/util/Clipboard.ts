@@ -1,5 +1,5 @@
 export default async function copyToClipboard(
-  textToCopy: string
+  textToCopy: string,
 ): Promise<boolean> {
   // navigator clipboard api needs a secure context (https)
   if (navigator.clipboard && window.isSecureContext) {

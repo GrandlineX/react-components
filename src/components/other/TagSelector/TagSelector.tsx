@@ -1,7 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  createRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { getIcon } from '@grandlinex/react-icons';
 import { cnx } from '../../../util';
-import Badge, { BadgeProps } from '../Badge/Badge';
+import { BadgeProps, Badge } from '../Badge/Badge';
 import { useAutoClose } from '../../../util/hooks';
 import Grid from '../../Grid/Grid';
 
@@ -23,7 +29,7 @@ export type TagSelectorProps = {
   onChange?: (items: string[], dif: TagSelectorChangeDiv) => void;
   maxOptions?: number;
 };
-export const TagSelector = (prop: TagSelectorProps) => {
+export function TagSelector(prop: TagSelectorProps) {
   const {
     items,
     onChange,
@@ -35,12 +41,15 @@ export const TagSelector = (prop: TagSelectorProps) => {
   } = prop;
   const [keyNavigation, setKeyNavigation] = useState<number>(-1);
 
+  const divRef = createRef<HTMLDivElement>();
   const [focus, setFocus] = useState(autoFocus || false);
-  const [selected, setSelected] = useState<TagProps[]>(
-    value?.map((val) => {
-      return items?.find((e) => e.key === val) || { key: val, text: val };
-    }),
-  );
+  const selected = useMemo<TagProps[]>(() => {
+    return (
+      value?.map((val) => {
+        return items?.find((e) => e.key === val) || { key: val, text: val };
+      }) || []
+    );
+  }, [value, items]);
   const [text, setText] = useState<string>('');
   const ref = useAutoClose<HTMLDivElement>(() => {
     setFocus(false);
@@ -60,7 +69,6 @@ export const TagSelector = (prop: TagSelectorProps) => {
     (e: TagProps) => {
       setText('');
       const cur = [...selected, e];
-      setSelected(cur);
       onChange?.(
         cur.map((x) => x.key),
         { mode: 'NEW', id: e.key },
@@ -76,7 +84,6 @@ export const TagSelector = (prop: TagSelectorProps) => {
         cur.map((x) => x.key),
         { mode: 'DEL', id: key },
       );
-      setSelected(cur);
     },
     [onChange, selected],
   );
@@ -98,6 +105,12 @@ export const TagSelector = (prop: TagSelectorProps) => {
           ref.current?.blur();
         }
         setKeyNavigation(keyNavigation + 1);
+        (
+          divRef.current?.childNodes[keyNavigation + 1] as HTMLDivElement
+        )?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
       }
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
@@ -106,6 +119,13 @@ export const TagSelector = (prop: TagSelectorProps) => {
           ref.current?.focus();
         }
         setKeyNavigation(keyNavigation - 1);
+        setKeyNavigation(keyNavigation - 1);
+        (
+          divRef.current?.childNodes[keyNavigation + 1] as HTMLDivElement
+        )?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
       }
     } else if (e.key === 'Backspace' && e.shiftKey) {
       e.preventDefault();
@@ -122,7 +142,7 @@ export const TagSelector = (prop: TagSelectorProps) => {
     };
   });
   return (
-    <div ref={ref} className={cnx(`glx-tag-selector`)}>
+    <div ref={ref} className={cnx(`glx-tag-selector glx-tag-selector--alt`)}>
       <div
         className={cnx(
           'glx-flex',
@@ -148,7 +168,6 @@ export const TagSelector = (prop: TagSelectorProps) => {
         type="text"
         value={text}
         onFocus={() => setFocus(true)}
-        autoFocus={autoFocus}
         placeholder={placeholder}
         disabled={disabled}
         onChange={(e) => {
@@ -156,7 +175,13 @@ export const TagSelector = (prop: TagSelectorProps) => {
         }}
       />
       {focus && fItems.length > 0 ? (
-        <Grid flex flexC className="glx-tag-selector--drawer" gap={6}>
+        <Grid
+          flex
+          flexC
+          className="glx-tag-selector--drawer"
+          gap={6}
+          divRef={divRef}
+        >
           {fItems?.map((e, i) => (
             <Grid
               key={e.key}
@@ -185,4 +210,4 @@ export const TagSelector = (prop: TagSelectorProps) => {
       ) : null}
     </div>
   );
-};
+}

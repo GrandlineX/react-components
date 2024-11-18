@@ -5,7 +5,7 @@
 
   .glx-tag-selector--drawer{
     @extend .glx-p-8,.glx-w-full-8;
-    z-index: 88;
+    z-index: 200;
     position: absolute;
     background-color: $main-accent-01;
     >div{

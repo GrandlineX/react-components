@@ -298,14 +298,12 @@ export const Default: Story = {
   args: {
     className: 'glx-pb-8',
     options: fullConf,
-    submit: {
-      onSubmit: async (form) => {
-        console.log(form);
-        await sleep(4000);
-      },
-      loadingMessage: 'Loading...',
-      loading: true,
+    onSubmit: async (form) => {
+      console.log(form);
+      await sleep(4000);
     },
+    loadingMessage: 'Loading...',
+    loading: true,
   },
 };
 
@@ -313,14 +311,12 @@ export const CompactForm: Story = {
   args: {
     className: 'glx-pb-8',
     options: fullConf,
-    submit: {
-      onSubmit: async (form) => {
-        console.log(form);
-        await sleep(4000);
-      },
-      loadingMessage: 'Loading...',
-      loading: true,
+    onSubmit: async (form) => {
+      console.log(form);
+      await sleep(4000);
     },
+    loadingMessage: 'Loading...',
+    loading: true,
     compact: true,
   },
 };
@@ -329,14 +325,12 @@ export const FormPrefill: Story = {
   args: {
     className: 'glx-pb-8',
     options: fullConf,
-    submit: {
-      onSubmit: async (form) => {
-        console.log(form);
-        await sleep(4000);
-      },
-      loadingMessage: 'Loading...',
-      loading: true,
+    onSubmit: async (form) => {
+      console.log(form);
+      await sleep(4000);
     },
+    loadingMessage: 'Loading...',
+    loading: true,
     defaultState: {
       key01: 'Simple Text',
       key01b: {
@@ -383,14 +377,12 @@ export const FormError: Story = {
         },
       ],
     ],
-    submit: {
-      onSubmit: async (form) => {
-        console.log(form);
-        await sleep(4000);
-      },
-      loadingMessage: 'Loading...',
-      loading: true,
+    onSubmit: async (form) => {
+      console.log(form);
+      await sleep(4000);
     },
+    loadingMessage: 'Loading...',
+    loading: true,
     compact: true,
     defaultError: {
       global: [
@@ -436,16 +428,15 @@ export const FormCustomSubmit: Story = {
         },
       ],
     ],
-    submit: {
-      onSubmit: async ({ validateRequired }) => {
-        await sleep(4000);
-        validateRequired(true);
-      },
-      buttonCenter: true,
-      loadingMessage: 'Loading...',
-      loading: true,
-      buttonNode: (submit) => <button onClick={submit}>Custom Submit</button>,
+
+    onSubmit: async ({ validateRequired }) => {
+      await sleep(4000);
+      validateRequired(true);
     },
+    buttonCenter: true,
+    loadingMessage: 'Loading...',
+    loading: true,
+    buttonNode: (submit) => <button onClick={submit}>Custom Submit</button>,
     compact: true,
   },
 };
@@ -463,15 +454,13 @@ export const Multy: Story = {
         },
       ],
     ],
-    submit: {
-      onSubmit: async () => {
-        await sleep(4000);
-      },
-      buttonCenter: true,
-      loadingMessage: 'Loading...',
-      loading: true,
-      buttonNode: (submit) => <button onClick={submit}>Custom Submit</button>,
+    onSubmit: async () => {
+      await sleep(4000);
     },
+    buttonCenter: true,
+    loadingMessage: 'Loading...',
+    loading: true,
+    buttonNode: (submit) => <button onClick={submit}>Custom Submit</button>,
     compact: true,
   },
   render: (args) => {
@@ -482,7 +471,11 @@ export const Multy: Story = {
         defaultState={formData}
         options={args.options}
         className={args.className}
-        submit={args.submit}
+        onSubmit={args.onSubmit}
+        buttonCenter={args.buttonCenter}
+        loadingMessage={args.loadingMessage}
+        loading={args.loading}
+        buttonNode={args.buttonNode}
         compact={args.compact}
         onChange={({ changed, update }) => {
           const { value } = changed!;

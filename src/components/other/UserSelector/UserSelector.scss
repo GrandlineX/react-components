@@ -3,7 +3,7 @@
   @extend .glx-flex-r;
   position: relative;
   .glx-user-block--drawer{
-    z-index: 88;
+    z-index: 200;
     width: calc(100% - 32px);
     position: absolute;
     top: 0;

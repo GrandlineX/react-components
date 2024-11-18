@@ -6,7 +6,7 @@ import {
   ISize,
 } from '@grandlinex/react-icons';
 import HNavigator from '../Navigator/HNavigator';
-import Badge, { BadgeProps } from '../other/Badge/Badge';
+import { BadgeProps, Badge } from '../other/Badge/Badge';
 import { cnx } from '../../util';
 import DropDownIconMenu, { MenuItem } from '../menu/DropDownIconMenu';
 import Grid from '../Grid/Grid';

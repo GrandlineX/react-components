@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { IOClose, IOSearch, ISize } from '@grandlinex/react-icons';
 import { IUser } from './types';
 import UserBadge from './UserBadge';
@@ -11,6 +11,7 @@ const UserSelector = ({
   placeholder,
   disabled,
   list,
+  limit = 20,
 }: {
   searchFC?: (s: string) => Promise<IUser | null>;
   onChange?: (meta: IUser | null) => void;
@@ -18,22 +19,29 @@ const UserSelector = ({
   list?: IUser[];
   placeholder?: string;
   disabled?: boolean;
+  limit?: number;
 }) => {
   const [selected, setSelected] = useState<IUser | null>(value || null);
   const [search, setSearch] = useState<string>('');
   const [open, setOpen] = useState(false);
 
-  const filteredList = list?.filter((x) => {
-    if (search === '') {
-      return true;
-    }
-    return (
-      x.userId.includes(search) ||
-      x.gravatarEmail?.includes(search) ||
-      x.firstName?.includes(search) ||
-      x.lastName?.includes(search)
-    );
-  });
+  const filteredList = useMemo(
+    () =>
+      list
+        ?.filter((x) => {
+          if (search === '') {
+            return true;
+          }
+          return (
+            x.userId.includes(search) ||
+            x.gravatarEmail?.includes(search) ||
+            x.firstName?.toLowerCase()?.includes(search.toLowerCase()) ||
+            x.lastName?.toLowerCase().includes(search.toLowerCase())
+          );
+        })
+        .slice(0, limit),
+    [list, search, limit],
+  );
   const ref = useAutoClose<HTMLDivElement>(() => setOpen(false), false);
   async function selectFc() {
     if (selected) {

@@ -33,7 +33,7 @@ const Button = (props: ButtonProps) => {
     color,
     className,
     style,
-    gap,
+    gap = 4,
   } = props;
 
   return (

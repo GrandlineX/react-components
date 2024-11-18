@@ -9,10 +9,16 @@ import { classN } from '../lib';
 import { requiredFieldValidation } from './FormValidation';
 
 function Form<T extends Record<string, any> = any>({
+  title,
   options,
   onChange,
-  submit,
-  title,
+  onSubmit,
+  buttonText,
+  buttonNode,
+  buttonCenter,
+  loading,
+  loadingNode,
+  loadingMessage,
   defaultState,
   defaultError,
   className,
@@ -57,8 +63,8 @@ function Form<T extends Record<string, any> = any>({
   };
   const fError = defaultError || error;
   const submitForm = () => {
-    if (submit) {
-      if (submit.loading) {
+    if (onSubmit) {
+      if (loading) {
         setSpinning(true);
       }
       setError(undefined);
@@ -73,23 +79,21 @@ function Form<T extends Record<string, any> = any>({
           pre[key] = form[key];
         }
       }
-      submit
-        .onSubmit({
-          form: pre,
-          setError,
-          changed: null,
-          update: setForm,
-          validateRequired: validate,
-          clear: () => {
-            setForm(def(options));
-            setError(undefined);
-          },
-        })
-        .then(() => {
-          if (submit.loading) {
-            setSpinning(false);
-          }
-        });
+      onSubmit({
+        form: pre,
+        setError,
+        changed: null,
+        update: setForm,
+        validateRequired: validate,
+        clear: () => {
+          setForm(def(options));
+          setError(undefined);
+        },
+      }).then(() => {
+        if (loading) {
+          setSpinning(false);
+        }
+      });
     }
   };
 
@@ -102,7 +106,7 @@ function Form<T extends Record<string, any> = any>({
     >
       {title}
       {spinning
-        ? submit?.loadingNode || <LPulse />
+        ? loadingNode || <LPulse />
         : options.map((el) => (
             <FormRow
               key={el.reduce((a, b) => {
@@ -121,8 +125,8 @@ function Form<T extends Record<string, any> = any>({
               error={fError}
             />
           ))}
-      {spinning && submit?.loadingMessage ? (
-        <div className="glx-py-12">{submit.loadingMessage}</div>
+      {spinning && loadingMessage ? (
+        <div className="glx-py-12">{loadingMessage}</div>
       ) : null}
 
       <div
@@ -131,7 +135,7 @@ function Form<T extends Record<string, any> = any>({
           'glx-flex-row',
           'glx-flex-wrap',
           'glx-flex-g-8',
-          [!!submit?.buttonCenter, 'glx-flex-center'],
+          [!!buttonCenter, 'glx-flex-center'],
         )}
       >
         {fError?.global && fError.global.length > 0
@@ -146,22 +150,21 @@ function Form<T extends Record<string, any> = any>({
           : null}
       </div>
 
-      {submit && !spinning ? (
+      {onSubmit && !spinning ? (
         <div
           className={cnx(
             'glx-form--button-row',
             'glx-flex-row',
             'glx-flex-g-4',
             'glx-pr-8',
-            [!!submit.buttonCenter, 'glx-flex-center', 'glx-flex-end'],
+            [!!buttonCenter, 'glx-flex-center', 'glx-flex-end'],
           )}
         >
-          {submit.buttonNode ? (
-            submit.buttonNode(submitForm)
+          {buttonNode ? (
+            buttonNode(submitForm)
           ) : (
             <Button cancel disabled={spinning || false} onClick={submitForm}>
-              {submit.buttonText ||
-                ui.translation.get('glx.form.required.submit')}
+              {buttonText || ui.translation.get('glx.form.required.submit')}
             </Button>
           )}
         </div>

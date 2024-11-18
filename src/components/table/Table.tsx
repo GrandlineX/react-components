@@ -142,15 +142,13 @@ function TableRow<T extends Record<string, any>>(
               onChange={({ form }) => {
                 setFEdit(form);
               }}
-              submit={{
-                loading: true,
-                buttonText: ui.translation.get('glx.table.action.save'),
-                onSubmit: async ({ form, setError, clear }) => {
-                  const res = await api.editMode?.(form, setError, clear);
-                  if (res) {
-                    setEdit(false);
-                  }
-                },
+              loading
+              buttonText={ui.translation.get('glx.table.action.save')}
+              onSubmit={async ({ form, setError, clear }) => {
+                const res = await api.editMode?.(form, setError, clear);
+                if (res) {
+                  setEdit(false);
+                }
               }}
             />
           </td>

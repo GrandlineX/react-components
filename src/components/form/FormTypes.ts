@@ -40,6 +40,7 @@ export interface InputOptionItem<X = any> {
 
 export interface InputOption {
   key: string;
+  className?: string;
   label?: React.ReactNode;
   type: InputOptionType;
   help?: React.ReactNode;
@@ -89,15 +90,13 @@ export interface FormProps<T> extends BaseProps {
   defaultState?: Partial<T>;
   defaultError?: FormErrorType;
   onChange?: (event: FormChangeEvent<T>) => void;
-  submit?: {
-    onSubmit: (event: FormChangeEvent<T>) => Promise<void>;
-    buttonText?: string;
-    buttonNode?: (submit: () => void) => ReactNode;
-    buttonCenter?: boolean;
-    loading?: boolean;
-    loadingNode?: ReactNode;
-    loadingMessage?: ReactNode;
-  };
+  onSubmit?: (event: FormChangeEvent<T>) => Promise<void>;
+  buttonText?: string;
+  buttonNode?: (submit: () => void) => ReactNode;
+  buttonCenter?: boolean;
+  loading?: boolean;
+  loadingNode?: ReactNode;
+  loadingMessage?: ReactNode;
   compact?: boolean;
 }
 

@@ -122,9 +122,20 @@ $default-padding-d: 2*$default-padding;
   .glx-form--input--split-3 {
     width: 33%;
   }
-
   .glx-form--input--split-4 {
     width: 25%;
+  }
+  .glx-form--input--split-5{
+    width: 20%;
+  }
+  .glx-form--input--split-6{
+    width: 16%;
+  }
+  .glx-form--input--split-7{
+    width: 14%;
+  }
+  .glx-form--input--split-8{
+    width: 12.5%;
   }
 
   .glx-form--error {
@@ -181,19 +192,15 @@ $default-padding-d: 2*$default-padding;
     flex-direction: column;
   }
 
-  .glx-form--input--split-1 {
-    width: 100%;
-  }
-
-  .glx-form--input--split-2 {
-    width: 100%;
-  }
-
-  .glx-form--input--split-3 {
-    width: 100%;
-  }
-
-  .glx-form--input--split-4 {
+  .glx-form--input--split-1,
+  .glx-form--input--split-2,
+  .glx-form--input--split-3,
+  .glx-form--input--split-4,
+  .glx-form--input--split-5,
+  .glx-form--input--split-6,
+  .glx-form--input--split-7,
+  .glx-form--input--split-8,
+  {
     width: 100%;
   }
 

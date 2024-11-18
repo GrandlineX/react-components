@@ -11,7 +11,7 @@ import Progress from './controlls/Progress/Progress';
 import Form from './form/Form';
 import CheckBox from './form/inputs/CheckBox';
 import { Card, CardColor, CardIconType, CardProps } from './Card/Card';
-import Badge, { BadgeColor, BadgeProps } from './other/Badge/Badge';
+
 import DropDownIconMenu, { MenuItem } from './menu/DropDownIconMenu';
 import HNavigator, { HNavigatorProps } from './Navigator/HNavigator';
 import Grid from './Grid/Grid';
@@ -20,6 +20,7 @@ import Usage from './progress/Usage';
 import UsageMap from './progress/UsageMap';
 import Icon, { IconProps } from './Icon/Icon';
 
+export * from './other/Badge/Badge';
 export * from './mediaPlayer';
 export * from './form/FormValidation';
 export * from './button/IconButton';
@@ -48,10 +49,7 @@ export {
   CheckBox,
   Spinner,
   Tooltip,
-  BadgeProps,
   Step,
-  Badge,
-  BadgeColor,
   Persona,
   Progress,
   MenuItem,

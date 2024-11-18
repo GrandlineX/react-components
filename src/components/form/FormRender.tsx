@@ -198,6 +198,7 @@ export function FormRow({
             restriction,
             placeholder,
             help,
+            className,
           } = cur;
 
           let helpText: React.ReactNode | undefined;
@@ -463,6 +464,7 @@ export function FormRow({
                     updateForm(key, els);
                   }}
                   searchFC={preload}
+                  limit={restriction?.max || 20}
                   list={
                     items && items.length > 0
                       ? items.map((e) => e.meta)
@@ -494,7 +496,15 @@ export function FormRow({
           if (!helpText) {
             helpText = help;
           }
-          return { iType, key, label, required, noUnderline, helpText };
+          return {
+            iType,
+            key,
+            label,
+            required,
+            noUnderline,
+            helpText,
+            className,
+          };
         });
         return (
           <div
@@ -507,6 +517,7 @@ export function FormRow({
                 className={cnx(
                   `glx-form--input glx-form--input--split-${input.length}`,
                   [!value?.noUnderline, 'glx-form--underline'],
+                  value?.className,
                 )}
               >
                 {value?.label ? (

@@ -95,8 +95,41 @@ const defaultGLang = new GLang({
       key: 'glx.input.icon.sel.placeholder',
       value: 'Search...',
     },
+    {
+      key: 'glx.input.tag.selector.placeholder',
+      value: 'Search...',
+    },
+    {
+      key: 'glx.input.badge.sel.red',
+      value: 'Red',
+    },
+    {
+      key: 'glx.input.badge.sel.black',
+      value: 'Black',
+    },
+    {
+      key: 'glx.input.badge.sel.blue',
+      value: 'Blue',
+    },
+    {
+      key: 'glx.input.badge.sel.green',
+      value: 'Green',
+    },
+    {
+      key: 'glx.input.badge.sel.orange',
+      value: 'Orange',
+    },
+    {
+      key: 'glx.input.badge.sel.yellow',
+      value: 'Yellow',
+    },
+    {
+      key: 'glx.input.badge.sel.custom',
+      value: 'Custom',
+    },
   ],
 });
+export type DecorationType = 'underline' | 'outline' | 'none';
 class UIContextData {
   portalRoot: HTMLElement;
 
@@ -104,14 +137,18 @@ class UIContextData {
 
   tooltipDisabled: boolean;
 
+  decoration: DecorationType;
+
   constructor(conf?: {
     portalRoot?: HTMLElement;
     lang?: GLang;
     tooltipDisabled?: boolean;
+    decoration?: DecorationType;
   }) {
     this.portalRoot = conf?.portalRoot || getSaveWindow().document.body;
     this.translation = conf?.lang || defaultGLang;
     this.tooltipDisabled = conf?.tooltipDisabled ?? false;
+    this.decoration = conf?.decoration || 'outline';
   }
 }
 

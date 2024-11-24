@@ -55,22 +55,40 @@ export default function ImageSel({
   return (
     <Grid flex flexC className="glx-default-text" gap={8}>
       <Grid flex flexR vCenter gap={4}>
-        <span style={{ fontSize: '14pt' }}>
-          {t.translation.get('glx.form.field.selection')}
-          {': '}
-        </span>
-        <input
-          type="text"
-          value={
-            sel?.title ?? sel?.key ?? t.translation.get('glx.form.field.empty')
-          }
-          disabled
-        />
-        <IconButton
-          style={{ borderBottom: 'unset !important' }}
-          icon={extend ? 'IOSave' : 'IOPencil'}
-          onClick={() => setExtend(!extend)}
-        />
+        <Grid flex flexC gap={4}>
+          <Grid flex flexR gap={4} vCenter>
+            <span style={{ fontSize: '14pt' }}>
+              {t.translation.get('glx.form.field.selection')}:
+            </span>
+            <input
+              type="text"
+              value={
+                sel?.title ??
+                sel?.key ??
+                t.translation.get('glx.form.field.empty')
+              }
+              disabled
+            />
+            <IconButton
+              style={{ borderBottom: 'unset !important' }}
+              icon={extend ? 'IOSave' : 'IOPencil'}
+              onClick={() => setExtend(!extend)}
+            />
+          </Grid>
+          {sel && !extend && (
+            <img
+              loading="lazy"
+              draggable={false}
+              alt={sel?.title ?? sel?.key}
+              src={sel?.url}
+              width={imgSize?.width}
+              height={imgSize?.height}
+              style={{
+                objectFit: 'contain',
+              }}
+            />
+          )}
+        </Grid>
       </Grid>
 
       {extend && (

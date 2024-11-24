@@ -3,6 +3,7 @@ import { IOClose, IOSearch, ISize } from '@grandlinex/react-icons';
 import { IUser } from './types';
 import UserBadge from './UserBadge';
 import { useAutoClose } from '../../../util/hooks';
+import { useFormElContext } from '../../form/FormElement';
 
 const UserSelector = ({
   value,
@@ -21,6 +22,7 @@ const UserSelector = ({
   disabled?: boolean;
   limit?: number;
 }) => {
+  const field = useFormElContext();
   const [selected, setSelected] = useState<IUser | null>(value || null);
   const [search, setSearch] = useState<string>('');
   const [open, setOpen] = useState(false);
@@ -64,7 +66,7 @@ const UserSelector = ({
   return (
     <div ref={ref} className="glx-user-block">
       {selected ? (
-        <div className="glx-flex-grow-1">
+        <div className="glx-flex-grow-1 glx-pb-8">
           <UserBadge small item={selected} size="50px" />
         </div>
       ) : (
@@ -74,7 +76,13 @@ const UserSelector = ({
             disabled={!!selected || disabled}
             value={search}
             placeholder={placeholder}
-            onFocus={() => setOpen(true)}
+            onFocus={() => {
+              setOpen(true);
+              field.setFocus(true);
+            }}
+            onBlur={() => {
+              field.setFocus(false);
+            }}
             onChange={(e) => {
               const vol = e.target.value;
               setSearch(vol);

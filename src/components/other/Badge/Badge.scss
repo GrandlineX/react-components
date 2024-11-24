@@ -16,17 +16,26 @@
 .glx-badge--red{
   background: $main-red;
   color: $main-white;
+  button{
+    color: $main-white;
+  }
 }
 
 
 .glx-badge--black{
   background: $main-black;
   color: $main-white;
+  button{
+    color: $main-white;
+  }
 }
 
 
 .glx-badge--green{
   background: $main-green;
+  button{
+    color: $main-white;
+  }
 }
 .glx-badge--orange{
   background: $main-orange;

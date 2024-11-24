@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { INames } from '@grandlinex/react-icons';
 import { BaseProps } from '../lib';
+import { DecorationType } from '../../util';
 
 export type FormTypes = string | number | null | boolean | undefined;
 
@@ -28,6 +29,7 @@ export enum InputOptionType {
   'ICON_TEXT',
   'CONTENT_SWITCH',
   'IMAGE_SELECT',
+  'BADGE_COLOR_SELECTOR',
 }
 
 export interface InputOptionItem<X = any> {
@@ -74,6 +76,7 @@ export interface InputOption {
     ) => React.ReactNode;
     init: any;
   };
+  decorationType?: DecorationType;
 }
 
 export type FormChangeEvent<T> = {

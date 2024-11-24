@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { INames } from '@grandlinex/react-icons';
 import Grid from '../../Grid/Grid';
 import IconSel from './IconSel';
+import { useFormElContext } from '../FormElement';
 
 export type IcTexProps = {
   icon: INames | null;
@@ -14,6 +15,8 @@ export default function IconTextSel(props: {
   className?: string;
   placeholder?: string;
 }) {
+  const field = useFormElContext();
+
   const { onChange, sel, className, placeholder, disabled = false } = props;
 
   const [cur, setCur] = useState<IcTexProps>(
@@ -43,6 +46,12 @@ export default function IconTextSel(props: {
           }}
           placeholder={placeholder}
           disabled={disabled}
+          onFocus={() => {
+            field.setFocus(true);
+          }}
+          onBlur={() => {
+            field.setFocus(false);
+          }}
         />
       </Grid>
     </Grid>

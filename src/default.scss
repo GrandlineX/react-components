@@ -40,6 +40,9 @@ $tlc-header: var(--glx-tlc-header, $main-accent-02);
 $tlc-header-font: var(--glx-tlc-header-font, $main-white);
 $tlc-header-font-alt: var(--glx-tlc-header-font-alt, $main-accent-05);
 
+// Global variables
+$main-border-radius: var(--glx-main-border-radius, 8px);
+
 
 .glx-theme-light{
   --glx-main-dark-blue: #1d47b0;

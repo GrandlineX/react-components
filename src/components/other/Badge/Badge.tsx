@@ -5,14 +5,76 @@ import { cnx } from '../../../util';
 export type CustomBadgeColor = `!#${string}&#${string}!`;
 export type BadgeColor =
   | 'red'
+  | 'blue'
   | 'black'
   | 'yellow'
   | 'green'
   | 'orange'
   | CustomBadgeColor;
-function isCustomBadge(color: BadgeColor): color is CustomBadgeColor {
-  return /^!#.*&#.*!$/.test(color);
+
+export class BadgeColorX {
+  static bgColors: BadgeColor[] = [
+    'red',
+    'black',
+    'blue',
+    'yellow',
+    'green',
+    'orange',
+  ];
+
+  private color: BadgeColor;
+
+  constructor(color: string | BadgeColor) {
+    if (!BadgeColorX.isValidBadge(color)) {
+      throw new Error(`Invalid Badge Color: ${color}`);
+    }
+    this.color = color;
+  }
+
+  getColor() {
+    if (BadgeColorX.isCustomBadge(this.color)) {
+      const [bg, fg] = this.color.slice(1, -1).split('&');
+      return {
+        backgroundColor: bg,
+        color: fg,
+      };
+    }
+    return {
+      backgroundColor: this.color,
+    };
+  }
+
+  getBackground() {
+    return this.getColor().backgroundColor;
+  }
+
+  getText() {
+    return this.getColor().color;
+  }
+
+  static isCustomBadge(color: BadgeColor): color is CustomBadgeColor {
+    return /^!#.*&#.*!$/.test(color);
+  }
+
+  static isValidBadge(color: unknown): color is BadgeColor {
+    if (typeof color !== 'string') {
+      return false;
+    }
+    if (this.bgColors.includes(color as BadgeColor)) {
+      return true;
+    }
+    return /^!#.*&#.*!$/.test(color);
+  }
+
+  getStringColor() {
+    return this.color;
+  }
+
+  static fromSColor(bg: string, fg: string) {
+    return new BadgeColorX(`!#${bg.replace('#', '')}&#${fg.replace('#', '')}!`);
+  }
 }
+
 export type BadgeProps = {
   text?: string;
   color?: BadgeColor;
@@ -22,12 +84,8 @@ export type BadgeProps = {
 export const Badge = (prop: BadgeProps) => {
   const { text, color, icon, close } = prop;
   const customColor = useMemo(() => {
-    if (color && isCustomBadge(color)) {
-      const [bg, fg] = color.slice(1, -1).split('&');
-      return {
-        backgroundColor: bg,
-        color: fg,
-      };
+    if (color && BadgeColorX.isCustomBadge(color)) {
+      return new BadgeColorX(color).getColor();
     }
     return undefined;
   }, [color]);
@@ -42,7 +100,12 @@ export const Badge = (prop: BadgeProps) => {
       {icon ? getIcon(icon)({}) : null}
       {text}
       {close ? (
-        <button onClick={close}>
+        <button
+          onClick={close}
+          style={{
+            color: customColor?.color,
+          }}
+        >
           <IOClose />
         </button>
       ) : null}

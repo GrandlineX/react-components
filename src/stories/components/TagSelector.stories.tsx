@@ -58,12 +58,12 @@ export const FormPrefill: Story = {
       {
         key: 'x3',
         text: 'X3-Badge',
-        color: 'black',
+        color: '!#306d33&#ffffff!',
       },
       {
         key: 'x4',
         text: 'X4-Badge',
-        color: 'black',
+        color: '!#7e1fe9&#ffffff!',
       },
     ],
   },

@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import { Form, FormConf, InputOptionType, IUser } from '../../components';
+import {
+  Form,
+  FormConf,
+  InputOption,
+  InputOptionType,
+  IUser,
+} from '../../components';
 import { sleep } from '../../util';
 
 const meta = {
@@ -18,22 +24,33 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const fullConf: FormConf = [
+const fullConf: (inp: Partial<InputOption>) => FormConf = (
+  inp: Partial<InputOption>,
+) => [
   [
     {
       type: InputOptionType.TEXT,
       key: 'key01',
       label: '1. Text',
       help: 'Simple Help Text ',
+      ...inp,
     },
   ],
-  [{ type: InputOptionType.ICON_TEXT, key: 'key01b', label: '1b. Icon Text' }],
+  [
+    {
+      type: InputOptionType.ICON_TEXT,
+      key: 'key01b',
+      label: '1b. Icon Text',
+      ...inp,
+    },
+  ],
   [
     {
       type: InputOptionType.PASSWORD,
       key: 'key02',
       label: '2. Password',
       help: 'Simple Help Text ',
+      ...inp,
     },
   ],
   [
@@ -42,24 +59,27 @@ const fullConf: FormConf = [
       key: 'key03a',
       label: '3a. Text',
       help: 'Simple Help Text ',
+      ...inp,
     },
-    { type: InputOptionType.TEXT, key: 'key03b', label: '3b. Text' },
+    { type: InputOptionType.TEXT, key: 'key03b', label: '3b. Text', ...inp },
     {
       type: InputOptionType.TEXT,
       key: 'key03c',
       label: '3b. Text Disabeld',
       disabled: true,
+      ...inp,
     },
   ],
   [
-    { type: InputOptionType.NUMBER, key: 'key04', label: '4. Number' },
-    { type: InputOptionType.EMPTY, key: 'key04b' },
+    { type: InputOptionType.NUMBER, key: 'key04', label: '4. Number', ...inp },
+    { type: InputOptionType.EMPTY, key: 'key04b', ...inp },
   ],
   [
     {
       type: InputOptionType.CHECKBOX,
       key: 'key05',
       label: '5. CheckBox',
+      ...inp,
     },
   ],
   [
@@ -78,6 +98,7 @@ const fullConf: FormConf = [
       ],
       key: 'key06',
       label: '6. Dropdown',
+      ...inp,
     },
   ],
   [
@@ -99,25 +120,28 @@ const fullConf: FormConf = [
         init: '',
       },
       label: '7. Custom',
+      ...inp,
     },
   ],
-  [{ type: InputOptionType.DATE, key: 'key08', label: '8. Date' }],
-  [{ type: InputOptionType.TIME, key: 'key09', label: '9. Time' }],
+  [{ type: InputOptionType.DATE, key: 'key08', label: '8. Date', ...inp }],
+  [{ type: InputOptionType.TIME, key: 'key09', label: '9. Time', ...inp }],
   [
     {
       type: InputOptionType.DATE_TIME,
       key: 'key10',
       label: '10. DateTime',
+      ...inp,
     },
   ],
-  [{ type: InputOptionType.COLOR, key: 'key11', label: '11. Color' }],
-  [{ type: InputOptionType.RANGE, key: 'key12', label: '12. Range' }],
+  [{ type: InputOptionType.COLOR, key: 'key11', label: '11. Color', ...inp }],
+  [{ type: InputOptionType.RANGE, key: 'key12', label: '12. Range', ...inp }],
   [
     {
       type: InputOptionType.CHECKBOX,
       key: 'key13',
       label: '13. CheckBox with numeric value',
       beforeSubmit: (v) => (v ? 1 : 0),
+      ...inp,
     },
   ],
   [
@@ -157,17 +181,18 @@ const fullConf: FormConf = [
           {
             key: 'x3',
             name: 'X3-Badge',
-            meta: 'black',
+            meta: '!#306d33&#ffffff!',
           },
           {
             key: 'x4',
             name: 'X4-Badge',
-            meta: 'black',
+            meta: '!#7e1fe9&#ffffff!',
           },
         ],
         onChange: async (fields: string[], change: any) => {
           console.log(fields, change);
         },
+        ...inp,
       },
     ],
     null,
@@ -189,6 +214,7 @@ const fullConf: FormConf = [
       onChange: async (user: IUser | null) => {
         console.log(user);
       },
+      ...inp,
     },
   ],
   [
@@ -223,10 +249,11 @@ const fullConf: FormConf = [
       onChange: async (user: IUser | null) => {
         console.log(user);
       },
+      ...inp,
     },
   ],
-  [{ type: InputOptionType.FILE, key: 'key17', label: '17. File' }],
-  [{ type: InputOptionType.ICON, key: 'key18', label: '18. Icon' }],
+  [{ type: InputOptionType.FILE, key: 'key17', label: '17. File', ...inp }],
+  [{ type: InputOptionType.ICON, key: 'key18', label: '18. Icon', ...inp }],
   [
     {
       type: InputOptionType.CONTENT_SWITCH,
@@ -246,6 +273,7 @@ const fullConf: FormConf = [
           name: 'Third',
         },
       ],
+      ...inp,
     },
   ],
   [
@@ -290,6 +318,15 @@ const fullConf: FormConf = [
           name: 'Earth',
         },
       ],
+      ...inp,
+    },
+  ],
+  [
+    {
+      type: InputOptionType.BADGE_COLOR_SELECTOR,
+      key: 'key21',
+      label: '21. Badge Select',
+      ...inp,
     },
   ],
 ];
@@ -297,7 +334,7 @@ const fullConf: FormConf = [
 export const Default: Story = {
   args: {
     className: 'glx-pb-8',
-    options: fullConf,
+    options: fullConf({}),
     onSubmit: async (form) => {
       console.log(form);
       await sleep(4000);
@@ -310,7 +347,7 @@ export const Default: Story = {
 export const CompactForm: Story = {
   args: {
     className: 'glx-pb-8',
-    options: fullConf,
+    options: fullConf({}),
     onSubmit: async (form) => {
       console.log(form);
       await sleep(4000);
@@ -320,11 +357,23 @@ export const CompactForm: Story = {
     compact: true,
   },
 };
+export const UnderlinesDecoration: Story = {
+  args: {
+    className: 'glx-pb-8',
+    options: fullConf({ decorationType: 'underline' }),
+    onSubmit: async (form) => {
+      console.log(form);
+      await sleep(4000);
+    },
+    loadingMessage: 'Loading...',
+    loading: true,
+  },
+};
 
 export const FormPrefill: Story = {
   args: {
     className: 'glx-pb-8',
-    options: fullConf,
+    options: fullConf({}),
     onSubmit: async (form) => {
       console.log(form);
       await sleep(4000);

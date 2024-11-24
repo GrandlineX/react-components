@@ -28,6 +28,7 @@ export default function IconSel(props: {
       (e) => search === '' || e.toLowerCase().includes(search.toLowerCase()),
     );
   }, [search]);
+
   return (
     <div className={cnx('glx-flex-r', className)}>
       <div style={{ position: 'relative' }}>

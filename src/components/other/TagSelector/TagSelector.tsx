@@ -6,10 +6,11 @@ import React, {
   useState,
 } from 'react';
 import { getIcon } from '@grandlinex/react-icons';
-import { cnx } from '../../../util';
-import { BadgeProps, Badge } from '../Badge/Badge';
+import { cnx, useUIContext } from '../../../util';
+import { BadgeProps, Badge, BadgeColorX } from '../Badge/Badge';
 import { useAutoClose } from '../../../util/hooks';
 import Grid from '../../Grid/Grid';
+import { useFormElContext } from '../../form/FormElement';
 
 export type TagProps = BadgeProps & {
   key: string;
@@ -40,6 +41,8 @@ export function TagSelector(prop: TagSelectorProps) {
     maxOptions = 10,
   } = prop;
   const [keyNavigation, setKeyNavigation] = useState<number>(-1);
+  const uiContext = useUIContext();
+  const fieldContext = useFormElContext();
 
   const divRef = createRef<HTMLDivElement>();
   const [focus, setFocus] = useState(autoFocus || false);
@@ -167,8 +170,17 @@ export function TagSelector(prop: TagSelectorProps) {
       <input
         type="text"
         value={text}
-        onFocus={() => setFocus(true)}
-        placeholder={placeholder}
+        onFocus={() => {
+          setFocus(true);
+          fieldContext.setFocus(true);
+        }}
+        onBlur={() => {
+          fieldContext.setFocus(false);
+        }}
+        placeholder={
+          placeholder ||
+          uiContext.translation.get('glx.input.tag.selector.placeholder')
+        }
         disabled={disabled}
         onChange={(e) => {
           setText(e.target.value);
@@ -194,7 +206,9 @@ export function TagSelector(prop: TagSelectorProps) {
             >
               <div
                 style={{
-                  color: e.color || undefined,
+                  color: e.color
+                    ? new BadgeColorX(e.color).getBackground()
+                    : undefined,
                 }}
               >
                 {e.icon

@@ -21,6 +21,7 @@ export type CardIconType = {
 };
 
 export type CardProps = {
+  style?: React.CSSProperties;
   className?: string;
   title?: string | ReactNode;
   imgUrl?: string;
@@ -59,6 +60,7 @@ const Card = (props: CardProps) => {
     date,
     badges,
     skeleton,
+    style,
   } = props;
 
   let hover: CardIconType[] | null;
@@ -75,7 +77,7 @@ const Card = (props: CardProps) => {
   } else {
     hover = null;
   }
-  const style = order ? { order } : undefined;
+  const styleX = order ? { order, ...style } : style;
   let url = null;
   if (imgUrl) {
     url = imgUrl;
@@ -83,7 +85,7 @@ const Card = (props: CardProps) => {
     url = `${imgBase}`;
   }
   return (
-    <div style={style} className={cnx(className, 'glx-card--item')}>
+    <div style={styleX} className={cnx(className, 'glx-card--item')}>
       <div>
         <div className="glx-card--head">
           {url ? (

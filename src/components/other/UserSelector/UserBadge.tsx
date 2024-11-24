@@ -23,7 +23,7 @@ function UserBadge(prop: { item: IUser; size?: string; small?: boolean }) {
 
   return (
     <div className="glx-default-text glx-flex glx-flex-r glx-flex-g-6 glx-flex-v-center">
-      <Persona text={l.join(' ')} small={small} img={img} size={size} />
+      <Persona text={l.join(' ')} small={small} img={img} size={size} lazy />
       <div className="glx-flex glx-flex-c">
         <div>
           {item.firstName} {item.lastName}

@@ -1,5 +1,6 @@
 import React, { KeyboardEventHandler } from 'react';
-import { IOHelpCircleOutline } from '@grandlinex/react-icons';
+import { IOCloseCircleOutline } from '@grandlinex/react-icons';
+
 import {
   FormConf,
   FormConfEl,
@@ -13,10 +14,11 @@ import CheckBox from './inputs/CheckBox';
 import IconSel from './inputs/IconSel';
 import IconTextSel from './inputs/IconTextSel';
 import ContentSwitcher from '../controlls/ContentSwitch/ContentSwitcher';
-import { cnx, useUIContext } from '../../util';
+import { useUIContext } from '../../util';
 import ImageSel from './inputs/ImageSel';
-import Tooltip from '../tooltip/Tooltip';
 import FormDropdown from './inputs/FormDropdown';
+import FormElement, { useFormElContext } from './FormElement';
+import BadgeColorSelector from './inputs/BadgeColorSelector';
 
 /**
  * Get FormInputList
@@ -81,6 +83,29 @@ export function def(options: FormConf) {
   return dd;
 }
 
+function ClearContainer({
+  children,
+  clear,
+  show,
+}: {
+  show: boolean;
+  children: React.ReactNode | React.ReactNode[];
+  clear: () => void;
+}) {
+  return (
+    <span className="glx-clear-container">
+      {children}
+      {show && (
+        <div className="glx-clear-container-btn">
+          <button onClick={clear}>
+            <IOCloseCircleOutline />
+          </button>
+        </div>
+      )}
+    </span>
+  );
+}
+
 export const DefaultInput = ({
   inp,
   e,
@@ -88,6 +113,7 @@ export const DefaultInput = ({
   form,
   updateForm,
   enterHandler,
+  clearContainer,
 }: {
   inp: InputOption;
   e: React.HTMLInputTypeAttribute;
@@ -95,7 +121,9 @@ export const DefaultInput = ({
   updateForm: (key: string, value: any) => void;
   enterHandler: KeyboardEventHandler<any>;
   numeric?: boolean;
+  clearContainer?: () => void;
 }) => {
+  const field = useFormElContext();
   const {
     key,
     submitOnEnter,
@@ -108,12 +136,14 @@ export const DefaultInput = ({
     onChange,
     required,
   } = inp;
-  return (
+  const comp = (
     <input
       type={e}
       required={required}
       onKeyUp={submitOnEnter ? enterHandler : undefined}
       value={form[key]}
+      onFocus={() => field.setFocus(true)}
+      onBlur={() => field.setFocus(false)}
       min={restriction?.min}
       max={restriction?.max}
       autoFocus={autoFocus}
@@ -133,6 +163,14 @@ export const DefaultInput = ({
       }}
     />
   );
+  if (clearContainer && !inp.disabled) {
+    return (
+      <ClearContainer show={!!form[key]} clear={clearContainer}>
+        {comp}
+      </ClearContainer>
+    );
+  }
+  return comp;
 };
 
 /**
@@ -185,8 +223,6 @@ export function FormRow({
           const {
             type,
             key,
-            label,
-            hint,
             items,
             required,
             submitOnEnter,
@@ -198,12 +234,11 @@ export function FormRow({
             restriction,
             placeholder,
             help,
-            className,
           } = cur;
 
           let helpText: React.ReactNode | undefined;
           let iType: React.ReactNode;
-          let noUnderline = false;
+          let noDecoration = false;
           /**
            * Define controlled input
            * Important:
@@ -227,7 +262,7 @@ export function FormRow({
                   items={items ?? []}
                 />
               );
-              noUnderline = true;
+
               break;
             case InputOptionType.CUSTOM:
               iType = cur.customElement?.render(key, form, updateForm, items);
@@ -238,6 +273,7 @@ export function FormRow({
                   e="text"
                   form={form}
                   inp={cur}
+                  clearContainer={() => updateForm(key, '')}
                   updateForm={updateForm}
                   enterHandler={enterHandler}
                 />
@@ -264,8 +300,6 @@ export function FormRow({
                   enterHandler={enterHandler}
                 />
               );
-              noUnderline = true;
-
               break;
             case InputOptionType.DATE:
               iType = (
@@ -275,6 +309,7 @@ export function FormRow({
                   inp={cur}
                   updateForm={updateForm}
                   enterHandler={enterHandler}
+                  clearContainer={() => updateForm(key, '')}
                 />
               );
               break;
@@ -286,6 +321,7 @@ export function FormRow({
                   inp={cur}
                   updateForm={updateForm}
                   enterHandler={enterHandler}
+                  clearContainer={() => updateForm(key, '')}
                 />
               );
               break;
@@ -297,6 +333,7 @@ export function FormRow({
                   inp={cur}
                   updateForm={updateForm}
                   enterHandler={enterHandler}
+                  clearContainer={() => updateForm(key, '')}
                 />
               );
               break;
@@ -309,6 +346,7 @@ export function FormRow({
                   updateForm={updateForm}
                   enterHandler={enterHandler}
                   numeric
+                  clearContainer={() => updateForm(key, '')}
                 />
               );
               break;
@@ -343,8 +381,6 @@ export function FormRow({
                   }}
                 />
               );
-              noUnderline = true;
-
               break;
             case InputOptionType.ICON_TEXT:
               iType = (
@@ -375,6 +411,7 @@ export function FormRow({
                   />
                 </div>
               );
+              noDecoration = true;
               break;
             case InputOptionType.ICON:
               iType = (
@@ -404,7 +441,7 @@ export function FormRow({
                   />
                 </div>
               );
-              noUnderline = true;
+              noDecoration = true;
 
               break;
             case InputOptionType.TAG_SELECTOR:
@@ -490,6 +527,19 @@ export function FormRow({
                 />
               );
               break;
+            case InputOptionType.BADGE_COLOR_SELECTOR:
+              iType = (
+                <BadgeColorSelector
+                  key={key}
+                  disabled={disabled}
+                  sel={form[key]}
+                  onChange={(event) => {
+                    onChange?.(event);
+                    updateForm(key, event);
+                  }}
+                />
+              );
+              break;
             default:
               return null;
           }
@@ -497,13 +547,12 @@ export function FormRow({
             helpText = help;
           }
           return {
-            iType,
-            key,
-            label,
-            required,
-            noUnderline,
-            helpText,
-            className,
+            ...cur,
+            extension: {
+              iType,
+              noDecoration,
+              helpText,
+            },
           };
         });
         return (
@@ -511,44 +560,17 @@ export function FormRow({
             key={`container-${doList[0]?.key}`}
             className={`glx-form--input glx-form--sub-row glx-form--input--split-${option.length}`}
           >
-            {input.map((value) => (
-              <div
-                key={`sub-container-${value?.key}`}
-                className={cnx(
-                  `glx-form--input glx-form--input--split-${input.length}`,
-                  [!value?.noUnderline, 'glx-form--underline'],
-                  value?.className,
-                )}
-              >
-                {value?.label ? (
-                  <div className="glx-form--label">
-                    {value.label}{' '}
-                    {value.required ? (
-                      <span className="glx-form--error-text">*</span>
-                    ) : null}
-                    {value?.helpText && (
-                      <Tooltip text={value.helpText} preLine>
-                        <IOHelpCircleOutline size={16} />
-                      </Tooltip>
-                    )}
-                  </div>
-                ) : null}
-                {value?.iType}
-                {(() => {
-                  const fieldErr = error?.field?.find(
-                    (e) => e.key === value?.key,
-                  );
-                  if (fieldErr) {
-                    return (
-                      <span className="glx-form--error-text">
-                        {fieldErr.message}
-                      </span>
-                    );
-                  }
-                  return null;
-                })()}
-              </div>
-            ))}
+            {input.map((v) =>
+              v ? (
+                <FormElement
+                  element={v}
+                  error={error?.field?.find((e) => e.key === v?.key)}
+                  split={doList.length}
+                >
+                  {v.extension.iType}
+                </FormElement>
+              ) : null,
+            )}
           </div>
         );
       })}

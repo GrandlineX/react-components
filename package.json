@@ -1,6 +1,6 @@
 {
   "name": "@grandlinex/react-components",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -74,7 +74,7 @@
     "buildprep": "npm run build--components && npm run build--sass",
     "build--components": "tsc",
     "build--sass": "gulp",
-    "build--pack": "npm run buildprep && npm pack",
+    "build--pacsdk": "npm run buildprep && npm pack",
     "build--demo": "gulp && npm run build-storybook",
     "watch--sass": "nodemon",
     "serve": "gulp && cross-env BUILD=development webpack && cross-env BUILD=development webpack serve",

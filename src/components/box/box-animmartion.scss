@@ -1,0 +1,99 @@
+.glx-glow-box {
+  position: relative;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.glx-glow-box .inner {
+  border-radius: 4px;
+}
+
+.glx-glow-box::before,
+.glx-glow-box::after {
+
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+                  45deg,
+                  #ff595e,
+                  #ffca3a,
+                  #8ac926,
+                  #1982c4,
+                  #6a4c93,
+                  #ff6700
+  );
+  background-size: 400%;
+  z-index: -1;
+  animation: box-glow 20s linear infinite;
+  width: 100%;
+  border-radius: $main-border-radius;
+}
+
+.glx-glow-box::after {
+  filter: blur(25px);
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes box-glow {
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+
+.glx-rotate-box{
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $main-border-radius;
+}
+
+.glx-rotate-box .inner{
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.glx-rotate-box .inner {
+  margin: 5px;
+}
+
+.glx-rotate-box::before {
+  content: "";
+  display: block;
+  background: linear-gradient(
+                  90deg,
+                  hsla(197, 100%, 64%, 1) 0%,
+                  hsla(339, 100%, 55%, 1) 100%
+  );
+  height: 500px;
+  width: 500px;
+  position: absolute;
+  animation: box-rotate 8s linear infinite;
+  z-index: 0;
+  border-radius: $main-border-radius;
+}
+
+@keyframes box-rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

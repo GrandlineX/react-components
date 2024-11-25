@@ -22,13 +22,30 @@ export class BadgeColorX {
     'orange',
   ];
 
-  private color: BadgeColor;
+  private readonly color: BadgeColor;
 
   constructor(color: string | BadgeColor) {
     if (!BadgeColorX.isValidBadge(color)) {
       throw new Error(`Invalid Badge Color: ${color}`);
     }
     this.color = color;
+  }
+
+  toForm() {
+    if (BadgeColorX.isCustomBadge(this.color)) {
+      return {
+        text: this.color,
+        mode: 'custom',
+        color01: this.getBackground(),
+        color02: this.getText() || '#000000',
+      };
+    }
+    return {
+      text: this.color,
+      mode: this.color,
+      color01: '#000000',
+      color02: '#ffffff',
+    };
   }
 
   getColor() {

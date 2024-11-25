@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useState } from 'react';
 import { IOHelpCircleOutline } from '@grandlinex/react-icons';
-import { cnx, DecorationType, useUIContext } from '../../util';
+import { cnx, useUIContext } from '../../util';
 import Tooltip from '../tooltip/Tooltip';
 import { InputOption, InputOptionType } from './FormTypes';
 
@@ -67,12 +67,13 @@ export default function FormElement({
 
   return (
     <FormElContext.Provider value={context}>
-      <div
+      <fieldset
         key={`sub-container-${key}`}
         className={cnx(
           `glx-form--input glx-form--input--split-${split} glx-form--input--container`,
           [decoration && decType === 'underline', 'glx-form--underline'],
           [decoration && decType === 'outline', 'glx-form--outline'],
+          [!decoration, 'glx-form--no-decoration'],
           [!!disabled, 'glx-form--disabled'],
           [focus, 'glx-form--focus'],
           [!!error, 'glx-form-field--error'],
@@ -80,16 +81,21 @@ export default function FormElement({
         )}
       >
         {label ? (
-          <div className="glx-form--label">
-            {label}{' '}
-            {required ? <span className="glx-form--error-text">*</span> : null}
-            {helpText && (
-              <Tooltip text={helpText} preLine>
-                <IOHelpCircleOutline size={16} />
-              </Tooltip>
-            )}
-          </div>
+          <legend>
+            <div className="glx-form--label">
+              {label}{' '}
+              {required ? (
+                <span className="glx-form--error-text">*</span>
+              ) : null}
+              {helpText && (
+                <Tooltip text={helpText} preLine>
+                  <IOHelpCircleOutline size={16} />
+                </Tooltip>
+              )}
+            </div>
+          </legend>
         ) : null}
+
         {children}
         {(() => {
           const fieldErr = error;
@@ -100,7 +106,7 @@ export default function FormElement({
           }
           return null;
         })()}
-      </div>
+      </fieldset>
     </FormElContext.Provider>
   );
 }

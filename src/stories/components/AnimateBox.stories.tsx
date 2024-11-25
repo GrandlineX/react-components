@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import AnimateBox from '../../components/box/AnimateBox';
-import { Card } from '../../components';
+import { Card, HCard } from '../../components';
 
 const meta = {
   title: 'Components/AnimateBox',
@@ -58,6 +58,42 @@ export const RotateBox: Story = {
     type: 'rotate',
     children: (
       <Card
+        style={{
+          width: 'calc(100% - 10px)',
+        }}
+        icon="IOCard"
+        iconCover
+        color="black"
+        title="Content"
+        noIcon
+      />
+    ),
+  },
+};
+
+export const RotateBoxCustomColors: Story = {
+  args: {
+    type: 'rotate',
+    customBackground: 'linear-gradient(90deg, white 0% , red 60% , red 100%)',
+    children: (
+      <Card
+        style={{
+          width: 'calc(100% - 10px)',
+        }}
+        icon="IOCard"
+        iconCover
+        color="black"
+        title="Content"
+        noIcon
+      />
+    ),
+  },
+};
+export const GlowBoxHorizontalCard: Story = {
+  args: {
+    type: 'glow',
+    children: (
+      <HCard
         style={{
           width: 'calc(100% - 10px)',
         }}

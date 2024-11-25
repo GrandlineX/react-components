@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { getIcon } from '@grandlinex/react-icons';
 import { InputOptionItem } from '../FormTypes';
 import { useFormElContext } from '../FormElement';
 

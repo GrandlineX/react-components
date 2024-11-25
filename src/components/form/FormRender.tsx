@@ -76,6 +76,14 @@ export function def(options: FormConf) {
       case InputOptionType.CHECKBOX:
         dd[key] = value || false;
         break;
+      case InputOptionType.BADGE_COLOR_SELECTOR:
+        dd[key] = value || {
+          text: 'blue',
+          mode: 'blue',
+          color01: '#000000',
+          color02: '#ffffff',
+        };
+        break;
       default:
         break;
     }
@@ -95,12 +103,14 @@ function ClearContainer({
   return (
     <span className="glx-clear-container">
       {children}
-      {show && (
+      {show ? (
         <div className="glx-clear-container-btn">
           <button onClick={clear}>
             <IOCloseCircleOutline />
           </button>
         </div>
+      ) : (
+        <div style={{ width: 24, height: 32 }} />
       )}
     </span>
   );
@@ -346,7 +356,6 @@ export function FormRow({
                   updateForm={updateForm}
                   enterHandler={enterHandler}
                   numeric
-                  clearContainer={() => updateForm(key, '')}
                 />
               );
               break;
@@ -415,7 +424,7 @@ export function FormRow({
               break;
             case InputOptionType.ICON:
               iType = (
-                <div>
+                <div className="glx-pb-4">
                   <IconSel
                     key={key}
                     disabled={disabled}
@@ -425,6 +434,7 @@ export function FormRow({
                       updateForm(key, x);
                     }}
                   />
+                  a
                 </div>
               );
               break;

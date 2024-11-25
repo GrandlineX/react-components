@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { INames } from '@grandlinex/react-icons';
 import Grid from '../../Grid/Grid';
 import { useFormElContext } from '../FormElement';
 import FormDropdown from './FormDropdown';
@@ -38,12 +37,10 @@ export default function BadgeColorSelector(props: {
       ...BadgeColorX.bgColors.map((el) => ({
         key: el,
         name: uiContxt.translation.get(`glx.input.badge.sel.${el}`),
-        icon: 'IOPricetag' as INames,
       })),
       {
         key: 'custom',
         name: uiContxt.translation.get(`glx.input.badge.sel.custom`),
-        icon: 'IOPricetag' as INames,
       },
     ];
   }, [uiContxt.translation]);

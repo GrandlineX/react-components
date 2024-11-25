@@ -1,10 +1,13 @@
 
 .glx-form--label {
   @extend .glx-no-select;
-  padding-bottom: 2px;
   text-align: left;
   font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 }
+
 
 .glx-form--compact{
   &,.glx-form--input{
@@ -18,30 +21,7 @@
     border-bottom: none;
   }
 }
-.glx-form--outline{
-  padding: 4px 2px 2px 2px;
-  border-radius: $main-border-radius;
-  border: 1px solid $main-text;
-  .glx-form--label{
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    padding-left: 4px;
-    padding-right: 4px;
-    transform: translate(2px, -8px);
-    background: $main-background;
-    width: fit-content;
-  }
-}
-.glx-form--outline.glx-form--focus{
-  border: 1px solid $main-contrast;
-}
-.glx-form--outline.glx-form--disabled{
-  border: 1px solid $main-accent-01;
-}
-.glx-form--outline.glx-form-field--error{
-  border: 1px solid $main-red;
-}
+// ######################### Fields #########################
 .glx-form-field--error{
   .glx-form--label{
     color: $main-red !important;
@@ -54,14 +34,48 @@
     animation: form_focus_text_fade 0.4s linear;
   }
 }
+// ######################### Fields #########################
+// ######################### OUTLINE FORMS #########################
 
+.glx-form--outline{
+  padding: 2px 2px 2px 2px;
+  border-radius: $main-border-radius;
+  border: 1px solid $main-text;
+  legend {
+    margin-left: 6px;
+  }
+  &.glx-form--focus{
+    border-color: $main-contrast;
+  }
+  &.glx-form--disabled{
+    border-color: $main-accent-01;
+  }
+  &.glx-form-field--error{
+    border-color: $main-red;
+  }
+}
+// ######################### OUTLINE FORMS #########################
+// ######################### UNDERLINE FORMS #########################
 .glx-form--underline{
+  border-top: none;
+  border-left: none;
+  border-right: none;
   border-bottom: 1px solid $main-text;
+  padding-left: 2px;
+  &.glx-form--focus{
+    border-bottom: 1px solid $main-contrast;
+  }
 }
+// ######################### UNDERLINE FORMS #########################
+// ######################### NO DECORATION FORMS #########################
+.glx-form--no-decoration{
+  border: none;
+  padding: 0;
+}
+// ######################### NO DECORATION FORMS #########################
 
-.glx-form--underline.glx-form--focus{
-  border-bottom: 1px solid $main-contrast;
-}
+
+
 
 @keyframes form_focus_border_fade {
   0% {
@@ -295,9 +309,10 @@ $default-padding-d: 2*$default-padding;
       transform: translateY(2px);
     }
   }
-  button:hover{
+  button:hover,button:focus{
     color: $main-contrast;
     background: $main-accent-01;
     border-radius: $main-border-radius;
   }
 }
+

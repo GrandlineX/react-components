@@ -6,6 +6,8 @@
 
 .glx-glow-box .inner {
   border-radius: 4px;
+  position: relative;
+  z-index: 1;
 }
 
 .glx-glow-box::before,
@@ -26,8 +28,9 @@
                   #6a4c93,
                   #ff6700
   );
+  background: var(--glx-glow-box-bg,linear-gradient(45deg, #ff595e, #ffca3a, #8ac926, #1982c4, #6a4c93, #ff6700));
   background-size: 400%;
-  z-index: -1;
+  z-index: 0;
   animation: box-glow 20s linear infinite;
   width: 100%;
   border-radius: $main-border-radius;
@@ -75,11 +78,7 @@
 .glx-rotate-box::before {
   content: "";
   display: block;
-  background: linear-gradient(
-                  90deg,
-                  hsla(197, 100%, 64%, 1) 0%,
-                  hsla(339, 100%, 55%, 1) 100%
-  );
+  background: var(--glx-rotate-box-bg,linear-gradient(90deg, hsla(197, 100%, 64%, 1) 0%, hsla(339, 100%, 55%, 1) 100%));
   height: 500px;
   width: 500px;
   position: absolute;

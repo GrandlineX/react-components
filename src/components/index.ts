@@ -19,6 +19,7 @@ import Draw from './canvas/Draw';
 import Usage from './progress/Usage';
 import UsageMap from './progress/UsageMap';
 import Icon, { IconProps } from './Icon/Icon';
+import AnimateBox from './box/AnimateBox';
 
 export * from './other/Badge/Badge';
 export * from './mediaPlayer';
@@ -65,4 +66,5 @@ export {
   HNavigatorProps,
   Grid,
   Draw,
+  AnimateBox,
 };

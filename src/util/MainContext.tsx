@@ -127,6 +127,10 @@ const defaultGLang = new GLang({
       key: 'glx.input.badge.sel.custom',
       value: 'Custom',
     },
+    {
+      key: 'glx.input.badge.sel.dev.text',
+      value: 'Test Badge',
+    },
   ],
 });
 export type DecorationType = 'underline' | 'outline' | 'none';

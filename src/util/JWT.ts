@@ -1,15 +1,16 @@
-export interface JwtToken extends Record<string, unknown> {
+export type JwtToken<A extends Record<string, any>> = {
   exp: number;
   iat: number;
-}
-export class JWT {
+} & A;
+
+export class JWT<A extends Record<string, any>> {
   private readonly token: string;
 
   private readonly exp: number;
 
   private iat: number;
 
-  private readonly data: JwtToken;
+  private readonly data: JwtToken<A>;
 
   constructor(token: string) {
     if (token.startsWith('Bearer ') || token.startsWith('bearer ')) {
@@ -17,12 +18,14 @@ export class JWT {
     } else {
       this.token = token;
     }
-    this.data = JWT.parseJwt(this.token);
+    this.data = JWT.parseJwt<A>(this.token);
     this.exp = this.data.exp;
     this.iat = this.data.iat;
   }
 
-  static parseJwt(token: string): JwtToken {
+  static parseJwt<A extends Record<string, any> = any>(
+    token: string,
+  ): JwtToken<A> {
     const base64Payload = token.split('.')[1];
     const payload = atob(base64Payload);
     return JSON.parse(payload.toString());
@@ -38,11 +41,15 @@ export class JWT {
     return date;
   }
 
-  getData(): JwtToken {
+  getData(): JwtToken<A> {
     return this.data;
   }
 
   getToken(): string {
     return this.token;
+  }
+
+  getHeader(): string {
+    return `Bearer ${this.getToken()}`;
   }
 }

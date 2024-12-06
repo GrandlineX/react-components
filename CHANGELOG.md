@@ -1,6 +1,11 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.9.0]
+### Changed
+- React 19 as Peer Dependency
+- Update to `@grandlinex/react-icons: 0.1.0`
+
 ## [0.5.1]
 ### Added
 - Local Storage helper class

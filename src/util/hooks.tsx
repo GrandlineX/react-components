@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useActionState,
+} from 'react';
 import { TabItem, WCMode } from '../layouts/TabLayout/lib/index';
 
 export function useQData<T>(
@@ -21,6 +28,23 @@ export function useQData<T>(
     }
   });
   return [element, setElement, refresh];
+}
+
+/**
+ *
+ * @param q - Query function
+ * @param init - Initial value
+ * @return [state, isPending, refresh]
+ */
+export function useQData19<T>(
+  q: () => Promise<T | null>,
+  init?: Awaited<T | undefined>,
+): [T | null | undefined, boolean, () => void] {
+  const [state, formAction, isPending] = useActionState(async () => {
+    return q();
+  }, init);
+
+  return [state, isPending, formAction];
 }
 export function useAsync<T>(
   callback: () => Promise<T>,
@@ -93,7 +117,7 @@ export function useAutoClose18<T extends HTMLElement>({
   closeFc?: () => void;
   init?: boolean;
   noScip?: boolean;
-}): [React.RefObject<T>, boolean, (x: boolean) => void] {
+}): [React.RefObject<T | null>, boolean, (x: boolean) => void] {
   const menuRef = useRef<T>(null);
   const [open, setOpen] = useState(init || false);
 

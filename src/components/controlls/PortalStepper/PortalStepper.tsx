@@ -32,7 +32,7 @@ export interface PortStepperProps {
 }
 
 function getPos(
-  ref: RefObject<HTMLDivElement> | null,
+  ref: RefObject<HTMLDivElement | null> | null,
   offset?: number,
 ): number {
   if (!ref || !ref.current) {
@@ -43,8 +43,8 @@ function getPos(
 }
 
 function scrollTo(
-  container: RefObject<HTMLDivElement> | null,
-  element: RefObject<HTMLDivElement> | null,
+  container: RefObject<HTMLDivElement | null> | null,
+  element: RefObject<HTMLDivElement | null> | null,
   offset?: number,
 ): boolean {
   if (!container || !container.current || !element) {
@@ -61,7 +61,7 @@ function scrollTo(
 }
 
 const PortalStepperEl = (props: {
-  rRef: RefObject<HTMLDivElement>;
+  rRef: RefObject<HTMLDivElement | null>;
   el: PortStepperConf;
   collapse?: boolean;
 }) => {
@@ -90,8 +90,8 @@ const PortalStepper = (props: PortStepperProps) => {
   const { width, height, conf, className, offset = 0, style, collapse } = props;
   const cName = useCnx('portal-stepper-main', className);
   const [cur, setCur] = useState<number>(0);
-  const refField = useMemo<RefObject<HTMLDivElement>[]>(
-    () => conf.map(() => createRef<HTMLDivElement>()),
+  const refField = useMemo<RefObject<HTMLDivElement | null>[]>(
+    () => conf.map(() => createRef<HTMLDivElement | null>()),
     [conf],
   );
   const bodyRef = createRef<HTMLDivElement>();

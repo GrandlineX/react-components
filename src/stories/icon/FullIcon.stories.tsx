@@ -22,6 +22,7 @@ export const Default: Story = {
   decorators: [
     (Story: StoryFn) => (
       <div className="glx-default-text">
+        {/* @ts-expect-error Missing Types from Storybook for React 19 */}
         <Story />
       </div>
     ),

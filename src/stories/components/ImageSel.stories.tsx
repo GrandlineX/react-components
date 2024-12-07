@@ -16,6 +16,7 @@ const meta = {
   decorators: [
     (Story: StoryFn) => (
       <div className="glx-form--input">
+        {/* @ts-expect-error Missing Types from Storybook for React 19 */}
         <Story />
       </div>
     ),

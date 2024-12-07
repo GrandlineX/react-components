@@ -26,6 +26,7 @@ const meta = {
           height: '600px',
         }}
       >
+        {/* @ts-expect-error Missing Types from Storybook for React 19 */}
         <Story />
       </div>
     ),

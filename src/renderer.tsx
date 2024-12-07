@@ -1,10 +1,10 @@
 import React from 'react';
 import '../themes/dev.scss';
 import { createRoot } from 'react-dom/client';
-import { Default as test } from './stories/components/PortalStepper.stories';
-import PortalStepper from './components/controlls/PortalStepper/PortalStepper';
+import { Default as test } from './stories/components/Form.stories';
 import { GLang, UIContext, UIContextData, useUIContext } from './util';
 import Tooltip from './components/tooltip/Tooltip';
+import { Form } from './components';
 
 const root = createRoot(document.getElementById('root')!);
 
@@ -20,7 +20,7 @@ const App = () => {
       <Tooltip text="HelloWorld">
         {ui.translation.get('test.translation')}
       </Tooltip>
-      <PortalStepper {...(test.args as any)} />
+      <Form {...(test.args as any)} />
     </div>
   );
 };

@@ -28,9 +28,9 @@ const ContentSwitcher = (props: ContentSwitcherProps) => {
     items.length > 3 ? false : null,
   );
 
-  const ref = createRef<HTMLDivElement>();
-  const [refField, setRefField] = useState<RefObject<HTMLDivElement>[]>(
-    items.map(() => createRef<HTMLDivElement>()),
+  const ref = createRef<HTMLDivElement | null>();
+  const [refField] = useState<RefObject<HTMLDivElement | null>[]>(
+    items.map(() => createRef<HTMLDivElement | null>()),
   );
   const fc = (event: WheelEvent) => {
     const sel = ref.current;

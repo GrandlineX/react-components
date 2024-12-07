@@ -1,6 +1,11 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.9.1]
+### Fixed
+- Fix Icon package dependency
+- Fix React 19 types
+
 ## [0.9.0]
 ### Changed
 - React 19 as Peer Dependency

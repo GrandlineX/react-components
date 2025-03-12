@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useState } from 'react';
 import { IOClose, IOSearch, ISize } from '@grandlinex/react-icons';
 import { BaseProps, classN, IconNodeType, renderIcon, styleM } from '../lib';
 import { useAutoClose } from '../../util/hooks';
-import Grid from '../Grid/Grid';
+import { Grid } from '../Grid/Grid';
 
 export type SmartInputElement = {
   key: string;

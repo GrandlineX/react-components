@@ -13,6 +13,14 @@
 }
 
 
+.glx-badge--blue{
+  background: $main-blue;
+  color: $main-white;
+  button{
+    color: $main-white;
+  }
+}
+
 .glx-badge--red{
   background: $main-red;
   color: $main-white;

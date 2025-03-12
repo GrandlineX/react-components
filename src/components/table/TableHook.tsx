@@ -1,4 +1,4 @@
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import Tooltip from '../tooltip/Tooltip';
 import { IconButton } from '../button/IconButton';
 import CheckBox from '../form/inputs/CheckBox';

@@ -5,8 +5,8 @@ import { DecorationType } from '../../util';
 
 export type FormTypes = string | number | null | boolean | undefined;
 
-export type FormConfEl = InputOption | null | InputOption[];
-export type FormConf = FormConfEl[][];
+export type FormConfEl<T> = InputOption<T> | null;
+export type FormConf<T> = FormConfEl<T>[][];
 
 export enum InputOptionType {
   'EMPTY',
@@ -40,7 +40,7 @@ export interface InputOptionItem<X = any> {
   meta?: X;
 }
 
-export interface InputOption {
+export interface InputOption<T> {
   key: string;
   className?: string;
   label?: React.ReactNode;
@@ -62,6 +62,7 @@ export interface InputOption {
     extended?: boolean;
   };
   autoComplete?: 'on' | 'off';
+  showOn?: (form: T) => boolean;
   autoFocus?: boolean;
   readOnly?: boolean;
   beforeSubmit?: (value: FormTypes) => FormTypes;
@@ -89,7 +90,7 @@ export type FormChangeEvent<T> = {
 };
 export interface FormProps<T> extends BaseProps {
   title?: React.ReactNode;
-  options: FormConf;
+  options: FormConf<T>;
   defaultState?: Partial<T>;
   defaultError?: FormErrorType;
   onChange?: (event: FormChangeEvent<T>) => void;

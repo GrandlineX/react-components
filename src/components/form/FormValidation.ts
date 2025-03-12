@@ -2,8 +2,8 @@ import { FormConf, FormConfEl, FormErrorType, InputOption } from './FormTypes';
 import { GLang } from '../../util';
 
 // eslint-disable-next-line import/prefer-default-export
-export function requiredFieldValidation(
-  conf: FormConf,
+export function requiredFieldValidation<T>(
+  conf: FormConf<T>,
   form: any,
   t: GLang,
 ): FormErrorType | null {
@@ -13,7 +13,7 @@ export function requiredFieldValidation(
   };
   conf.forEach((opt) => {
     if (opt) {
-      let doList: FormConfEl[];
+      let doList: FormConfEl<T>[];
       if (Array.isArray(opt)) {
         doList = opt;
       } else {
@@ -23,7 +23,7 @@ export function requiredFieldValidation(
         if (!del) {
           return;
         }
-        let foList: InputOption[];
+        let foList: InputOption<T>[];
         if (Array.isArray(del)) {
           foList = del;
         } else {

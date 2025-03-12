@@ -63,7 +63,7 @@ function TableRow<T extends Record<string, any>>(
 
     return xc;
   }, [extendRowRenderer, open, edit, setEdit]);
-  const formC = useMemo<FormConf>(() => {
+  const formC = useMemo<FormConf<T>>(() => {
     if (!edit) {
       return [];
     }
@@ -71,7 +71,7 @@ function TableRow<T extends Record<string, any>>(
       .getColumDefs()
       .filter((e) => e.editable);
 
-    const transForm: (inp: ColumTableProps<T>) => InputOption = (inp) => {
+    const transForm: (inp: ColumTableProps<T>) => InputOption<T> = (inp) => {
       let type: InputOptionType;
       switch (inp.dataType) {
         case 'date':
@@ -94,7 +94,7 @@ function TableRow<T extends Record<string, any>>(
         type,
       };
     };
-    const out: FormConf = [];
+    const out: FormConf<T> = [];
     for (let i = 0; i < conf.length; i += 2) {
       const f = conf[i];
       const s = conf[i + 1];

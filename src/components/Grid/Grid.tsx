@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, useMemo } from 'react';
 import { cnx, CnxInput } from '../../util';
 
-type GridProps = React.PropsWithChildren<
+export type GridProps = React.PropsWithChildren<
   Omit<HTMLAttributes<HTMLDivElement>, 'className'> & {
     divRef?: React.Ref<HTMLDivElement>;
     className?: CnxInput | CnxInput[];
@@ -49,7 +49,7 @@ const optionMap = new Map<keyof GridProps, string>([
   ['flexWrap', 'glx-flex-wrap'],
 ]);
 
-export default function Grid(props: GridProps) {
+export function Grid(props: GridProps) {
   const { children } = props;
 
   const outProps: Record<string, any> = useMemo(() => {

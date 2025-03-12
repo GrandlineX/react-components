@@ -2,7 +2,7 @@ import React from 'react';
 import { getIcon, INames } from '@grandlinex/react-icons';
 import { cnx } from '../../util';
 import { CardProps } from '../Card/Card';
-import Grid from '../Grid/Grid';
+import { Grid } from '../Grid/Grid';
 import { IconButton } from '../button/IconButton';
 
 export type HCardProps = Omit<CardProps, 'badges' | 'button' | 'menu'> & {

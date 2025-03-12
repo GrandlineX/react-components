@@ -6,10 +6,10 @@ import {
   ISize,
 } from '@grandlinex/react-icons';
 import HNavigator from '../Navigator/HNavigator';
-import { BadgeProps, Badge } from '../other/Badge/Badge';
+import { Badge, BadgeProps } from '../other/Badge/Badge';
 import { cnx } from '../../util';
 import DropDownIconMenu, { MenuItem } from '../menu/DropDownIconMenu';
-import Grid from '../Grid/Grid';
+import { Grid } from '../Grid/Grid';
 import Tooltip, { ToolTipProp } from '../tooltip/Tooltip';
 
 export type CardColor = 'red' | 'black' | 'yellow' | 'green' | 'orange';

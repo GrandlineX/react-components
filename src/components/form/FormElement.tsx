@@ -4,7 +4,7 @@ import { cnx, useUIContext } from '../../util';
 import Tooltip from '../tooltip/Tooltip';
 import { InputOption, InputOptionType } from './FormTypes';
 
-export type FormElementContext = InputOption & {
+export type FormElementContext = InputOption<any> & {
   setDecoration: (value: boolean) => void;
   setFocus: (value: boolean) => void;
   focus: boolean;
@@ -29,13 +29,13 @@ const useFormElContext = () => {
 
 export { FormElContext, useFormElContext };
 
-export default function FormElement({
+export default function FormElement<T>({
   element,
   children,
   error,
   split,
 }: {
-  element: InputOption & {
+  element: InputOption<T> & {
     extension: {
       noDecoration: boolean;
       helpText?: React.ReactNode;

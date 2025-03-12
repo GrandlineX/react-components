@@ -7,7 +7,7 @@ import {
   IWrapperFull,
 } from '@grandlinex/react-icons';
 import { cnx, useUIContext } from '../../../util';
-import Grid from '../../Grid/Grid';
+import { Grid } from '../../Grid/Grid';
 
 const cc = IWrapperFull();
 const names = Object.keys(cc) as INames[];

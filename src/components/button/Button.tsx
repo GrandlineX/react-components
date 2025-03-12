@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { cnx } from '../../util';
-import Grid from '../Grid/Grid';
+import { Grid } from '../Grid/Grid';
 
 export type ButtonProps = {
   onClick: (event?: MouseEvent) => void;

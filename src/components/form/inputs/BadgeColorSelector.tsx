@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import Grid from '../../Grid/Grid';
+import { Grid } from '../../Grid/Grid';
 import { useFormElContext } from '../FormElement';
 import FormDropdown from './FormDropdown';
 import { Badge, BadgeColor, BadgeColorX } from '../../other/Badge/Badge';

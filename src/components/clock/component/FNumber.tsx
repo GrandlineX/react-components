@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { pad } from '../type';
-import Grid from '../../Grid/Grid';
+import { Grid } from '../../Grid/Grid';
 
 function helpList(start: number) {
   const x = [];

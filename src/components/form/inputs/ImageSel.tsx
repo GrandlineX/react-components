@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import Grid from '../../Grid/Grid';
+import { Grid } from '../../Grid/Grid';
 import { Button } from '../../button/Button';
 import { useUIContext } from '../../../util';
 import { IconButton } from '../../button/IconButton';

@@ -24,8 +24,8 @@ import BadgeColorSelector from './inputs/BadgeColorSelector';
  * Get FormInputList
  * @param options
  */
-export function getFormInputs(options: FormConf) {
-  const out: InputOption[] = [];
+export function getFormInputs<T>(options: FormConf<T>) {
+  const out: InputOption<T>[] = [];
   options.forEach((option) => {
     option.forEach((el) => {
       if (Array.isArray(el)) {
@@ -44,7 +44,7 @@ export function getFormInputs(options: FormConf) {
  * @param options
  */
 
-export function def(options: FormConf) {
+export function def<T>(options: FormConf<T>) {
   const dd: any = {};
   getFormInputs(options).forEach((sel) => {
     const { key, type, value } = sel;
@@ -116,7 +116,7 @@ function ClearContainer({
   );
 }
 
-export const DefaultInput = ({
+export function DefaultInput<T>({
   inp,
   e,
   numeric = false,
@@ -125,14 +125,14 @@ export const DefaultInput = ({
   enterHandler,
   clearContainer,
 }: {
-  inp: InputOption;
+  inp: InputOption<T>;
   e: React.HTMLInputTypeAttribute;
   form: any;
   updateForm: (key: string, value: any) => void;
   enterHandler: KeyboardEventHandler<any>;
   numeric?: boolean;
   clearContainer?: () => void;
-}) => {
+}) {
   const field = useFormElContext();
   const {
     key,
@@ -181,19 +181,19 @@ export const DefaultInput = ({
     );
   }
   return comp;
-};
+}
 
 /**
  * Define how to render the Element Row
  */
-export function FormRow({
+export function FormRow<T>({
   option,
   form,
   updateForm,
   submitForm,
   error,
 }: {
-  option: FormConfEl[];
+  option: FormConfEl<T>[];
   form: any;
   updateForm: (key: string, value: any) => void;
   submitForm: () => void;
@@ -222,7 +222,7 @@ export function FormRow({
         if (!opt) {
           return null;
         }
-        let doList: InputOption[];
+        let doList: InputOption<T>[];
         if (Array.isArray(opt)) {
           doList = opt;
         } else {
@@ -434,7 +434,6 @@ export function FormRow({
                       updateForm(key, x);
                     }}
                   />
-                  a
                 </div>
               );
               break;

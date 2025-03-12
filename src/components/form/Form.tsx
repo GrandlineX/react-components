@@ -4,7 +4,7 @@ import { def, FormRow, getFormInputs } from './FormRender';
 import { cnx, useUIContext, uuid } from '../../util';
 import LPulse from '../loading/LPulse';
 import { Button } from '../button/Button';
-import Grid from '../Grid/Grid';
+import { Grid } from '../Grid/Grid';
 import { classN } from '../lib';
 import { requiredFieldValidation } from './FormValidation';
 
@@ -107,24 +107,30 @@ function Form<T extends Record<string, any> = any>({
       {title}
       {spinning
         ? loadingNode || <LPulse />
-        : options.map((el) => (
-            <FormRow
-              key={el.reduce((a, b) => {
-                if (!b) {
-                  return `${a}_empty`;
-                }
-                if (Array.isArray(b)) {
-                  return `${a}_${b.map((dx) => dx.key).join('_')}`;
-                }
-                return `${a}_${b.key}`;
-              }, '')}
-              option={el}
-              form={form}
-              updateForm={updateForm}
-              submitForm={submitForm}
-              error={fError}
-            />
-          ))}
+        : options.map((el) => {
+            const elx = el.filter((e) => (e?.showOn ? e.showOn(form) : true));
+            if (elx.length === 0) {
+              return null;
+            }
+            return (
+              <FormRow
+                key={el.reduce((a, b) => {
+                  if (!b) {
+                    return `${a}_empty`;
+                  }
+                  if (Array.isArray(b)) {
+                    return `${a}_${b.map((dx) => dx.key).join('_')}`;
+                  }
+                  return `${a}_${b.key}`;
+                }, '')}
+                option={elx}
+                form={form}
+                updateForm={updateForm}
+                submitForm={submitForm}
+                error={fError}
+              />
+            );
+          })}
       {spinning && loadingMessage ? (
         <div className="glx-py-12">{loadingMessage}</div>
       ) : null}

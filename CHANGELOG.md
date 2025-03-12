@@ -1,6 +1,11 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.9.2]
+### Changed
+- Form field now can be conditional
+- Update to `@grandlinex/react-icons: 0.2.1`
+
 ## [0.9.1]
 ### Fixed
 - Fix Icon package dependency

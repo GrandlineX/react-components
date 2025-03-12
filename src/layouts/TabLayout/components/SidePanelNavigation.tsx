@@ -33,7 +33,7 @@ function SidePanelNavigation(props: SidePanelNavigationProps) {
     return tData;
   });
 
-  const options: FormConf = [];
+  const options: FormConf<any> = [];
 
   options.push([
     {

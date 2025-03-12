@@ -7,9 +7,9 @@ import React, {
 } from 'react';
 import { getIcon } from '@grandlinex/react-icons';
 import { cnx, useUIContext } from '../../../util';
-import { BadgeProps, Badge, BadgeColorX } from '../Badge/Badge';
+import { Badge, BadgeColorX, BadgeProps } from '../Badge/Badge';
 import { useAutoClose } from '../../../util/hooks';
-import Grid from '../../Grid/Grid';
+import { Grid } from '../../Grid/Grid';
 import { useFormElContext } from '../../form/FormElement';
 
 export type TagProps = BadgeProps & {

@@ -14,7 +14,6 @@ import { Card, CardColor, CardIconType, CardProps } from './Card/Card';
 
 import DropDownIconMenu, { MenuItem } from './menu/DropDownIconMenu';
 import HNavigator, { HNavigatorProps } from './Navigator/HNavigator';
-import Grid from './Grid/Grid';
 import Draw from './canvas/Draw';
 import Usage from './progress/Usage';
 import UsageMap from './progress/UsageMap';
@@ -23,6 +22,7 @@ import AnimateBox from './box/AnimateBox';
 
 export * from './other/Badge/Badge';
 export * from './mediaPlayer';
+export * from './Grid/Grid';
 export * from './form/FormValidation';
 export * from './button/IconButton';
 export * from './controlls/PortalStepper/PortalStepper';
@@ -64,7 +64,6 @@ export {
   PortalStepper,
   HNavigator,
   HNavigatorProps,
-  Grid,
   Draw,
   AnimateBox,
 };

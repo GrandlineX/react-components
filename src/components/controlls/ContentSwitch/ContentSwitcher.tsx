@@ -1,4 +1,10 @@
-import React, { createRef, RefObject, useEffect, useState } from 'react';
+import React, {
+  createRef,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { IOChevronDown } from '@grandlinex/react-icons';
 import { useCnx } from '../../../util';
 
@@ -28,7 +34,7 @@ const ContentSwitcher = (props: ContentSwitcherProps) => {
     items.length > 3 ? false : null,
   );
 
-  const ref = createRef<HTMLDivElement | null>();
+  const ref = useRef<HTMLDivElement>(null);
   const [refField] = useState<RefObject<HTMLDivElement | null>[]>(
     items.map(() => createRef<HTMLDivElement | null>()),
   );

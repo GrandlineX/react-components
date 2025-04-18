@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { IOChevronBack, IOChevronForward } from '@grandlinex/react-icons';
 import { Grid } from '../Grid/Grid';
@@ -9,8 +9,8 @@ export type HNavigatorProps = React.PropsWithChildren<{
 }>;
 export default function HNavigator(props: HNavigatorProps) {
   const { children, className } = props;
-  const ref = createRef<HTMLDivElement>();
-  const [scroll, setScroll] = React.useState<{
+  const ref = useRef<HTMLDivElement>(null);
+  const [scroll, setScroll] = useState<{
     scrollLeft: number;
     clientWidth: number;
     scrollRight: number;
@@ -44,7 +44,7 @@ export default function HNavigator(props: HNavigatorProps) {
     if (ref.current) {
       updateScroll(ref.current);
     }
-  }, [ref.current]);
+  }, [ref]);
   return (
     <Grid className="glx-navigator-horizontal--wrapper">
       <div

@@ -133,7 +133,7 @@ const defaultGLang = new GLang({
     },
   ],
 });
-export type DecorationType = 'underline' | 'outline' | 'none';
+export type DecorationType = 'underline' | 'outline' | 'box' | 'none';
 class UIContextData {
   portalRoot: HTMLElement;
 

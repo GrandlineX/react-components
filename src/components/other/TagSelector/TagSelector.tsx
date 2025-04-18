@@ -1,8 +1,8 @@
 import React, {
-  createRef,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { getIcon } from '@grandlinex/react-icons';
@@ -44,7 +44,7 @@ export function TagSelector(prop: TagSelectorProps) {
   const uiContext = useUIContext();
   const fieldContext = useFormElContext();
 
-  const divRef = createRef<HTMLDivElement>();
+  const divRef = useRef<HTMLDivElement>(null);
   const [focus, setFocus] = useState(autoFocus || false);
   const selected = useMemo<TagProps[]>(() => {
     return (

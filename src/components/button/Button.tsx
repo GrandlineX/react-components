@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useMemo } from 'react';
 import { cnx } from '../../util';
 import { Grid } from '../Grid/Grid';
 
@@ -6,7 +6,8 @@ export type ButtonProps = {
   onClick: (event?: MouseEvent) => void;
   text?: string;
   className?: string;
-  color?:
+  color?: string;
+  bubble?:
     | 'red'
     | 'blue'
     | 'yellow'
@@ -18,9 +19,14 @@ export type ButtonProps = {
   disabled?: boolean;
   cancel?: boolean;
   half?: boolean;
+  fadeIn?: boolean;
   gap?: 0 | 2 | 4 | 6 | 8 | 10 | 12 | 24;
   children?: React.ReactNode;
+  icon?: React.ReactNode;
+  allwaysIcon?: boolean;
   style?: React.CSSProperties;
+  iconPre?: boolean;
+  type?: 'bubble' | 'round';
 };
 const Button = (props: ButtonProps) => {
   const {
@@ -30,30 +36,57 @@ const Button = (props: ButtonProps) => {
     disabled,
     children,
     half,
+    bubble,
     color,
     className,
     style,
+    fadeIn,
+    icon,
+    allwaysIcon,
+    type = 'bubble',
     gap = 4,
+    iconPre = true,
   } = props;
+
+  const styledObj = useMemo(() => {
+    const st = style || {};
+    if (color) {
+      st.backgroundColor = color;
+    }
+    if (fadeIn) {
+      st.animation = 'fadeIn 0.5s';
+    }
+    return st;
+  }, [color, fadeIn, style]);
 
   return (
     <button
-      style={style}
+      style={styledObj}
       className={cnx(
         'button--grid',
-        'bubble',
         className,
+        [!!bubble && type === 'bubble', 'bubble'],
         [!!cancel, 'cancel'],
         [!!half, 'button--grid-half'],
-        [!!color, `button--${color}`, 'button--default'],
+        [
+          !!bubble && type === 'bubble',
+          `button--bubble-${bubble}`,
+          'button--default',
+        ],
       )}
       type="button"
       onClick={onClick}
       disabled={disabled}
     >
       <Grid flex flexR gap={gap} vCenter hCenter>
+        {icon && iconPre && (
+          <span className={cnx([!!allwaysIcon, 'icon-x', 'ico'])}>{icon}</span>
+        )}
         {children}
         {text}
+        {icon && !iconPre && (
+          <span className={cnx([!!allwaysIcon, 'icon-x', 'ico'])}>{icon}</span>
+        )}
       </Grid>
     </button>
   );

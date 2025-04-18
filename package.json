@@ -1,11 +1,11 @@
 {
   "name": "@grandlinex/react-components",
-  "version": "0.9.2",
+  "version": "0.10.0-alpha.0",
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@grandlinex/react-icons": "0.2.0"
+    "@grandlinex/react-icons": "0.2.1"
   },
   "keywords": [
     "grandlinex",
@@ -17,27 +17,27 @@
     "library"
   ],
   "peerDependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react": "19.1.x",
+    "react-dom": "19.1.x"
   },
   "devDependencies": {
     "@babel/preset-env": "7.25.4",
     "@babel/preset-react": "7.24.7",
     "@babel/preset-typescript": "7.24.7",
     "@chromatic-com/storybook": "3.2.2",
-    "@storybook/addon-essentials": "8.6.4",
-    "@storybook/addon-interactions": "8.6.4",
-    "@storybook/addon-links": "8.6.4",
-    "@storybook/addon-onboarding": "8.6.4",
-    "@storybook/addon-storysource": "8.6.4",
-    "@storybook/addon-themes": "8.6.4",
-    "@storybook/addon-webpack5-compiler-swc": "1.0.5",
-    "@storybook/blocks": "8.6.4",
-    "@storybook/react": "8.6.4",
-    "@storybook/react-webpack5": "8.6.4",
-    "@storybook/test": "8.6.4",
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.1",
+    "@storybook/addon-essentials": "8.6.12",
+    "@storybook/addon-interactions": "8.6.12",
+    "@storybook/addon-links": "8.6.12",
+    "@storybook/addon-onboarding": "8.6.12",
+    "@storybook/addon-storysource": "8.6.12",
+    "@storybook/addon-themes": "8.6.12",
+    "@storybook/addon-webpack5-compiler-swc": "1.0.6",
+    "@storybook/blocks": "8.6.12",
+    "@storybook/react": "8.6.12",
+    "@storybook/react-webpack5": "8.6.12",
+    "@storybook/test": "8.6.12",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "19.1.2",
     "@typescript-eslint/eslint-plugin": "7.16.0",
     "@typescript-eslint/parser": "7.16.0",
     "cross-env": "7.0.3",
@@ -61,7 +61,7 @@
     "prettier": "3.3.3",
     "sass": "1.79.4",
     "sass-loader": "16.0.2",
-    "storybook": "8.6.4",
+    "storybook": "8.6.12",
     "style-loader": "4.0.0",
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",

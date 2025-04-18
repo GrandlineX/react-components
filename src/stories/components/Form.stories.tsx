@@ -376,6 +376,19 @@ export const UnderlinesDecoration: Story = {
   },
 };
 
+export const BoxDecoration: Story = {
+  args: {
+    className: 'glx-pb-8',
+    options: fullConf({ decorationType: 'box' }),
+    onSubmit: async (form) => {
+      console.log(form);
+      await sleep(4000);
+    },
+    loadingMessage: 'Loading...',
+    loading: true,
+  },
+};
+
 export const FormPrefill: Story = {
   args: {
     className: 'glx-pb-8',

@@ -1,4 +1,4 @@
-import React, { createRef, ReactNode, useState } from 'react';
+import React, { ReactNode, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { cnx, useUIContext } from '../../util';
 
@@ -18,8 +18,8 @@ const Tooltip = (props: ToolTipProp) => {
   const [open, setOpen] = useState<boolean>(false);
   const [left, setLeft] = useState<number>(0);
   const [top, setTop] = useState<number>(0);
-  const chRef = createRef<HTMLSpanElement>();
-  const tRef = createRef<HTMLDivElement>();
+  const chRef = useRef<HTMLSpanElement>(null);
+  const tRef = useRef<HTMLDivElement>(null);
 
   return (
     <span

@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TabContainerFunctions, TabItem, WCMode } from '../lib';
 import { cnx } from '../../../util';
 import { TabBarElement, TabContextMenu } from './TabBarElement';
@@ -24,8 +24,8 @@ const TabBar: React.FC<{ c: TabBarProps }> = function (prop) {
     setCurrentTab,
     contextMenu,
   } = c;
-  const refLeft = createRef<HTMLDivElement>();
-  const refRight = createRef<HTMLDivElement>();
+  const refLeft = useRef<HTMLDivElement>(null);
+  const refRight = useRef<HTMLDivElement>(null);
 
   const [dLeft, setDLeft] = useState<boolean>(false);
   const [dRight, setDRight] = useState<boolean>(false);

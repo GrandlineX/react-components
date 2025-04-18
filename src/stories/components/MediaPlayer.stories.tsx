@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import React, { createRef } from 'react';
 import { Grid, MediaPlayer } from '../../components';
 import { MediaPlayerRefType } from '../../components/mediaPlayer/MediaPlayer';
 
@@ -29,7 +29,7 @@ export const Default: Story = {
     width: '100%',
   },
 };
-const ref = React.createRef<MediaPlayerRefType>();
+const ref = createRef<MediaPlayerRefType>();
 
 export const OnEvent: Story = {
   storyName: 'On Events',

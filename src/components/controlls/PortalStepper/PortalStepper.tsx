@@ -4,6 +4,7 @@ import React, {
   RefObject,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { IOChevronDown, IOChevronForward } from '@grandlinex/react-icons';
@@ -94,7 +95,7 @@ const PortalStepper = (props: PortStepperProps) => {
     () => conf.map(() => createRef<HTMLDivElement | null>()),
     [conf],
   );
-  const bodyRef = createRef<HTMLDivElement>();
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   const scrollFc = (event: Event) => {
     const container = event.target as HTMLDivElement;

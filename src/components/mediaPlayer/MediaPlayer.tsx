@@ -1,8 +1,8 @@
 import React, {
-  createRef,
   ElementRef,
   forwardRef,
   useImperativeHandle,
+  useRef,
 } from 'react';
 import {
   MediaPlayerParentFunction,
@@ -23,7 +23,7 @@ export const MediaPlayer = forwardRef<
   MediaPlayerParentFunction,
   MediaPlayerProps<any>
 >((props, ref) => {
-  const refX = createRef<FilePlayerRefType | FileAudioPlayerRefType>();
+  const refX = useRef<FilePlayerRefType | FileAudioPlayerRefType>(null);
   useImperativeHandle(ref, () => ({
     seekTo(to: number) {
       if (refX.current) {

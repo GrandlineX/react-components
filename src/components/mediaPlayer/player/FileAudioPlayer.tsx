@@ -1,8 +1,8 @@
 import React, {
-  createRef,
   ElementRef,
   forwardRef,
   useImperativeHandle,
+  useRef,
 } from 'react';
 import { cnx } from '../../../util';
 import {
@@ -17,7 +17,7 @@ export const FileAudiPlayer = forwardRef<
   FileAudioPlayerParentFunction,
   FilePlayerProps
 >((props, ref) => {
-  const refX = createRef<HTMLVideoElement>();
+  const refX = useRef<HTMLVideoElement>(null);
 
   useImperativeHandle(ref, () => ({
     seekTo(to: number) {

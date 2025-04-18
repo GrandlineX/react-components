@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { IOClose, IOSearch, ISize } from '@grandlinex/react-icons';
 import { BaseProps, classN, IconNodeType, renderIcon, styleM } from '../lib';
@@ -41,7 +41,7 @@ export function SmartInput(prop: SmartInputInputProps) {
   const [search, setSearch] = useState<string>('');
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState(-1);
-  const iRef = createRef<HTMLInputElement>();
+  const iRef = useRef<HTMLInputElement>(null);
 
   let filteredList =
     list?.filter((x) => {

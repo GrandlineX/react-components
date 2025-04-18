@@ -1,17 +1,3 @@
-button.button--base {
-  min-width: 400px;
-  font-size: 12pt;
-  border: none;
-  color: $main-white;
-  background-color: $main-button;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 8px;
-}
-
 .button--default::before {
   background-color: $main-contrast;
 }
@@ -20,73 +6,71 @@ button.button--base {
   background-color: $main-contrast;
 }
 
-.button--blue::before {
+.button--bubble-blue::before {
   background-color: $main-dark-blue;
 }
 
-.button--blue:hover {
+.button--bubble-blue:hover {
   background-color: $main-dark-blue;
 }
 
-.button--cyan::before {
+.button--bubble-cyan::before {
   background-color: $main-cyan;
 }
 
-.button--cyan:hover {
+.button--bubble-cyan:hover {
   background-color: $main-cyan;
+  color: black !important;
+}
+
+.button--bubble-red::before {
+  background-color: $main-red;
+}
+
+.button--bubble-red:hover {
+  background-color: $main-red;
+}
+
+.button--bubble-green::before {
+  background-color: $main-green;
+}
+
+.button--bubble-green:hover {
+  background-color: $main-green;
+}
+
+.button-bubble--purple::before {
+  background-color: $main-purple;
+}
+
+.button--bubble-purple:hover {
+  background-color: $main-purple;
+}
+
+.button--bubble-orange::before {
+  background-color: $main-orange;
+}
+
+.button--bubble-orange:hover {
+  background-color: $main-orange;
+}
+
+.button--bubble-pink::before {
+  background-color: $main-pink;
+}
+
+.button--bubble-pink:hover {
+  background-color: $main-pink;
   color: black !important;
 
 }
 
-.button--red::before {
-  background-color: $main-red;
-}
-
-.button--red:hover {
-  background-color: $main-red;
-}
-
-.button--green::before {
-  background-color: $main-green;
-}
-
-.button--green:hover {
-  background-color: $main-green;
-}
-
-.button--purple::before {
-  background-color: $main-purple;
-}
-
-.button--purple:hover {
-  background-color: $main-purple;
-}
-
-.button--orange::before {
-  background-color: $main-orange;
-}
-
-.button--orange:hover {
-  background-color: $main-orange;
-}
-
-.button--pink::before {
-  background-color: $main-pink;
-}
-
-.button--pink:hover {
-  background-color: $main-pink;
-  color: black !important;
-
-}
-
-.button--yellow::before {
+.button--bubble-yellow::before {
   background-color: $main-yellow;
 }
 
-.button--yellow:hover {
+.button--bubble-yellow:hover {
   background-color: $main-yellow;
-
   color: black !important;
 }
 
@@ -106,18 +90,10 @@ button.cancel {
   border: 1px solid white;
 }
 
-button.half {
-  width: 192px;
-  margin-left: 8px;
-  margin-right: 8px;
-  min-width: 0px;
-}
-
 button.button--base:disabled {
   background-color: $main-accent-02;
   cursor: not-allowed;
 }
-
 
 button.button--grid:disabled {
   background-color: $main-accent-02;
@@ -126,29 +102,48 @@ button.button--grid:disabled {
 
 button.button--grid {
   position: relative;
-  width: 300px;
   font-size: 12pt;
   border: none;
-  color: $main-white;
-  background-color: $main-button;
-  padding: 15px 32px;
+  color: white;
+  background-color: black;
+  border-radius: 32px;
+  padding: 12px;
+  gap: 12px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
   margin: 2px;
-  border-radius: 4px;
-
   span {
     margin-right: 6px;
   }
+  span.ico {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+  }
+  span.icon-x {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &:hover {
+    span.ico {
+      display: flex;
+      animation: buttonFadeIn .8s;
+    }
+  }
+/*  &:active {
+    box-shadow: 0 5px #FFC324;
+    transform: translateY(2px);
+  }*/
 }
 
 button.button--grid:after, button.button-link:after {
   content: "";
   display: block;
   position: absolute;
-  border-radius: 4px;
   left: 0;
   top: 0;
   width: 100%;
@@ -156,31 +151,21 @@ button.button--grid:after, button.button-link:after {
   opacity: 0;
   transition: all 0.5s;
   box-shadow: 0 0 5px 20px white;
-}
-
-button.button--grid:active:after, button.button-link:active:after {
-  box-shadow: 0 0 0 0 white;
-  position: absolute;
-  border-radius: 4px;
-  left: 0;
-  top: 0;
-  opacity: 1;
-  transition: 0s;
+  border-radius: 32px;
 }
 
 button.button--grid:active, button.button-link:active {
   top: 1px;
 }
 
-
 button.button--grid-half {
-  width: 150px;
-
+  width: 150px !important;
 }
 
 button:disabled {
   transition: unset;
 }
+
 button:disabled::before {
   transform: unset;
   transition: unset;
@@ -192,14 +177,20 @@ button.bubble {
   position: relative;
   font-size: inherit;
   font-family: inherit;
-  color: white;
   padding: 0.5em 1em;
   outline: none;
   border: none;
   overflow: hidden;
   transition: color 0.4s ease-in-out;
+  width: 300px;
+  color: $main-white;
+  background-color: $main-button;
+  border-radius: 4px;
 }
 
+button.bubble:after {
+  border-radius: 4px !important;
+}
 
 button.bubble::before {
   content: '';
@@ -245,4 +236,14 @@ button.bubble:hover::before {
 }
 .glx-icon-button--black svg{
   color: $main-black !important;
+}
+
+@keyframes buttonFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+  }
 }

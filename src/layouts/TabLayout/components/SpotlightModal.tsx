@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getIcon, INames, ISize } from '@grandlinex/react-icons';
 import { Grid } from '../../../components';
 import { useUIContext } from '../../../util';
@@ -50,9 +50,9 @@ export function SpotlightModal({
   const ui = useUIContext();
   const [search, setSearch] = useState('');
   const [command, setCommand] = useState<CommandAction | null>(null);
-  const ref = createRef<HTMLInputElement>();
-  const refScroll = createRef<HTMLDivElement>();
-  const refCur = createRef<HTMLDivElement>();
+  const ref = useRef<HTMLInputElement>(null);
+  const refScroll = useRef<HTMLDivElement>(null);
+  const refCur = useRef<HTMLDivElement>(null);
   const [keyNavigation, setKeyNavigation] = useState<number>(-1);
   let res: SpotlightOption[] = [];
   let emptyRes: SpotlightOption[] | null = null;

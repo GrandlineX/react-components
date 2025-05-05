@@ -7,15 +7,22 @@
     @extend .glx-p-8,.glx-w-full-8;
     z-index: 200;
     position: absolute;
-    background-color: $main-accent-01;
+    background: $tlc-card;
+    color: $tlc-card-font;
+    border-radius: 4px;
+    border: 1px solid $main-contrast-transparent;
+    padding: 4px;
+
     >div{
       @extend .glx-no-select;
-      width: 100%;
+      width: calc(100% - 8px);
+      border-bottom: 1px solid $main-accent-03;
+      padding: 4px;
     }
     >div:hover,.glx-tag-selector--selected{
       @extend .glx-no-select;
       background-color: $main-accent-05;
-      width: 100%;
+      width: calc(100% - 8px);
     }
 
   }

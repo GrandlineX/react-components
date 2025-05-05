@@ -1,9 +1,14 @@
 import React, { useMemo, useState } from 'react';
 import {
+  IOCaretBack,
+  IOCaretForward,
   IOChevronDown,
+  IOChevronForward,
   IOChevronUp,
   IOClose,
   IOPencil,
+  IOPlaySkipBack,
+  IOPlaySkipForward,
 } from '@grandlinex/react-icons';
 import { cnx, GLang, useUIContext } from '../../util';
 import {
@@ -16,6 +21,7 @@ import {
 } from './TableHook';
 import Form from '../form/Form';
 import { FormConf, InputOption, InputOptionType } from '../form/FormTypes';
+import { Grid } from '../Grid/Grid';
 
 function defaultCellrenderer(value: any, t: GLang) {
   if (typeof value === 'boolean') {
@@ -62,7 +68,7 @@ function TableRow<T extends Record<string, any>>(
     }
 
     return xc;
-  }, [extendRowRenderer, open, edit, setEdit]);
+  }, [extendRowRenderer, open, edit, setEdit, api, ui.translation]);
   const formC = useMemo<FormConf<T>>(() => {
     if (!edit) {
       return [];
@@ -105,7 +111,7 @@ function TableRow<T extends Record<string, any>>(
       }
     }
     return out;
-  }, [edit]);
+  }, [api, edit]);
   return (
     <>
       <tr
@@ -117,7 +123,7 @@ function TableRow<T extends Record<string, any>>(
         {api.getColumDefs(ac).map((h) => {
           const val = getCellValue(rowData, h);
           return (
-            <td>
+            <td style={h.style}>
               {h.cellRenderer?.({
                 data: rowData,
                 index,
@@ -175,35 +181,211 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
     extendRowRenderer,
     className,
     fixedHeader,
+    sortable,
     isSelectable = false,
+    pagination,
   } = props;
 
+  const {
+    sort,
+    setSort,
+    page,
+    setPage,
+    pageSize,
+    setPageSize,
+    maxPages,
+    pageSizes,
+  } = api;
+
+  const sortData = useMemo(() => {
+    if (!sort) {
+      return data.rowData;
+    }
+    const sortFc = api.getColumDefs().find((e) => e.field === sort.key)?.sort;
+    if (sortFc) {
+      if (sort.order === 'DSC') {
+        return data.rowData.sort(sortFc).reverse();
+      }
+      return data.rowData.sort(sortFc);
+    }
+    return data.rowData;
+  }, [api, data.rowData, sort]);
+
+  const pageData = useMemo(() => {
+    if (!pagination) {
+      return sortData;
+    }
+    return sortData.slice(page * pageSize, (page + 1) * pageSize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortData, page, pageSize, sort]);
+
+  const pageButtonKeys = useMemo(() => {
+    const allPage = Array.from(new Array(maxPages).keys());
+    if (maxPages <= 5) {
+      return allPage;
+    }
+    if (page < 2) {
+      return allPage.slice(0, 5);
+    }
+    if (page + 3 > maxPages) {
+      return allPage.slice(maxPages - 5, maxPages + 1);
+    }
+    return allPage.slice(page - 2).slice(0, 5);
+  }, [maxPages, page]);
+
   return (
-    <table
-      className={cnx('glx-table-root', className, [
-        !!fixedHeader,
-        'glx-table--fixed-header',
-      ])}
-    >
-      <thead>
-        <tr>
-          {api.getColumDefs().map((h) => (
-            <th key={`key_${h.headerName}`}>{h.headerName}</th>
+    <Grid flex flexC gap={8}>
+      <table
+        className={cnx('glx-table-root', className, [
+          !!fixedHeader,
+          'glx-table--fixed-header',
+        ])}
+      >
+        <thead>
+          <tr>
+            {api.getColumDefs().map((h) => (
+              <th key={`key_${h.headerName}`}>
+                <Grid
+                  flex
+                  flexR
+                  center
+                  gap={4}
+                  className={cnx([!!sortable && !!h.sort, 'can-sort'])}
+                  onClick={(e) => {
+                    if (!!sortable && !!h.sort) {
+                      e.preventDefault();
+
+                      if (
+                        sort &&
+                        (sort.key !== h.field || sort.order === 'DSC')
+                      ) {
+                        setSort({
+                          key: h.field,
+                          order: 'ASC',
+                        });
+                      } else {
+                        setSort({
+                          key: h.field,
+                          order: 'DSC',
+                        });
+                      }
+                    }
+                  }}
+                >
+                  {h.headerName}
+                  {sort && h.field === sort.key && sort.order === 'DSC' && (
+                    <IOChevronUp />
+                  )}
+                  {sort && h.field === sort.key && sort.order === 'ASC' && (
+                    <IOChevronDown />
+                  )}
+                  {h.field !== sort?.key && (
+                    <span className="hover-sort">
+                      <IOChevronDown />
+                    </span>
+                  )}
+                  {h.field !== sort?.key && (
+                    <span className="pending-sort">
+                      <IOChevronForward />
+                    </span>
+                  )}
+                </Grid>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {pageData.map((row, index) => (
+            <TableRow<T>
+              key={
+                isSelectable ? `row_${(row as any)[isSelectable]}` : undefined
+              }
+              api={api}
+              rowData={row}
+              index={index}
+              extendRowRenderer={extendRowRenderer}
+            />
           ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.rowData.map((row, index) => (
-          <TableRow<T>
-            key={isSelectable ? `row_${(row as any)[isSelectable]}` : undefined}
-            api={api}
-            rowData={row}
-            index={index}
-            extendRowRenderer={extendRowRenderer}
-          />
-        ))}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+      {pagination && (
+        <Grid
+          flex
+          flexRow
+          flexSpaceB
+          className="glx-table--pager glx-default-text"
+        >
+          <Grid flex flexR gap={4}>
+            {pageSizes.map((e) => (
+              <button
+                disabled={pageSize === e}
+                type="button"
+                onClick={() => {
+                  if (page * e > pageData.length) {
+                    setPage(0);
+                  }
+                  setPageSize(e);
+                }}
+              >
+                {e}
+              </button>
+            ))}
+          </Grid>
+          <Grid flex flexR gap={4}>
+            {maxPages > 5 && (
+              <>
+                <button
+                  className="glx-table--navigator"
+                  type="button"
+                  disabled={page === 0}
+                  onClick={() => setPage(0)}
+                >
+                  <IOPlaySkipBack />
+                </button>
+                <button
+                  className="glx-table--navigator"
+                  type="button"
+                  disabled={page === 0}
+                  onClick={() => setPage(page - 1)}
+                >
+                  <IOCaretBack />
+                </button>
+              </>
+            )}
+            {pageButtonKeys.map((e) => (
+              <button
+                disabled={page === e}
+                type="button"
+                onClick={() => setPage(e)}
+              >
+                {e + 1}
+              </button>
+            ))}
+
+            {maxPages > 5 && (
+              <>
+                <button
+                  className="glx-table--navigator"
+                  disabled={page === maxPages - 1}
+                  type="button"
+                  onClick={() => setPage(page + 1)}
+                >
+                  <IOCaretForward />
+                </button>
+                <button
+                  className="glx-table--navigator"
+                  disabled={page === maxPages - 1}
+                  type="button"
+                  onClick={() => setPage(maxPages - 1)}
+                >
+                  <IOPlaySkipForward />
+                </button>
+              </>
+            )}
+          </Grid>
+        </Grid>
+      )}
+    </Grid>
   );
 }
 

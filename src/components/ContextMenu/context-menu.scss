@@ -1,0 +1,48 @@
+.glx-cm--container {
+
+  @extend .glx-no-select, .glx-default-text;
+  position: absolute;
+  min-width: 220px;
+  min-height: 60px;
+  background-color: $main-background-alt;
+  border-radius: $main-border-radius;
+  padding: 2px;
+
+  .glx-cm--item {
+    cursor: pointer;
+    border-radius: $main-border-radius;
+    padding: 4px 8px 4px 24px;
+
+    .glx-cm--label {
+      color: $main-contrast;
+    }
+
+    &:hover {
+      background-color: $main-contrast;
+
+      .glx-cm--label {
+        color: $main-background-alt;
+      }
+    }
+  }
+
+  .glx-cm--disabled {
+    padding: 4px 8px 4px 24px;
+
+    .glx-cm--label, .glx-cm--keybind {
+      color: $main-accent-05;
+    }
+
+  }
+
+  .glx-cm--divider {
+    @extend .glx-mx-8;
+    height: 1px;
+    background-color: $main-contrast;
+  }
+
+  .glx-cm--lable {
+    color: $main-text;
+    padding: 4px 8px 4px 24px;
+  }
+}

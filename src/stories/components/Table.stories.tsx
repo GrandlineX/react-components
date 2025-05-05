@@ -32,7 +32,7 @@ type data = {
   json?: { name: string } | null;
 };
 const shortA: data[] = [];
-for (let i = 1; i < 20; i++) {
+for (let i = 1; i < 100; i++) {
   shortA.push({
     id: i,
     idd: sid(),
@@ -45,10 +45,12 @@ const defaultProps: ColumTableProps<data>[] = [
   {
     field: 'id',
     headerName: 'ID',
+    dataType: 'number',
   },
   {
     field: 'idd',
     headerName: 'IDD',
+    dataType: 'string',
     editable: true,
   },
   {
@@ -66,6 +68,7 @@ const defaultProps: ColumTableProps<data>[] = [
   {
     field: 'json.name',
     headerName: 'Json field',
+    style: { color: 'cyan' },
   },
 ];
 
@@ -85,6 +88,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     rowData: shortA,
+    sortable: true,
     columnDefs: defaultProps as ColumTableProps[],
     editMode: (form) => {
       return new Promise((resolve) => {
@@ -109,6 +113,19 @@ export const Selection: Story = {
   name: 'Simple Selection Table',
   args: {
     rowData: shortA,
+    columnDefs: defaultProps as ColumTableProps[],
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    isSelectable: 'id',
+    onSelectionChange: (x) => console.log(x),
+  },
+};
+
+export const Filterd: Story = {
+  name: 'Simple Column filter for Table',
+  args: {
+    rowData: shortA,
+    columnFilter: ['id', 'idd'],
     columnDefs: defaultProps as ColumTableProps[],
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -159,6 +176,18 @@ export const Action: Story = {
         };
       },
     ],
+  },
+};
+
+export const Pagination: Story = {
+  name: 'Table with pagination',
+  args: {
+    rowData: shortA,
+    columnDefs: defaultProps as ColumTableProps[],
+    pagination: {
+      defaultSize: 25,
+    },
+    sortable: true,
   },
 };
 

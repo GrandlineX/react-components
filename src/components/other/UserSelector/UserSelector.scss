@@ -8,6 +8,11 @@
     position: absolute;
     top: 0;
     transform: translateY(32px);
+    background: $tlc-card;
+    color: $tlc-card-font;
+    border-radius: 4px;
+    border: 1px solid $main-contrast-transparent;
+    padding: 4px;
 
     >div{
        @extend .glx-no-select,.glx-pointer;

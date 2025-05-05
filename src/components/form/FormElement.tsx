@@ -73,6 +73,7 @@ export default function FormElement<T>({
           `glx-form--input glx-form--input--split-${split} glx-form--input--container`,
           [decoration && decType === 'underline', 'glx-form--underline'],
           [decoration && decType === 'outline', 'glx-form--outline'],
+          [decoration && decType === 'box', 'glx-form--box'],
           [!decoration, 'glx-form--no-decoration'],
           [!!disabled, 'glx-form--disabled'],
           [focus, 'glx-form--focus'],

@@ -7,6 +7,7 @@ export interface MenuItem {
   key: string;
   icon?: INames;
   label: string;
+  disabled?: boolean;
   subMenu?: MenuItem[];
   checkBox?: boolean;
   value?: boolean;
@@ -14,7 +15,7 @@ export interface MenuItem {
   isLabel?: boolean;
 }
 
-const DropDownIconMenu = ({
+function DropDownIconMenu({
   menu,
   children,
   className,
@@ -22,17 +23,15 @@ const DropDownIconMenu = ({
   initialValue,
   left = false,
   top = false,
-  isSubMenu = false,
 }: {
   menu: MenuItem[];
-  isSubMenu?: boolean;
   left?: boolean;
   top?: boolean;
   className?: string;
   onChange?: (key: string, mode?: boolean) => void;
   initialValue?: Record<string, boolean>;
   children?: React.ReactNode;
-}) => {
+}) {
   const [active, setActive] = useState<any | undefined>(initialValue ?? {});
   const [height, setHeight] = useState<number>(0);
   function closeAll(men?: { key: string; value: any }) {
@@ -58,10 +57,15 @@ const DropDownIconMenu = ({
     if (menuRef.current && menuRef.current.clientHeight !== height) {
       setHeight(menuRef.current?.clientHeight ?? 0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height, menuRef.current, menuRef]);
   return (
     <div className={cnx('glx-icon-button-wr', className)}>
-      <button className="glx-icon-button" onClick={() => setOpen(!open)}>
+      <button
+        type="button"
+        className="glx-icon-button"
+        onClick={() => setOpen(!open)}
+      >
         {children || getIcon('IOEllipsisVertical')({})}
       </button>
       {open ? (
@@ -75,85 +79,91 @@ const DropDownIconMenu = ({
             [!!top && height === 0, 'glx-hidden'],
           )}
         >
-          {menu.map((el) =>
-            el.subMenu ? (
-              <div className="glx-icon--drop-submenu">
+          {menu
+            .filter((m) => !m.disabled)
+            .map((el) =>
+              el.subMenu ? (
+                <div className="glx-icon--drop-submenu">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const k = `submenu_${el.key}`;
+                      const v = !active[k];
+                      closeAll({ key: k, value: v });
+                    }}
+                    key={el.key}
+                  >
+                    {el.icon ? getIcon(el.icon)({}) : null}
+                    {el.label} <IOChevronForward />
+                  </button>
+                  {active[`submenu_${el.key}`] ? (
+                    <div
+                      className={cnx(
+                        [!!left, 'glx-icon--drop-submenu-block--left'],
+                        [!!top, 'glx-icon--drop-submenu-block--top'],
+                        [!left && !top, 'glx-icon--drop-submenu-block'],
+                      )}
+                    >
+                      {el.subMenu
+                        .filter((m) => !m.disabled)
+                        .map((del) => (
+                          <button
+                            type="button"
+                            disabled={del.isLabel}
+                            onClick={() => {
+                              const v =
+                                el.value === undefined
+                                  ? !active[del.key]
+                                  : !el.value;
+                              del.fc?.();
+                              onChange?.(del.key, v);
+                              setActive({ ...active, [del.key]: v });
+                            }}
+                            key={del.key}
+                          >
+                            {del.checkBox ? (
+                              <input
+                                type="checkbox"
+                                checked={
+                                  del.value ?? (active[del.key] || false)
+                                }
+                              />
+                            ) : null}
+                            {del.icon ? getIcon(del.icon)({}) : null}
+                            {del.label}
+                          </button>
+                        ))}
+                    </div>
+                  ) : null}
+                </div>
+              ) : (
                 <button
                   type="button"
+                  disabled={el.isLabel}
                   onClick={() => {
-                    const k = `submenu_${el.key}`;
-                    const v = !active[k];
-                    closeAll({ key: k, value: v });
+                    const v =
+                      el.value === undefined ? !active[el.key] : !el.value;
+                    el.fc?.();
+                    onChange?.(el.key, v);
+                    setActive({ ...active, [el.key]: v });
                   }}
                   key={el.key}
                 >
+                  {el.checkBox ? (
+                    <input
+                      type="checkbox"
+                      checked={el.value ?? (active[el.key] || false)}
+                    />
+                  ) : null}
                   {el.icon ? getIcon(el.icon)({}) : null}
-                  {el.label} <IOChevronForward />
+                  {el.label}
                 </button>
-                {active[`submenu_${el.key}`] ? (
-                  <div
-                    className={cnx(
-                      [!!left, 'glx-icon--drop-submenu-block--left'],
-                      [!!top, 'glx-icon--drop-submenu-block--top'],
-                      [!left && !top, 'glx-icon--drop-submenu-block'],
-                    )}
-                  >
-                    {el.subMenu.map((del) => (
-                      <button
-                        type="button"
-                        disabled={del.isLabel}
-                        onClick={() => {
-                          const v =
-                            el.value === undefined
-                              ? !active[del.key]
-                              : !el.value;
-                          del.fc?.();
-                          onChange?.(del.key, v);
-                          setActive({ ...active, [del.key]: v });
-                        }}
-                        key={del.key}
-                      >
-                        {del.checkBox ? (
-                          <input
-                            type="checkbox"
-                            checked={del.value ?? (active[del.key] || false)}
-                          />
-                        ) : null}
-                        {del.icon ? getIcon(del.icon)({}) : null}
-                        {del.label}
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            ) : (
-              <button
-                type="button"
-                disabled={el.isLabel}
-                onClick={() => {
-                  const v =
-                    el.value === undefined ? !active[el.key] : !el.value;
-                  el.fc?.();
-                  onChange?.(el.key, v);
-                  setActive({ ...active, [el.key]: v });
-                }}
-                key={el.key}
-              >
-                {el.checkBox ? (
-                  <input
-                    type="checkbox"
-                    checked={el.value ?? (active[el.key] || false)}
-                  />
-                ) : null}
-                {el.icon ? getIcon(el.icon)({}) : null}
-                {el.label}
-              </button>
-            ),
-          )}
+              ),
+            )}
         </div>
       ) : null}
     </div>
   );
-};
+}
 
 export default DropDownIconMenu;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { IOChevronForward } from '@grandlinex/react-icons';
 import { cnx } from '../../../util';
+import { Grid } from '../../Grid/Grid';
 
 export type IBreadcrumb = {
   key: string;
@@ -18,7 +19,7 @@ export function Breadcrumbs<T extends IBreadcrumb = IBreadcrumb>({
   iconSize,
 }: BreadcrumbsProps<T>) {
   return (
-    <div className="glx-default-text glx-flex-r glx-flex-g-4">
+    <Grid flex flexR vCenter gap={4} className="glx-default-text">
       {items.map((e, index) => (
         <>
           <div
@@ -38,6 +39,6 @@ export function Breadcrumbs<T extends IBreadcrumb = IBreadcrumb>({
           ) : null}
         </>
       ))}
-    </div>
+    </Grid>
   );
 }

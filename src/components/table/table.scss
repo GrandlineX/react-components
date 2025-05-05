@@ -9,20 +9,48 @@
   }
 }
 .glx-table-root{
+
+  background-color: var(--glx-table-background-color,$main-background);
+
   color: $main-text;
   width: 100%;
   border-collapse: collapse;
 
    td,  th {
-    border: none;
-    padding: 8px;
+     padding: 0.75rem 1rem;
+     border: 1px solid var(--glx-table-border-color,$main-accent-02);
+     text-align: left;
+     min-width: 60px; /* 👈 minimum width per column */
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+  }
+  .pending-sort,.hover-sort{
+    display: none;
+    transform: translateY(2px);
+  }
+
+   .can-sort {
+    .pending-sort{
+      display: block;
+    }
+    &:hover{
+      text-decoration: underline;
+      cursor: pointer;
+      .hover-sort{
+        display: block;
+      }
+      .pending-sort{
+        display: none;
+      }
+    }
   }
 
   .glx-table--row{
-    background-color: $main-background;
+    background-color: var(--glx-table-row-color,$main-background);
   }
   .glx-table--row-even{
-    background-color: $main-background-alt;
+    background-color: var(--glx-table-row-color-alt,$main-background-alt);
   }
 
    .glx-table--row-hover:hover {background-color: $main-select;}
@@ -34,5 +62,31 @@
     background-color: $tlc-card;
     color: $tlc-card-font;
   }
+}
+.glx-table--pager{
+  button {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    border: 1px solid #2c2c2c;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
 
+    &:hover:not(:disabled) {
+      background-color: #2a2a2a;
+    }
+
+    &:disabled {
+      background-color: $main-contrast;
+      cursor: default;
+      border-color: #444;
+    }
+    &:disabled.glx-table--navigator {
+      background-color: $main-accent-01;
+    }
+
+  }
 }

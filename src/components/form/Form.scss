@@ -66,6 +66,20 @@
   }
 }
 // ######################### UNDERLINE FORMS #########################
+// ######################### UNDERLINE FORMS #########################
+
+.glx-form--box {
+  border-color: white;
+  &.glx-form--focus{
+    border-color: $main-contrast;
+  }
+  &.glx-form--disabled{
+    border-color: $main-accent-02;
+  }
+}
+
+
+// ######################### UNDERLINE FORMS #########################
 // ######################### NO DECORATION FORMS #########################
 .glx-form--no-decoration{
   border: none;

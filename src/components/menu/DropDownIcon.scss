@@ -45,11 +45,15 @@
 .glx-icon--drop {
   @extend .glx-animation-fade-in-super-fast;
   background: $main-background-alt;
+  border-radius: 8px;
+  padding: 4px;
+  outline: 1px solid $main-contrast;
   position: absolute;
   width: 180px;
   z-index: 30;
   button {
-    background-color: $main-button;
+    background: none;
+    border-radius: 8px;
     cursor: pointer;
     margin-bottom: 2px;
     text-align: left;
@@ -58,7 +62,6 @@
     border: none;
     padding: 4px;
     font-size: 12pt;
-
     svg {
       margin-right: 4px;
     }
@@ -76,24 +79,34 @@
   position: relative;
 
   .glx-icon--drop-submenu-block{
-    @extend  .glx-animation-fade-in-super-fast;;
+    @extend  .glx-animation-fade-in-super-fast;
+    background: $main-background-alt;
     width: 180px;
     position: absolute;
     top: 0;
     left: 182px;
+    padding: 4px;
   }
   .glx-icon--drop-submenu-block--left{
     @extend .glx-animation-fade-in-super-fast;
-    left: -182px;
+    background: $main-background-alt;
+    left: -196px;
     width: 180px;
     position: absolute;
     top: 0;
+    border-radius: 8px;
+    outline: 1px solid $main-contrast;
+    padding: 4px;
   }
   .glx-icon--drop-submenu-block--top{
     @extend .glx-animation-fade-in-super-fast;
-    left: -182px;
+    background: $main-background-alt;
+    left: -196px;
     width: 180px;
     position: absolute;
     top: 0;
+    border-radius: 8px;
+    outline: 1px solid $main-contrast;
+    padding: 4px;
   }
 }

@@ -36,7 +36,7 @@ const Button = (props: ButtonProps) => {
     disabled,
     children,
     half,
-    bubble,
+    bubble = 'blue',
     color,
     className,
     style,
@@ -50,14 +50,14 @@ const Button = (props: ButtonProps) => {
 
   const styledObj = useMemo(() => {
     const st = style || {};
-    if (color) {
+    if (type !== 'bubble' && color) {
       st.backgroundColor = color;
     }
     if (fadeIn) {
       st.animation = 'fadeIn 0.5s';
     }
     return st;
-  }, [color, fadeIn, style]);
+  }, [color, fadeIn, style, type]);
 
   return (
     <button

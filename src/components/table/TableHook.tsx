@@ -1,4 +1,11 @@
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, {
+  CSSProperties,
+  MouseEvent,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import Tooltip from '../tooltip/Tooltip';
 import { IconButton } from '../button/IconButton';
 import CheckBox from '../form/inputs/CheckBox';
@@ -16,13 +23,16 @@ export type ChangeCellEvent<T = any> = SimpleCellEvent<T> & {
   newValue: any;
 };
 export type DefaultColumTableProps<T = any> = {
-  headerName?: string;
+  headerName?: ReactNode;
   flex?: number;
   width?: number;
   minWidth?: number;
   editable?: boolean;
+  style?: CSSProperties;
   dataType?: 'string' | 'number' | 'boolean' | 'date' | 'object' | 'array';
   cellRenderer?: (dat: SimpleCellEvent<T>) => React.ReactNode;
+  sort?: (a: T, b: T) => number;
+  filter?: (value: string, a: T) => boolean;
 };
 export type ColumTableProps<T = any> = DefaultColumTableProps<T> & {
   field: string;
@@ -45,6 +55,13 @@ export type TableProps<T = any> = {
   fixedHeader?: boolean;
   onSelectionChange?: (selected: (string | number)[]) => void;
   columnDefs: ColumTableProps<T>[];
+  sortable?: boolean;
+  filter?: string | boolean;
+  columnFilter?: string[];
+  pagination?: {
+    sizes?: number[];
+    defaultSize?: number;
+  };
   onClickRow?: (rowData: T) => void;
   defaultColDef?: DefaultColumTableProps<T>;
   onCellValueChanged?: (change: ChangeCellEvent<T>) => void;
@@ -73,13 +90,26 @@ export type ITableFc<T = any> = {
   ) => Promise<boolean>;
   hasEditMode(): boolean;
   rowSelected(index: number | string | T): boolean;
-
   rowSelect(index: number | string | T): void;
-
   rowUnSelect(index: number | string | T): void;
-
   getColumDefs(add?: TableActionFc<T>[]): ColumTableProps<T>[];
+  colFilter: string[] | null;
+  setColFilter: (f: string[] | null) => void;
+  maxPages: number;
+  page: number;
+  setPage: (f: number) => void;
+  pageSize: number;
+  setPageSize: (f: number) => void;
+  sort: ITableSort<T> | null;
+  setSort: (f: ITableSort<T> | null) => void;
+  pageSizes: number[];
 };
+
+export type ITableSort<T> = {
+  key: keyof T;
+  order: 'ASC' | 'DSC';
+};
+
 export function useTableStore<T extends Record<string, any>>(
   props: TableProps<T>,
 ): {
@@ -89,13 +119,29 @@ export function useTableStore<T extends Record<string, any>>(
   api: ITableFc<T>;
 } {
   const ui = useUIContext();
-  const { extendRowRenderer, editMode } = props;
+  const { extendRowRenderer, editMode, columnFilter, sortable, pagination } =
+    props;
   const isSelectable = (props.isSelectable as string) ?? null;
   const [rowData, setRowData] = useState<T[]>(props.rowData || []);
   const [columnDefs] = useState<ColumTableProps<T>[]>(props.columnDefs || []);
   const [rowAction] = useState<TableActionFc<T>[]>(props.rowAction || []);
   const [selection, setSelection] = useState<(number | string)[]>([]);
+  const [page, setPage] = useState<number>(0);
+
+  const pageSizes = useMemo(() => {
+    return pagination?.sizes || [10, 25, 50];
+  }, [pagination?.sizes]);
+  const [pageSize, setPageSize] = useState<number>(
+    pagination?.defaultSize || pageSizes[0],
+  );
+  const maxPages = useMemo(() => {
+    return Math.ceil((props.rowData?.length || 0) / pageSize);
+  }, [pageSize, props.rowData?.length]);
   const [hasExtend] = useState<boolean>(!!extendRowRenderer);
+  const [colFilter, setColFilter] = useState<string[] | null>(
+    columnFilter ?? null,
+  );
+  const [sort, setSort] = useState<ITableSort<T> | null>(null);
 
   function getKey(index: number | string | T): number | string {
     if (!isSelectable) {
@@ -146,7 +192,60 @@ export function useTableStore<T extends Record<string, any>>(
         ),
       });
     }
-    def.push(...columnDefs);
+    function injectCol(x: ColumTableProps<T>): ColumTableProps<T> {
+      switch (x.dataType) {
+        case 'string':
+          return {
+            sort: sortable
+              ? (a, b) => {
+                  const ax = a[x.field];
+                  const bx = b[x.field];
+                  if (typeof ax === 'string' && typeof bx === 'string') {
+                    return ax.localeCompare(bx);
+                  }
+                  return 0;
+                }
+              : undefined,
+            ...x,
+          };
+        case 'number':
+          return {
+            sort: sortable
+              ? (a, b) => {
+                  const ax = a[x.field];
+                  const bx = b[x.field];
+                  if (typeof ax === 'number' && typeof bx === 'number') {
+                    return ax - bx;
+                  }
+                  return 0;
+                }
+              : undefined,
+            ...x,
+          };
+        case 'boolean':
+          return {
+            sort: sortable
+              ? (a, b) => {
+                  const ax = a[x.field] ? 1 : 0;
+                  const bx = b[x.field] ? 1 : 0;
+                  return ax - bx;
+                }
+              : undefined,
+            ...x,
+          };
+        default:
+          return x;
+      }
+    }
+    if (colFilter) {
+      def.push(
+        ...columnDefs
+          .filter((i) => colFilter.includes(i.field))
+          .map((e) => injectCol(e)),
+      );
+    } else {
+      def.push(...columnDefs.map((e) => injectCol(e)));
+    }
 
     if (rowAction.length > 0 || hasExtend || editMode) {
       const rows = [...rowAction];
@@ -190,6 +289,16 @@ export function useTableStore<T extends Record<string, any>>(
       getColumDefs,
       editMode,
       hasEditMode,
+      colFilter,
+      setColFilter,
+      sort,
+      setSort,
+      page,
+      setPage,
+      pageSize,
+      setPageSize,
+      pageSizes,
+      maxPages,
     },
   };
 }

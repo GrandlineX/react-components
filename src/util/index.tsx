@@ -4,6 +4,7 @@ import LocalStorage from './LocalStorage';
 import copyToClipboard from './Clipboard';
 import getSaveWindow from './BuildHelper';
 import CMap from './CoreMap';
+import WebEmitter from './WebEmitter';
 
 export * from './GLang';
 export * from './MainContext';
@@ -101,4 +102,13 @@ function loop<X = ReactNode>(
   return arr;
 }
 
-export { md5, copyToClipboard, sGen, loop, getSaveWindow, LocalStorage, CMap };
+export {
+  md5,
+  copyToClipboard,
+  sGen,
+  loop,
+  getSaveWindow,
+  LocalStorage,
+  CMap,
+  WebEmitter,
+};

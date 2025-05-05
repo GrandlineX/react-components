@@ -9,6 +9,7 @@ import {
   IOPencil,
   IOPlaySkipBack,
   IOPlaySkipForward,
+  IOSearch,
 } from '@grandlinex/react-icons';
 import { cnx, GLang, useUIContext } from '../../util';
 import {
@@ -184,6 +185,9 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
     sortable,
     isSelectable = false,
     pagination,
+    filter,
+    children,
+    rowData,
   } = props;
 
   const {
@@ -193,31 +197,40 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
     setPage,
     pageSize,
     setPageSize,
-    maxPages,
     pageSizes,
+    search,
+    setSearch,
   } = api;
+  const ui = useUIContext();
 
-  const sortData = useMemo(() => {
+  const [pageData, maxPages] = useMemo(() => {
+    let sx;
+
     if (!sort) {
-      return data.rowData;
-    }
-    const sortFc = api.getColumDefs().find((e) => e.field === sort.key)?.sort;
-    if (sortFc) {
-      if (sort.order === 'DSC') {
-        return data.rowData.sort(sortFc).reverse();
+      sx = data.rowData;
+    } else {
+      const sortFc = api.getColumDefs().find((e) => e.field === sort.key)?.sort;
+      if (sortFc) {
+        if (sort.order === 'DSC') {
+          sx = data.rowData.sort(sortFc).reverse();
+        } else {
+          sx = data.rowData.sort(sortFc);
+        }
+      } else {
+        sx = data.rowData;
       }
-      return data.rowData.sort(sortFc);
     }
-    return data.rowData;
-  }, [api, data.rowData, sort]);
+    if (search) {
+      const filters = api.getColumDefs().filter((x) => !!x.filter);
+      sx = sx.filter((e) => filters.some((v) => v.filter!(search, e)));
+    }
+    const max = Math.ceil(sx.length / pageSize);
+    if (pagination) {
+      sx = sx.slice(page * pageSize, (page + 1) * pageSize);
+    }
 
-  const pageData = useMemo(() => {
-    if (!pagination) {
-      return sortData;
-    }
-    return sortData.slice(page * pageSize, (page + 1) * pageSize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortData, page, pageSize, sort]);
+    return [sx, max];
+  }, [api, data.rowData, page, pageSize, pagination, search, sort]);
 
   const pageButtonKeys = useMemo(() => {
     const allPage = Array.from(new Array(maxPages).keys());
@@ -235,6 +248,45 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
 
   return (
     <Grid flex flexC gap={8}>
+      {(children || filter === true) && (
+        <Grid
+          flex
+          flexRow
+          flexSpaceB
+          className="glx-table--comand-bar glx-default-text"
+        >
+          {filter && (
+            <Form
+              defaultState={{
+                search,
+              }}
+              options={[
+                [
+                  {
+                    key: 'search',
+                    type: InputOptionType.TEXT,
+                    label: (
+                      <span>
+                        <IOSearch />
+                        {ui.translation.get('glx.table.search.fiel')}
+                      </span>
+                    ),
+                  },
+                ],
+              ]}
+              onChange={({ form }) => {
+                if (pagination) {
+                  setPage(0);
+                }
+                setSearch(form.search);
+              }}
+              compact="full"
+            />
+          )}
+
+          {children}
+        </Grid>
+      )}
       <table
         className={cnx('glx-table-root', className, [
           !!fixedHeader,

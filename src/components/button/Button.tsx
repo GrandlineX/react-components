@@ -36,7 +36,7 @@ const Button = (props: ButtonProps) => {
     disabled,
     children,
     half,
-    bubble = 'blue',
+    bubble,
     color,
     className,
     style,
@@ -65,12 +65,12 @@ const Button = (props: ButtonProps) => {
       className={cnx(
         'button--grid',
         className,
-        [!!bubble && type === 'bubble', 'bubble'],
+        [type === 'bubble', 'bubble'],
         [!!cancel, 'cancel'],
         [!!half, 'button--grid-half'],
         [
-          !!bubble && type === 'bubble',
-          `button--bubble-${bubble}`,
+          type === 'bubble',
+          `button--bubble-${bubble || 'default'}`,
           'button--default',
         ],
       )}

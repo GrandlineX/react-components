@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { IOText, IOTrash } from '@grandlinex/react-icons';
+import * as trace_events from 'node:trace_events';
 import { ColumTableProps, Table } from '../../components';
 import { sid, sleep } from '../../util';
 
@@ -188,6 +189,19 @@ export const Pagination: Story = {
       defaultSize: 25,
     },
     sortable: true,
+  },
+};
+
+export const Search: Story = {
+  name: 'Table with search',
+  args: {
+    rowData: shortA,
+    columnDefs: defaultProps as ColumTableProps[],
+    filter: true,
+    sortable: true,
+    pagination: {
+      defaultSize: 25,
+    },
   },
 };
 

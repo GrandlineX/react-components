@@ -131,6 +131,10 @@ const defaultGLang = new GLang({
       key: 'glx.input.badge.sel.dev.text',
       value: 'Test Badge',
     },
+    {
+      key: 'glx.table.search.fiel',
+      value: 'Search',
+    },
   ],
 });
 export type DecorationType = 'underline' | 'outline' | 'box' | 'none';

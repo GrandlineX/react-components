@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { FormErrorType, FormProps, FormTypes } from './FormTypes';
 import { def, FormRow, getFormInputs } from './FormRender';
 import { cnx, useUIContext, uuid } from '../../util';
@@ -100,7 +100,11 @@ function Form<T extends Record<string, any> = any>({
   return (
     <Grid
       className={classN(
-        ['glx-form', [!!compact, 'glx-form--compact']],
+        [
+          'glx-form',
+          [compact === true, 'glx-form--compact'],
+          [compact === 'full', 'glx-form--compact-full'],
+        ],
         className,
       )}
     >
@@ -135,26 +139,28 @@ function Form<T extends Record<string, any> = any>({
         <div className="glx-py-12">{loadingMessage}</div>
       ) : null}
 
-      <div
-        className={cnx(
-          'glx-form--row',
-          'glx-flex-row',
-          'glx-flex-wrap',
-          'glx-flex-g-8',
-          [!!buttonCenter, 'glx-flex-center'],
-        )}
-      >
-        {fError?.global && fError.global.length > 0
-          ? fError.global?.map((er: any) => {
-              return (
-                <div key={uuid()} className="glx-form--error">
-                  {' '}
-                  <div>{er}</div>{' '}
-                </div>
-              );
-            })
-          : null}
-      </div>
+      {fError && (
+        <div
+          className={cnx(
+            'glx-form--row',
+            'glx-flex-row',
+            'glx-flex-wrap',
+            'glx-flex-g-8',
+            [!!buttonCenter, 'glx-flex-center'],
+          )}
+        >
+          {fError?.global && fError.global.length > 0
+            ? fError.global?.map((er: any) => {
+                return (
+                  <div key={uuid()} className="glx-form--error">
+                    {' '}
+                    <div>{er}</div>{' '}
+                  </div>
+                );
+              })
+            : null}
+        </div>
+      )}
 
       {onSubmit && !spinning ? (
         <div

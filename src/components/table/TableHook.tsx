@@ -58,6 +58,7 @@ export type TableProps<T = any> = {
   sortable?: boolean;
   filter?: string | boolean;
   columnFilter?: string[];
+  children?: ReactNode | ReactNode[];
   pagination?: {
     sizes?: number[];
     defaultSize?: number;
@@ -95,11 +96,13 @@ export type ITableFc<T = any> = {
   getColumDefs(add?: TableActionFc<T>[]): ColumTableProps<T>[];
   colFilter: string[] | null;
   setColFilter: (f: string[] | null) => void;
-  maxPages: number;
+
   page: number;
   setPage: (f: number) => void;
   pageSize: number;
   setPageSize: (f: number) => void;
+  search: string;
+  setSearch: (f: string) => void;
   sort: ITableSort<T> | null;
   setSort: (f: ITableSort<T> | null) => void;
   pageSizes: number[];
@@ -119,14 +122,21 @@ export function useTableStore<T extends Record<string, any>>(
   api: ITableFc<T>;
 } {
   const ui = useUIContext();
-  const { extendRowRenderer, editMode, columnFilter, sortable, pagination } =
-    props;
+  const {
+    extendRowRenderer,
+    editMode,
+    columnFilter,
+    sortable,
+    pagination,
+    filter,
+  } = props;
   const isSelectable = (props.isSelectable as string) ?? null;
   const [rowData, setRowData] = useState<T[]>(props.rowData || []);
   const [columnDefs] = useState<ColumTableProps<T>[]>(props.columnDefs || []);
   const [rowAction] = useState<TableActionFc<T>[]>(props.rowAction || []);
   const [selection, setSelection] = useState<(number | string)[]>([]);
   const [page, setPage] = useState<number>(0);
+  const [search, setSearch] = useState('');
 
   const pageSizes = useMemo(() => {
     return pagination?.sizes || [10, 25, 50];
@@ -134,9 +144,7 @@ export function useTableStore<T extends Record<string, any>>(
   const [pageSize, setPageSize] = useState<number>(
     pagination?.defaultSize || pageSizes[0],
   );
-  const maxPages = useMemo(() => {
-    return Math.ceil((props.rowData?.length || 0) / pageSize);
-  }, [pageSize, props.rowData?.length]);
+
   const [hasExtend] = useState<boolean>(!!extendRowRenderer);
   const [colFilter, setColFilter] = useState<string[] | null>(
     columnFilter ?? null,
@@ -206,6 +214,15 @@ export function useTableStore<T extends Record<string, any>>(
                   return 0;
                 }
               : undefined,
+            filter: filter
+              ? (value, a) => {
+                  const ax = a[x.field];
+                  if (ax && typeof ax === 'string') {
+                    return ax.toLocaleLowerCase().includes(value);
+                  }
+                  return false;
+                }
+              : undefined,
             ...x,
           };
         case 'number':
@@ -220,6 +237,15 @@ export function useTableStore<T extends Record<string, any>>(
                   return 0;
                 }
               : undefined,
+            filter: filter
+              ? (value, a) => {
+                  const ax = a[x.field];
+                  if (ax && typeof ax === 'number') {
+                    return ax.toString().includes(value);
+                  }
+                  return false;
+                }
+              : undefined,
             ...x,
           };
         case 'boolean':
@@ -229,6 +255,20 @@ export function useTableStore<T extends Record<string, any>>(
                   const ax = a[x.field] ? 1 : 0;
                   const bx = b[x.field] ? 1 : 0;
                   return ax - bx;
+                }
+              : undefined,
+            ...x,
+          };
+        case 'date':
+          return {
+            sort: sortable
+              ? (a, b) => {
+                  const ax = a[x.field];
+                  const bx = b[x.field];
+                  if (ax instanceof Date && bx instanceof Date) {
+                    return ax.getTime() - bx.getTime();
+                  }
+                  return 0;
                 }
               : undefined,
             ...x,
@@ -298,7 +338,8 @@ export function useTableStore<T extends Record<string, any>>(
       pageSize,
       setPageSize,
       pageSizes,
-      maxPages,
+      search,
+      setSearch,
     },
   };
 }

@@ -101,7 +101,7 @@ export interface FormProps<T> extends BaseProps {
   loading?: boolean;
   loadingNode?: ReactNode;
   loadingMessage?: ReactNode;
-  compact?: boolean;
+  compact?: boolean | 'full';
 }
 
 export type FormErrorType = {

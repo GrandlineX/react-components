@@ -6,6 +6,13 @@
   background-color: $main-contrast;
 }
 
+.button--bubble-default:hover {
+  background-color: $main-contrast;
+}
+.button--bubble-default::before {
+  background-color: $main-contrast;
+}
+
 .button--bubble-blue::before {
   background-color: $main-dark-blue;
 }

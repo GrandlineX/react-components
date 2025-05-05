@@ -14,6 +14,15 @@
     padding-bottom: 0 !important;
   }
 }
+.glx-form.glx-form--compact-full{
+  &,.glx-form--input{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .glx-form--row{
+    margin-bottom: 0;
+  }
+}
 
 .glx-form--input--container{
   input, select, textarea,input{

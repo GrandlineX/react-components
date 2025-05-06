@@ -188,7 +188,7 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
     className,
     fixedHeader,
     sortable,
-    isSelectable = false,
+    rowKey,
     pagination,
     filter,
     children,
@@ -313,9 +313,7 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
           <tbody>
             {data.rowData.map((row, index) => (
               <TableRow<T>
-                key={
-                  isSelectable ? `row_${(row as any)[isSelectable]}` : undefined
-                }
+                key={`row_${row[rowKey]}`}
                 api={api}
                 rowData={row}
                 index={index}

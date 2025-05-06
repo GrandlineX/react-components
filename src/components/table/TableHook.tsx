@@ -52,7 +52,8 @@ export type TableActionFc<T = any> = (dat: BaseRowEvent<T>) => TableAction;
 export type TableProps<T = any> = {
   className?: string;
   rowData: T[] | null | undefined;
-  isSelectable?: keyof T;
+  rowKey: keyof T;
+  isSelectable?: boolean;
   fixedHeader?: boolean;
   onSelectionChange?: (selected: (string | number)[]) => void;
   columnDefs: ColumTableProps<T>[];
@@ -132,8 +133,9 @@ export function useTableStore<T extends Record<string, any>>(
     sortable,
     pagination,
     filter,
+    isSelectable,
+    rowKey,
   } = props;
-  const isSelectable = (props.isSelectable as string) ?? null;
   const [rowData, setRowData] = useState<T[]>(props.rowData || []);
   const [columnDefs] = useState<ColumTableProps<T>[]>(props.columnDefs || []);
   const [rowAction] = useState<TableActionFc<T>[]>(props.rowAction || []);
@@ -161,9 +163,9 @@ export function useTableStore<T extends Record<string, any>>(
       }
       return typeof index === 'number' || typeof index === 'string'
         ? index
-        : (index as any)[isSelectable];
+        : (index as any)[rowKey];
     },
-    [isSelectable],
+    [isSelectable, rowKey],
   );
 
   const rowSelected = useCallback(

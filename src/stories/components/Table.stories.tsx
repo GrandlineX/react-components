@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { IOText, IOTrash } from '@grandlinex/react-icons';
-import * as trace_events from 'node:trace_events';
 import { Button, ColumTableProps, Table } from '../../components';
 import { sid, sleep } from '../../util';
 
@@ -96,6 +95,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     sortable: true,
     columnDefs: defaultProps as ColumTableProps[],
@@ -113,6 +113,7 @@ export const Default: Story = {
 export const Empty: Story = {
   name: 'Empty Table',
   args: {
+    rowKey: 'idd',
     rowData: [],
     columnDefs: defaultProps as ColumTableProps[],
   },
@@ -121,11 +122,10 @@ export const Empty: Story = {
 export const Selection: Story = {
   name: 'Simple Selection Table',
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     columnDefs: defaultProps as ColumTableProps[],
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    isSelectable: 'id',
+    isSelectable: true,
     onSelectionChange: (x) => console.log(x),
   },
 };
@@ -133,12 +133,11 @@ export const Selection: Story = {
 export const Filterd: Story = {
   name: 'Simple Column filter for Table',
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     columnFilter: ['id', 'idd'],
     columnDefs: defaultProps as ColumTableProps[],
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    isSelectable: 'id',
+    isSelectable: true,
     onSelectionChange: (x) => console.log(x),
   },
 };
@@ -146,17 +145,17 @@ export const Filterd: Story = {
 export const Selection2: Story = {
   name: 'Simple Selection Table - key string',
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     columnDefs: defaultProps as ColumTableProps[],
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    isSelectable: 'idd',
+    isSelectable: true,
     onSelectionChange: (x) => console.log(x),
   },
 };
 export const Fixed: Story = {
   name: 'Sticky Header Table',
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     columnDefs: defaultProps as ColumTableProps[],
     fixedHeader: true,
@@ -166,6 +165,7 @@ export const Fixed: Story = {
 export const Action: Story = {
   name: 'Table with row action',
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     columnDefs: defaultProps as ColumTableProps[],
     rowAction: [
@@ -177,7 +177,7 @@ export const Action: Story = {
           disabled: !row.data.json,
         };
       },
-      (row) => {
+      () => {
         return {
           icon: <IOTrash />,
           name: 'Delete',
@@ -191,6 +191,7 @@ export const Action: Story = {
 export const Pagination: Story = {
   name: 'Table with pagination',
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     columnDefs: defaultProps as ColumTableProps[],
     pagination: {
@@ -203,6 +204,7 @@ export const Pagination: Story = {
 export const Search: Story = {
   name: 'Table with search',
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     columnDefs: defaultProps as ColumTableProps[],
     filter: true,
@@ -217,11 +219,13 @@ export const Search: Story = {
 export const Nested: Story = {
   name: 'Nested Table',
   args: {
+    rowKey: 'idd',
     rowData: shortA,
     columnDefs: defaultProps as ColumTableProps[],
     extendRowRenderer: () => {
       return (
         <Table
+          rowKey="idd"
           rowData={shortA}
           columnDefs={nestedProps}
           rowAction={[

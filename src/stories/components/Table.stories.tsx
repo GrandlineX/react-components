@@ -2,7 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { IOText, IOTrash } from '@grandlinex/react-icons';
 import * as trace_events from 'node:trace_events';
-import { ColumTableProps, Table } from '../../components';
+import { Button, ColumTableProps, Table } from '../../components';
 import { sid, sleep } from '../../util';
 
 const meta = {
@@ -29,6 +29,7 @@ type data = {
   id: number;
   idd: string;
   date: string;
+  str: string | undefined;
   boolean: boolean;
   json?: { name: string } | null;
 };
@@ -39,6 +40,7 @@ for (let i = 1; i < 100; i++) {
     idd: sid(),
     date: new Date().toISOString().substring(0, 16),
     boolean: true,
+    str: i % 2 === 0 ? 'txt' : undefined,
     json: i % 2 === 0 ? { name: 'test' } : null,
   });
 }
@@ -51,6 +53,12 @@ const defaultProps: ColumTableProps<data>[] = [
   {
     field: 'idd',
     headerName: 'IDD',
+    dataType: 'string',
+    editable: true,
+  },
+  {
+    field: 'str',
+    headerName: 'Str',
     dataType: 'string',
     editable: true,
   },
@@ -202,6 +210,7 @@ export const Search: Story = {
     pagination: {
       defaultSize: 25,
     },
+    children: <Button onClick={() => {}}>Example</Button>,
   },
 };
 

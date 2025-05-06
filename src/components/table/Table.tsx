@@ -152,7 +152,12 @@ function TableRow<T extends Record<string, any>>(
               loading
               buttonText={ui.translation.get('glx.table.action.save')}
               onSubmit={async ({ form, setError, clear }) => {
-                const res = await api.editMode?.(form, setError, clear);
+                const res = await api.editMode?.({
+                  row: form,
+                  setError,
+                  clear,
+                  api,
+                });
                 if (res) {
                   setEdit(false);
                 }
@@ -187,7 +192,6 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
     pagination,
     filter,
     children,
-    rowData,
   } = props;
 
   const {
@@ -203,57 +207,16 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
   } = api;
   const ui = useUIContext();
 
-  const [pageData, maxPages] = useMemo(() => {
-    let sx;
-
-    if (!sort) {
-      sx = data.rowData;
-    } else {
-      const sortFc = api.getColumDefs().find((e) => e.field === sort.key)?.sort;
-      if (sortFc) {
-        if (sort.order === 'DSC') {
-          sx = data.rowData.sort(sortFc).reverse();
-        } else {
-          sx = data.rowData.sort(sortFc);
-        }
-      } else {
-        sx = data.rowData;
-      }
-    }
-    if (search) {
-      const filters = api.getColumDefs().filter((x) => !!x.filter);
-      sx = sx.filter((e) => filters.some((v) => v.filter!(search, e)));
-    }
-    const max = Math.ceil(sx.length / pageSize);
-    if (pagination) {
-      sx = sx.slice(page * pageSize, (page + 1) * pageSize);
-    }
-
-    return [sx, max];
-  }, [api, data.rowData, page, pageSize, pagination, search, sort]);
-
-  const pageButtonKeys = useMemo(() => {
-    const allPage = Array.from(new Array(maxPages).keys());
-    if (maxPages <= 5) {
-      return allPage;
-    }
-    if (page < 2) {
-      return allPage.slice(0, 5);
-    }
-    if (page + 3 > maxPages) {
-      return allPage.slice(maxPages - 5, maxPages + 1);
-    }
-    return allPage.slice(page - 2).slice(0, 5);
-  }, [maxPages, page]);
-
   return (
-    <Grid flex flexC gap={8}>
+    <Grid flex flexC gap={8} className="glx-table--container">
       {(children || filter === true) && (
         <Grid
           flex
           flexRow
           flexSpaceB
-          className="glx-table--comand-bar glx-default-text"
+          vCenter
+          style={{ alignItems: 'baseline' }}
+          className="glx-table--command-bar glx-default-text"
         >
           {filter && (
             <Form
@@ -287,79 +250,82 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
           {children}
         </Grid>
       )}
-      <table
-        className={cnx('glx-table-root', className, [
-          !!fixedHeader,
-          'glx-table--fixed-header',
-        ])}
-      >
-        <thead>
-          <tr>
-            {api.getColumDefs().map((h) => (
-              <th key={`key_${h.headerName}`}>
-                <Grid
-                  flex
-                  flexR
-                  center
-                  gap={4}
-                  className={cnx([!!sortable && !!h.sort, 'can-sort'])}
-                  onClick={(e) => {
-                    if (!!sortable && !!h.sort) {
-                      e.preventDefault();
+      <div className="glx-table--wrapper">
+        <table
+          className={cnx('glx-table-root', className, [
+            !!fixedHeader,
+            'glx-table--fixed-header',
+          ])}
+        >
+          <thead>
+            <tr>
+              {api.getColumDefs().map((h) => (
+                <th key={`key_${h.headerName}`}>
+                  <Grid
+                    flex
+                    flexR
+                    center
+                    gap={4}
+                    className={cnx([!!sortable && !!h.sort, 'can-sort'])}
+                    onClick={(e) => {
+                      if (!!sortable && !!h.sort) {
+                        e.preventDefault();
 
-                      if (
-                        sort &&
-                        (sort.key !== h.field || sort.order === 'DSC')
-                      ) {
-                        setSort({
-                          key: h.field,
-                          order: 'ASC',
-                        });
-                      } else {
-                        setSort({
-                          key: h.field,
-                          order: 'DSC',
-                        });
+                        if (
+                          sort &&
+                          (sort.key !== h.field || sort.order === 'DSC')
+                        ) {
+                          setSort({
+                            key: h.field,
+                            order: 'ASC',
+                          });
+                        } else {
+                          setSort({
+                            key: h.field,
+                            order: 'DSC',
+                          });
+                        }
                       }
-                    }
-                  }}
-                >
-                  {h.headerName}
-                  {sort && h.field === sort.key && sort.order === 'DSC' && (
-                    <IOChevronUp />
-                  )}
-                  {sort && h.field === sort.key && sort.order === 'ASC' && (
-                    <IOChevronDown />
-                  )}
-                  {h.field !== sort?.key && (
-                    <span className="hover-sort">
+                    }}
+                  >
+                    {h.headerName}
+                    {sort && h.field === sort.key && sort.order === 'DSC' && (
+                      <IOChevronUp />
+                    )}
+                    {sort && h.field === sort.key && sort.order === 'ASC' && (
                       <IOChevronDown />
-                    </span>
-                  )}
-                  {h.field !== sort?.key && (
-                    <span className="pending-sort">
-                      <IOChevronForward />
-                    </span>
-                  )}
-                </Grid>
-              </th>
+                    )}
+                    {h.field !== sort?.key && (
+                      <span className="hover-sort">
+                        <IOChevronDown />
+                      </span>
+                    )}
+                    {h.field !== sort?.key && (
+                      <span className="pending-sort">
+                        <IOChevronForward />
+                      </span>
+                    )}
+                  </Grid>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.rowData.map((row, index) => (
+              <TableRow<T>
+                key={
+                  isSelectable ? `row_${(row as any)[isSelectable]}` : undefined
+                }
+                api={api}
+                rowData={row}
+                index={index}
+                extendRowRenderer={extendRowRenderer}
+              />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {pageData.map((row, index) => (
-            <TableRow<T>
-              key={
-                isSelectable ? `row_${(row as any)[isSelectable]}` : undefined
-              }
-              api={api}
-              rowData={row}
-              index={index}
-              extendRowRenderer={extendRowRenderer}
-            />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+
       {pagination && (
         <Grid
           flex
@@ -373,7 +339,7 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
                 disabled={pageSize === e}
                 type="button"
                 onClick={() => {
-                  if (page * e > pageData.length) {
+                  if (page * e > data.rowData.length) {
                     setPage(0);
                   }
                   setPageSize(e);
@@ -384,7 +350,7 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
             ))}
           </Grid>
           <Grid flex flexR gap={4}>
-            {maxPages > 5 && (
+            {data.maxPages > 5 && (
               <>
                 <button
                   className="glx-table--navigator"
@@ -404,7 +370,7 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
                 </button>
               </>
             )}
-            {pageButtonKeys.map((e) => (
+            {data.pageButtonKeys.map((e) => (
               <button
                 disabled={page === e}
                 type="button"
@@ -414,11 +380,11 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
               </button>
             ))}
 
-            {maxPages > 5 && (
+            {data.maxPages > 5 && (
               <>
                 <button
                   className="glx-table--navigator"
-                  disabled={page === maxPages - 1}
+                  disabled={page === data.maxPages - 1}
                   type="button"
                   onClick={() => setPage(page + 1)}
                 >
@@ -426,9 +392,9 @@ function Table<T extends Record<string, any>>(props: TableProps<T>) {
                 </button>
                 <button
                   className="glx-table--navigator"
-                  disabled={page === maxPages - 1}
+                  disabled={page === data.maxPages - 1}
                   type="button"
-                  onClick={() => setPage(maxPages - 1)}
+                  onClick={() => setPage(data.maxPages - 1)}
                 >
                   <IOPlaySkipForward />
                 </button>

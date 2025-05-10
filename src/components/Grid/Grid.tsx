@@ -55,11 +55,10 @@ export function Grid(props: GridProps) {
   const outProps: Record<string, any> = useMemo(() => {
     const xProps = { ...props };
     const divProps: Record<string, any> = {};
-    const keys = Object.keys(xProps) as (keyof GridProps)[];
     const nC: CnxInput[] = [];
-    for (const key of keys) {
+    for (const [key, val] of Object.entries(xProps)) {
       if (key) {
-        const val: any = xProps[key];
+        const k = key as keyof GridProps;
         switch (key) {
           // CUSTOM CASES
           case 'className':
@@ -79,9 +78,9 @@ export function Grid(props: GridProps) {
             break;
           // Default CASES
           default:
-            if (optionMap.has(key)) {
-              if (val !== undefined) {
-                nC.push(optionMap.get(key)!.replace('$VAL', val));
+            if (optionMap.has(k)) {
+              if (val !== undefined && val) {
+                nC.push(optionMap.get(k)!.replace('$VAL', val));
               }
             } else {
               divProps[key] = val;

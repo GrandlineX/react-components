@@ -5,6 +5,7 @@ import {
   FormConf,
   FormConfEl,
   FormErrorType,
+  FormFieldChange,
   InputOption,
   InputOptionType,
 } from './FormTypes';
@@ -128,7 +129,7 @@ export function DefaultInput<T>({
   inp: InputOption<T>;
   e: React.HTMLInputTypeAttribute;
   form: any;
-  updateForm: (key: string, value: any) => void;
+  updateForm: (...changes: FormFieldChange[]) => void;
   enterHandler: KeyboardEventHandler<any>;
   numeric?: boolean;
   clearContainer?: () => void;
@@ -165,10 +166,10 @@ export function DefaultInput<T>({
       onChange={(event) => {
         if (numeric) {
           onChange?.(parseFloat(event.target.value));
-          updateForm(key, parseFloat(event.target.value));
+          updateForm({ key, value: parseFloat(event.target.value) });
         } else {
           onChange?.(event.target.value);
-          updateForm(key, event.target.value);
+          updateForm({ key, value: event.target.value });
         }
       }}
     />
@@ -195,7 +196,7 @@ export function FormRow<T>({
 }: {
   option: FormConfEl<T>[];
   form: any;
-  updateForm: (key: string, value: any) => void;
+  updateForm: (...changes: FormFieldChange[]) => void;
   submitForm: () => void;
   error: FormErrorType | null | undefined;
 }) {
@@ -267,7 +268,7 @@ export function FormRow<T>({
                   disabled={disabled}
                   onChange={(ev) => {
                     onChange?.(ev.target.value);
-                    updateForm(key, ev.target.value);
+                    updateForm({ key, value: ev.target.value });
                   }}
                   items={items ?? []}
                 />
@@ -283,7 +284,7 @@ export function FormRow<T>({
                   e="text"
                   form={form}
                   inp={cur}
-                  clearContainer={() => updateForm(key, '')}
+                  clearContainer={() => updateForm({ key, value: '' })}
                   updateForm={updateForm}
                   enterHandler={enterHandler}
                 />
@@ -319,7 +320,7 @@ export function FormRow<T>({
                   inp={cur}
                   updateForm={updateForm}
                   enterHandler={enterHandler}
-                  clearContainer={() => updateForm(key, '')}
+                  clearContainer={() => updateForm({ key, value: '' })}
                 />
               );
               break;
@@ -331,7 +332,7 @@ export function FormRow<T>({
                   inp={cur}
                   updateForm={updateForm}
                   enterHandler={enterHandler}
-                  clearContainer={() => updateForm(key, '')}
+                  clearContainer={() => updateForm({ key, value: '' })}
                 />
               );
               break;
@@ -343,7 +344,7 @@ export function FormRow<T>({
                   inp={cur}
                   updateForm={updateForm}
                   enterHandler={enterHandler}
-                  clearContainer={() => updateForm(key, '')}
+                  clearContainer={() => updateForm({ key, value: '' })}
                 />
               );
               break;
@@ -386,7 +387,7 @@ export function FormRow<T>({
                       event.target.files?.[0] || null,
                       event.target.value,
                     );
-                    updateForm(key, event.target.value);
+                    updateForm({ key, value: event.target.value });
                   }}
                 />
               );
@@ -397,7 +398,7 @@ export function FormRow<T>({
                   key={key}
                   onChange={(d) => {
                     onChange?.(d);
-                    updateForm(key, d);
+                    updateForm({ key, value: d });
                   }}
                   disabled={disabled}
                   placeholder={placeholder}
@@ -415,7 +416,7 @@ export function FormRow<T>({
                     large
                     onChange={() => {
                       onChange?.(!form[key]);
-                      updateForm(key, !form[key]);
+                      updateForm({ key, value: !form[key] });
                     }}
                   />
                 </div>
@@ -431,7 +432,7 @@ export function FormRow<T>({
                     sel={form[key]}
                     onChange={(x) => {
                       onChange?.(x);
-                      updateForm(key, x);
+                      updateForm({ key, value: x });
                     }}
                   />
                 </div>
@@ -444,7 +445,7 @@ export function FormRow<T>({
                     selectedIndex={form[key] ?? 0}
                     onChange={(x) => {
                       onChange?.(x);
-                      updateForm(key, x);
+                      updateForm({ key, value: x });
                     }}
                     items={items ?? []}
                   />
@@ -473,7 +474,7 @@ export function FormRow<T>({
                   maxOptions={restriction?.max}
                   onChange={(els, dif) => {
                     onChange?.(els, dif);
-                    updateForm(key, els);
+                    updateForm({ key, value: els });
                   }}
                 />
               );
@@ -493,7 +494,7 @@ export function FormRow<T>({
                   selected={form[key]}
                   onChange={(els) => {
                     onChange?.(els?.key);
-                    updateForm(key, els?.key);
+                    updateForm({ key, value: els?.key });
                   }}
                 />
               );
@@ -507,7 +508,7 @@ export function FormRow<T>({
                   value={form[key]}
                   onChange={(els) => {
                     onChange?.(els);
-                    updateForm(key, els);
+                    updateForm({ key, value: els });
                   }}
                   searchFC={preload}
                   limit={restriction?.max || 20}
@@ -530,7 +531,7 @@ export function FormRow<T>({
                   autoFocus={autoFocus}
                   onChange={(event) => {
                     onChange?.(event.target.value);
-                    updateForm(key, event.target.value);
+                    updateForm({ key, value: event.target.value });
                   }}
                   rows={restriction?.rows ?? 5}
                 />
@@ -544,7 +545,7 @@ export function FormRow<T>({
                   sel={form[key]}
                   onChange={(event) => {
                     onChange?.(event);
-                    updateForm(key, event);
+                    updateForm({ key, value: event });
                   }}
                 />
               );

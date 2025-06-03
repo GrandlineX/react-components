@@ -3,7 +3,14 @@ import { INames } from '@grandlinex/react-icons';
 import { BaseProps } from '../lib';
 import { DecorationType } from '../../util';
 
-export type FormTypes = string | number | null | boolean | undefined;
+export type FormTypes =
+  | string
+  | number
+  | null
+  | boolean
+  | undefined
+  | string[]
+  | Record<string, any>;
 
 export type FormConfEl<T> = InputOption<T> | null;
 export type FormConf<T> = FormConfEl<T>[][];
@@ -72,7 +79,7 @@ export interface InputOption<T> {
     render: (
       key: string,
       form: any,
-      updateForm: (key: string, value: any) => void,
+      updateForm: (...changes: FormFieldChange[]) => void,
       items?: InputOptionItem[] | undefined,
     ) => React.ReactNode;
     init: any;
@@ -82,7 +89,7 @@ export interface InputOption<T> {
 
 export type FormChangeEvent<T> = {
   form: T;
-  changed: { key: string; value: FormTypes } | null;
+  changed: FormFieldChange[] | null;
   setError: (err: FormErrorType | null) => void;
   validateRequired: (setError?: boolean) => FormErrorType | null;
   clear: () => void;
@@ -108,3 +115,5 @@ export type FormErrorType = {
   global?: string[];
   field?: { key: string; message: string }[];
 };
+
+export type FormFieldChange = { key: string; value: FormTypes };

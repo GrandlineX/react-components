@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { FormErrorType, FormProps, FormTypes } from './FormTypes';
+import {
+  FormErrorType,
+  FormFieldChange,
+  FormProps,
+  FormTypes,
+} from './FormTypes';
 import { def, FormRow, getFormInputs } from './FormRender';
 import { cnx, useUIContext, uuid } from '../../util';
 import LPulse from '../loading/LPulse';
@@ -41,11 +46,14 @@ function Form<T extends Record<string, any> = any>({
     return err;
   };
 
-  const updateForm = (key: string, value: FormTypes) => {
+  const updateForm = (...changes: FormFieldChange[]) => {
     const out = {
       ...form,
     };
-    out[key] = value;
+    for (const change of changes) {
+      out[change.key] = change.value;
+    }
+
     setForm(out);
     if (onChange) {
       onChange({
@@ -53,7 +61,7 @@ function Form<T extends Record<string, any> = any>({
         setError,
         update: setForm,
         validateRequired: validate,
-        changed: { key, value },
+        changed: changes,
         clear: () => {
           setForm(def(options));
           setError(undefined);

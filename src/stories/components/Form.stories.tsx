@@ -112,13 +112,13 @@ const fullConf: (inp: Partial<InputOption<any>>) => FormConf<any> = (
         key: 'key07',
         type: InputOptionType.CUSTOM,
         customElement: {
-          render: (key, form, updateForm, items) => {
+          render: (key, form, updateForm) => {
             return (
               <input
                 type="text"
                 value={form[key]}
                 onChange={(e) => {
-                  updateForm(key, e.target.value);
+                  updateForm({ key, value: e.target.value });
                 }}
               />
             );
@@ -546,7 +546,8 @@ export const Multy: Story = {
         buttonNode={args.buttonNode}
         compact={args.compact}
         onChange={({ changed, update }) => {
-          const { value } = changed!;
+          const [change] = changed!;
+          const { value } = change;
           const out = {
             key01: value,
             key02: value,

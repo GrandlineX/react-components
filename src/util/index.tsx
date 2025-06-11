@@ -2,11 +2,14 @@ import React, { ReactNode, useMemo } from 'react';
 import md5 from './MD5';
 import LocalStorage from './LocalStorage';
 import copyToClipboard from './Clipboard';
-import getSaveWindow from './BuildHelper';
 import CMap from './CoreMap';
 import WebEmitter from './WebEmitter';
+import GLang from './GLang';
+import initDefaultGLXContext from './InitGlxContext';
+import GlxEventLog from './GlxEventLog';
 
-export * from './GLang';
+export * from './GlxHelper';
+export * from './GLXContext';
 export * from './MainContext';
 export * from './LocalStorage';
 export * from './CookieUtil';
@@ -107,8 +110,10 @@ export {
   copyToClipboard,
   sGen,
   loop,
-  getSaveWindow,
   LocalStorage,
   CMap,
   WebEmitter,
+  GLang,
+  initDefaultGLXContext,
+  GlxEventLog,
 };

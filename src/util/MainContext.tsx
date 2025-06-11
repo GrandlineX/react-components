@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { GLang } from './GLang';
-import getSaveWindow from './BuildHelper';
+import GLang from './GLang';
+import { getSaveWindow } from './GlxHelper';
 
 const defaultGLang = new GLang({
   label: 'DefaultEnglish',

@@ -2,11 +2,19 @@ import React from 'react';
 import '../themes/dev.scss';
 import { createRoot } from 'react-dom/client';
 import { Default as test } from './stories/components/Form.stories';
-import { GLang, UIContext, UIContextData, useUIContext } from './util';
+import {
+  GLang,
+  initDefaultGLXContext,
+  UIContext,
+  UIContextData,
+  useUIContext,
+} from './util';
 import Tooltip from './components/tooltip/Tooltip';
 import { Form } from './components';
 
 const root = createRoot(document.getElementById('root')!);
+
+initDefaultGLXContext();
 
 const context = new UIContextData({
   portalRoot: document.body,

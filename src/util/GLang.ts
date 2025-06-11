@@ -9,7 +9,9 @@ export default class GLang implements GlangClient {
 
   map: Map<string, string>;
 
-  doneSet = new Set<string>();
+  doneSet: Set<string>;
+
+  missingSet: Set<string>;
 
   isDev: boolean;
 
@@ -21,6 +23,8 @@ export default class GLang implements GlangClient {
   constructor(langDat: LangData | null, isDev = false) {
     this.code = '';
     this.map = new Map<string, string>();
+    this.doneSet = new Set<string>();
+    this.missingSet = new Set<string>();
     this.isDev = isDev;
     if (langDat) {
       this.loadLang(langDat);
@@ -67,14 +71,18 @@ export default class GLang implements GlangClient {
     if (!this.doneSet.has(key) && t !== undefined) {
       this.doneSet.add(key);
     }
-    if (this.isDev && !t) {
-      getGLXField('log')?.add({
-        time: Date.now(),
-        sender: 'glang',
-        type: 'missing',
-        message: `Key "${key}" is missing in GLang map.`,
-      });
+    if (!this.missingSet.has(key) && !t) {
+      this.missingSet.add(key);
+      if (this.isDev) {
+        getGLXField('log')?.add({
+          time: Date.now(),
+          sender: 'glang',
+          type: 'missing',
+          message: `Key "${key}" is missing in GLang map.`,
+        });
+      }
     }
+
     return t || key;
   }
 }

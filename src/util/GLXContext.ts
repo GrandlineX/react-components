@@ -12,6 +12,7 @@ export interface GlangClient {
   code: string;
   map: Map<string, string>;
   doneSet: Set<string>;
+  missingSet: Set<string>;
   get(key: string): string;
   loadLang(lang: LangData): void;
   loadDev(lang: Record<string, string>): void;
@@ -19,7 +20,7 @@ export interface GlangClient {
 }
 
 export interface GLXEventLogClient {
-  add(event: GLXEvent): void;
+  add(event: Omit<GLXEvent, 'id'>): void;
   getLogs(): GLXEvent[];
 }
 
@@ -30,6 +31,7 @@ export interface WebEmitterClient {
 }
 
 export type GLXEvent<T = any> = {
+  id: string;
   time: number;
   sender: string;
   type: string;

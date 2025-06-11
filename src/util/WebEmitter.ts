@@ -63,7 +63,7 @@ export default class WebEmitter implements WebEmitterClient {
       if (this.isDev) {
         getGLXField('log')?.add({
           time: Date.now(),
-          type: 'name',
+          type: name,
           sender: 'web-emitter',
           data,
         });

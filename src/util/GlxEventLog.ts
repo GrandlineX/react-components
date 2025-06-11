@@ -1,4 +1,5 @@
 import { GLXEvent, GLXEventLogClient } from './GLXContext';
+import { uuid } from './Lib';
 
 /**
  * A simple event log implementation for GLX.
@@ -18,8 +19,8 @@ export default class GlxEventLog implements GLXEventLogClient {
    * If the log exceeds the limit, the oldest events are removed.
    * @param event - The event(s) to add to the log.
    */
-  add(...event: GLXEvent[]): void {
-    this.events.push(...event);
+  add(...event: Omit<GLXEvent, 'id'>[]): void {
+    this.events.push(...event.map((e) => ({ ...e, id: uuid() })));
     while (this.events.length > this.logLimit) {
       this.events.shift();
     }

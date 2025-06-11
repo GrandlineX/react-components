@@ -1,6 +1,6 @@
 {
   "name": "@grandlinex/react-components",
-  "version": "0.10.0-alpha.8",
+  "version": "0.10.0-alpha.9",
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -79,6 +79,7 @@
     "watch--sass": "nodemon",
     "serve": "gulp && cross-env BUILD=development webpack && cross-env BUILD=development webpack serve",
     "lint": "echo 'no lint'",
+    "lint-dev": "eslint ./src",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { IOText, IOTrash } from '@grandlinex/react-icons';
 import { Button, ColumTableProps, Table } from '../../components';
 import { sid, sleep } from '../../util';

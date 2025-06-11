@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { createRef } from 'react';
 import { Grid, MediaPlayer } from '../../components';
 import { MediaPlayerRefType } from '../../components/mediaPlayer/MediaPlayer';

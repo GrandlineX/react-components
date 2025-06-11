@@ -1,5 +1,5 @@
-import type { Meta, StoryFn, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-webpack5';
+import { fn } from 'storybook/test';
 import React from 'react';
 import ImageSel from '../../components/form/inputs/ImageSel';
 

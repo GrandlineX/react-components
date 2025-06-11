@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
 import AnimateBox from '../../components/box/AnimateBox';
 import { Card, HCard } from '../../components';

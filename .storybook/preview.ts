@@ -1,5 +1,5 @@
-import type { Preview, ReactRenderer  } from "@storybook/react";
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import type { Preview, ReactRenderer  } from "@storybook/react-webpack5";
+import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import "../css/style.css";
 import "../css/dev.css";
 
@@ -35,9 +35,12 @@ const preview: Preview = {
     viewport: {
       viewports: INITIAL_VIEWPORTS,
     },
+    docs: {
+      codePanel: true
+    }
   },
   decorators: [withThemeByClassName<ReactRenderer>({
-      defaultTheme: 'dark',
+      defaultTheme: 'light',
       themes:{
         dark: '',
         light: 'glx-theme-light',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { StoryFn } from '@storybook/react';
+import { StoryFn } from '@storybook/react-webpack5';
 import { EditSidePanel, MenuItemType, TabLayout } from '../../layouts';
 import { Button } from '../../components';
 import { useTabStore } from '../../util/hooks';

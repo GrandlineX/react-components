@@ -19,6 +19,17 @@ const Draw = ({
   height = window.innerHeight,
   onChange,
 }: CanvasProps) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setPosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [color, setColor] = useState<string>('blue');
   const [lineWidth, setLineWidth] = useState<number>(5);
@@ -156,7 +167,12 @@ const Draw = ({
   }, [exitPaint]);
 
   return (
-    <Grid className="glx-draw">
+    <Grid
+      className="glx-draw"
+      style={{
+        position: 'relative',
+      }}
+    >
       <Grid
         className="glx-draw--header glx-flex-wrap"
         flex
@@ -249,7 +265,26 @@ const Draw = ({
         ref={canvasRef}
         height={height}
         width={width}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        onMouseMove={handleMouseMove}
       />
+      {isHovering && (
+        <div
+          style={{
+            position: 'absolute',
+            left: position.x,
+            top: position.y + 67.5,
+            width: lineWidth,
+            height: lineWidth,
+            backgroundColor: color,
+            outline: color === 'white' ? '1px solid black' : 'none',
+            borderRadius: '50%',
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
+          }}
+        />
+      )}
     </Grid>
   );
 };

@@ -101,51 +101,46 @@ export function TabBarElement({
 
   return (
     <>
-      <Tooltip key={item.key} text={item.titel} position="right">
-        <div
-          key={item.key}
-          draggable
-          onDragStart={(e) => {
-            e.dataTransfer.setData('id', item.key);
-            e.dataTransfer.setData('type', context);
-          }}
-          onClick={() => {
-            setCurrentTab(index, context);
-          }}
-          onDrop={async (e) => onDrop(e, index)}
-          className={cnx(
-            'tab-bar--item',
-            [index === current, ' tab-bar--item-selected'],
-            [
-              drag && index === tabs.length - 1,
-              'glx-drop-nonce--active-border',
-            ],
-          )}
-          onContextMenu={(e) => {
-            e.preventDefault();
-            setContextPos({
-              top: e.clientY,
-              left: e.clientX,
-            });
+      <div
+        key={item.key}
+        draggable
+        onDragStart={(e) => {
+          e.dataTransfer.setData('id', item.key);
+          e.dataTransfer.setData('type', context);
+        }}
+        onClick={() => {
+          setCurrentTab(index, context);
+        }}
+        onDrop={async (e) => onDrop(e, index)}
+        className={cnx(
+          'tab-bar--item',
+          [index === current, ' tab-bar--item-selected'],
+          [drag && index === tabs.length - 1, 'glx-drop-nonce--active-border'],
+        )}
+        onContextMenu={(e) => {
+          e.preventDefault();
+          setContextPos({
+            top: e.clientY,
+            left: e.clientX,
+          });
+        }}
+      >
+        <span className="tab-bar--button" role="button">
+          {item.icon ? getIcon(item.icon)({}) : null}
+          {trimmer(item.titel)}
+        </span>
+
+        <button
+          type="button"
+          className="tab-bar--button-close"
+          onClick={(e) => {
+            e.stopPropagation();
+            closeTab(item.key, context);
           }}
         >
-          <span className="tab-bar--button" role="button">
-            {item.icon ? getIcon(item.icon)({}) : null}
-            {trimmer(item.titel)}
-          </span>
-
-          <button
-            type="button"
-            className="tab-bar--button-close"
-            onClick={(e) => {
-              e.stopPropagation();
-              closeTab(item.key, context);
-            }}
-          >
-            <IOClose size={ISize.SL} />
-          </button>
-        </div>
-      </Tooltip>
+          <IOClose size={ISize.SL} />
+        </button>
+      </div>
       {contextPos
         ? createPortal(
             <Grid

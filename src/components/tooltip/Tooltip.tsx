@@ -25,6 +25,7 @@ const Tooltip = (props: ToolTipProp) => {
     <span
       className={cnx('glx-tooltip-container', className)}
       onMouseEnter={() => {
+        if ('ontouchstart' in document.documentElement) return;
         setOpen(true);
       }}
       onMouseMove={(el) => {

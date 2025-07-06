@@ -1,0 +1,39 @@
+.glx-scroll-wrapper.glx-scroll-wrapper--no-border{
+  .glx-transparent--left,.glx-transparent--right{
+    display: none;
+  }
+}
+.glx-scroll-wrapper{
+  width: 100%;
+  position: relative;
+  .glx-scroll-container {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .glx-transparent--left,.glx-transparent--right{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 30px;
+  }
+  .glx-transparent--left{
+    left: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 90%);
+  }
+  .glx-transparent--right{
+    right: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 90%);
+  }
+  .glx-scroll-image {
+    height: 200px;
+    margin-right: 20px;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+}
+
+
+

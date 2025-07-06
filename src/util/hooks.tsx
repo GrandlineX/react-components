@@ -1,10 +1,10 @@
 import {
+  useActionState,
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
-  useActionState,
 } from 'react';
 import { TabItem, WCMode } from '../layouts/TabLayout/lib/index';
 
@@ -324,4 +324,23 @@ export function usePathQueryMap() {
     }
     return map;
   }, []);
+}
+
+export function useStartOnShow<T extends HTMLElement>() {
+  const domRef = useRef<T>(null);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const el = domRef.current;
+    if (!el || started) return () => {};
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setStarted(true);
+      }
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [domRef, started]);
+
+  return { domRef, started };
 }

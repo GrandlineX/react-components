@@ -375,16 +375,15 @@ export function useTableStore<T extends Record<string, any>>(
     setRowData(props.rowData || []);
   }, [props.rowData]);
 
-  const [pageData, maxPages] = useMemo(() => {
+  const sortedData = useMemo(() => {
     let sx;
-
     if (!sort) {
       sx = rowData;
     } else {
       const sortFc = getColumDefs().find((e) => e.field === sort.key)?.sort;
       if (sortFc) {
         if (sort.order === 'DSC') {
-          sx = rowData.sort(sortFc).reverse();
+          sx = rowData.sort(sortFc).toReversed();
         } else {
           sx = rowData.sort(sortFc);
         }
@@ -392,6 +391,12 @@ export function useTableStore<T extends Record<string, any>>(
         sx = rowData;
       }
     }
+    return sx;
+  }, [getColumDefs, rowData, sort]);
+
+  const [pageData, maxPages] = useMemo(() => {
+    let sx = sortedData;
+
     if (search) {
       const filters = getColumDefs().filter((x) => !!x.filter);
       sx = sx.filter((e) => filters.some((v) => v.filter!(search, e)));
@@ -402,7 +407,7 @@ export function useTableStore<T extends Record<string, any>>(
     }
 
     return [sx, max];
-  }, [getColumDefs, page, pageSize, pagination, rowData, search, sort]);
+  }, [getColumDefs, page, pageSize, pagination, search, sortedData]);
 
   const pageButtonKeys = useMemo(() => {
     const allPage = Array.from(new Array(maxPages).keys());

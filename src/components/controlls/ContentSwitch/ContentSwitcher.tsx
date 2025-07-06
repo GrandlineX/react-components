@@ -131,6 +131,7 @@ const ContentSwitcher = (props: ContentSwitcherProps) => {
             </div>
           ),
         )}
+        <div className="glx-content-switcher-end"> </div>
       </div>
     </div>
   );

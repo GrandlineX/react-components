@@ -291,35 +291,35 @@ const fullConf: (inp: Partial<InputOption<any>>) => FormConf<any> = (
           {
             key: 'first',
             meta: {
-              url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+              url: '/example01.jpg',
             },
             name: 'Earth',
           },
           {
             key: 'second',
             meta: {
-              url: 'https://fastly.picsum.photos/id/909/300/200.jpg?hmac=KA_47FNe3iWg6PLVYLhWOoAQPkO6pByurD0_H_K2phA',
+              url: '/example02.jpg',
             },
             name: 'Wave',
           },
           {
             key: 'third',
             meta: {
-              url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+              url: '/example01.jpg',
             },
             name: 'Earth',
           },
           {
             key: 'fourth',
             meta: {
-              url: 'https://fastly.picsum.photos/id/909/300/200.jpg?hmac=KA_47FNe3iWg6PLVYLhWOoAQPkO6pByurD0_H_K2phA',
+              url: '/example02.jpg',
             },
             name: 'Wave',
           },
           {
             key: 'fifth',
             meta: {
-              url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+              url: '/example01.jpg',
             },
             name: 'Earth',
           },

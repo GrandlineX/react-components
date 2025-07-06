@@ -1,0 +1,43 @@
+.img-navigator {
+  @extend .glx-no-select;
+  width: 100%;
+  position: relative;
+  min-height: 200px;
+
+  image {
+    width: 100%;
+  }
+
+  .bot-nav {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  .l-nav, .r-nav {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    padding: 4px;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    svg:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.9);
+      border-radius: 4px;
+      color: white;
+    }
+  }
+
+  .r-nav {
+    right: 0;
+  }
+
+  .l-nav {
+    left: 0;
+  }
+}

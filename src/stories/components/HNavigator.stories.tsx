@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Grid, HNavigator } from '../../components';
+import { HNavigator } from '../../components';
 
 const meta = {
   title: 'Components/HNavigator',
@@ -31,27 +31,27 @@ export const Default: Story = {
         {[
           {
             key: 'first',
-            url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+            url: '/example01.jpg',
             title: 'Earth',
           },
           {
             key: 'second',
-            url: 'https://fastly.picsum.photos/id/909/300/200.jpg?hmac=KA_47FNe3iWg6PLVYLhWOoAQPkO6pByurD0_H_K2phA',
+            url: '/example02.jpg',
             title: 'Wave',
           },
           {
             key: 'third',
-            url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+            url: '/example01.jpg',
             title: 'Earth',
           },
           {
             key: 'fourth',
-            url: 'https://fastly.picsum.photos/id/909/300/200.jpg?hmac=KA_47FNe3iWg6PLVYLhWOoAQPkO6pByurD0_H_K2phA',
+            url: '/example02.jpg',
             title: 'Wave',
           },
           {
             key: 'fifth',
-            url: 'https://fastly.picsum.photos/id/116/300/200.jpg?hmac=ClzWzI5KCHng0l6Vyokcw5nYWjgwtkClN0T-tZP7XIA',
+            url: '/example01.jpg',
             title: 'Earth',
           },
         ].map((e) => (

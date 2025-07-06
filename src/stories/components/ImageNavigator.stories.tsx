@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Persona } from '../../components';
+import { ImageNavigator } from '../../components';
 
 const meta = {
-  title: 'Components/Persona',
-  component: Persona,
+  title: 'Components/ImageNavigator',
+  component: ImageNavigator,
   tags: ['autodocs'],
   argTypes: {
     //    backgroundColor: { control: 'color' },
@@ -11,15 +11,21 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Persona>;
+} satisfies Meta<typeof ImageNavigator>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    small: true,
-    size: '64px',
-    text: 'G X',
+    src: [
+      '/example01.jpg',
+      '/example02.jpg',
+      '/example01.jpg',
+      '/example02.jpg',
+      '/example01.jpg',
+      '/example02.jpg',
+    ],
   },
 };

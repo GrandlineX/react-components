@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  FormErrorType,
-  FormFieldChange,
-  FormProps,
-  FormTypes,
-} from './FormTypes';
+import { FormErrorType, FormFieldChange, FormProps } from './FormTypes';
 import { def, FormRow, getFormInputs } from './FormRender';
 import { cnx, useUIContext, uuid } from '../../util';
 import LPulse from '../loading/LPulse';

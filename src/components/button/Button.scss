@@ -1,3 +1,8 @@
+.button--grid.button--default{
+  padding-left: 18px;
+  padding-right: 18px;
+
+}
 .button--default::before {
   background-color: $main-contrast;
 }

@@ -10,6 +10,8 @@ import PortalStepper from './controlls/PortalStepper/PortalStepper';
 import Progress from './controlls/Progress/Progress';
 import Form from './form/Form';
 import CheckBox from './form/inputs/CheckBox';
+import ImageNavigator from './ImageNavigator/ImageNavigator';
+import EndlessImageScroll from './EndlessImageScroll/EndlessImageScroll';
 import { Card, CardColor, CardIconType, CardProps } from './Card/Card';
 
 import DropDownIconMenu, { MenuItem } from './menu/DropDownIconMenu';
@@ -67,4 +69,6 @@ export {
   HNavigatorProps,
   Draw,
   AnimateBox,
+  ImageNavigator,
+  EndlessImageScroll,
 };

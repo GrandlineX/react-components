@@ -5,6 +5,13 @@ const basePlayer: PlayerCompList[] = [
   {
     canPlay: ({ src }) => {
       if (typeof src !== 'string') return false;
+      return /^(https?:\/\/)?(www\.)?twitch\.tv\//.test(src);
+    },
+    component: lazy(() => import('./TwitchPlayer')),
+  },
+  {
+    canPlay: ({ src }) => {
+      if (typeof src !== 'string') return false;
       return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//.test(src);
     },
     component: lazy(() => import('./YouTubePlayer')),

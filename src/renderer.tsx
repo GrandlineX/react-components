@@ -21,17 +21,18 @@ const context = new UIContextData({
 const srcList = [
   'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  'https://www.twitch.tv/videos/1926383874',
 ];
 
 const App = () => {
-  const [pos, setPos] = useState<number>(0);
+  const [pos, setPos] = useState<number>(2);
   const ref = useRef<MediaPlayerRefType>(null);
   const [progress, setProgress] = useState<PlayerUpdateEvent<any>>();
   const [started, setStarted] = useState<boolean>(false);
   const [playing, setPlaying] = useState<boolean>(false);
   return (
     <Grid flex flexC gap={8}>
-      <select>
+      <select value={pos}>
         {srcList.map((src, index) => (
           <option value={index} onClick={() => setPos(index)}>
             {src}

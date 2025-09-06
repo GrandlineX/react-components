@@ -49,6 +49,7 @@ const App = () => {
         onEnded={() => setStarted(false)}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
+        controls
       />
       <MediaplayerDevControls
         ref={ref}

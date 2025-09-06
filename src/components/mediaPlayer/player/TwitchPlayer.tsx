@@ -1,11 +1,12 @@
 import React, {
   forwardRef,
+  useEffect,
   useImperativeHandle,
   useRef,
-  useEffect,
+  useState,
 } from 'react';
 import { cnx } from '../../../util';
-import { FilePlayerProps, MediaPlayerFunction } from '../lib';
+import { MediaPlayerFunction, PlayerProps } from '../lib';
 
 // Helper to extract Twitch video/clip ID from src
 function getTwitchInfo(src: string | { src: string }) {
@@ -21,10 +22,12 @@ function getTwitchInfo(src: string | { src: string }) {
   return null;
 }
 
-const TwitchPlayer = forwardRef<MediaPlayerFunction, FilePlayerProps>(
+const TwitchPlayer = forwardRef<MediaPlayerFunction, PlayerProps<any>>(
   (props, ref) => {
+    const [playling, setPlaying] = useState(false);
     const embedRef = useRef<HTMLDivElement>(null);
-    const playerRef = useRef<any>(null);
+    const [init, setInit] = useState<boolean>(false);
+    const [player, setPlayer] = useState<any>(null);
     const { playerProps } = props;
     const {
       className,
@@ -33,7 +36,6 @@ const TwitchPlayer = forwardRef<MediaPlayerFunction, FilePlayerProps>(
       height,
       controls,
       autoplay,
-      loop,
       onEnded,
       onPause,
       onPlay,
@@ -46,7 +48,6 @@ const TwitchPlayer = forwardRef<MediaPlayerFunction, FilePlayerProps>(
 
     // Load Twitch embed script
     useEffect(() => {
-      console.log('Loading Twitch embed script');
       if ((window as any).Twitch && (window as any).Twitch.Embed) return;
       if (!document.getElementById('twitch-embed-script')) {
         const script = document.createElement('script');
@@ -56,12 +57,29 @@ const TwitchPlayer = forwardRef<MediaPlayerFunction, FilePlayerProps>(
       }
     }, []);
 
-    // Create Twitch embed
     useEffect(() => {
-      if (!twitchInfo || !embedRef.current) return () => {};
-      function createEmbed() {
-        console.log('PlayerRef', playerRef.current);
-        if (playerRef.current) return;
+      if (playling && player && onProgress) {
+        onDurationChange?.({
+          target: player,
+          currentTime: player.getPlayer?.()?.getCurrentTime?.() ?? 0,
+          duration: player.getPlayer?.()?.getDuration?.() ?? 0,
+        });
+        const interval = setInterval(() => {
+          onProgress?.({
+            target: player,
+            currentTime: player.getPlayer?.()?.getCurrentTime?.() ?? 0,
+            duration: player.getPlayer?.()?.getDuration?.() ?? 0,
+          });
+        }, 1000);
+        return () => {
+          clearInterval(interval);
+        };
+      }
+      return () => {};
+    }, [player, playling]);
+
+    useEffect(() => {
+      if (init && !player) {
         const options: any = {
           width: width || '100%',
           height: height || 360,
@@ -73,77 +91,89 @@ const TwitchPlayer = forwardRef<MediaPlayerFunction, FilePlayerProps>(
         } else {
           options.clip = twitchInfo!.id;
         }
-        if (controls !== undefined) options.controls = controls;
-        if (loop !== undefined) options.loop = loop;
-        playerRef.current = new (window as any).Twitch.Embed(
+
+        options.controls = controls === true;
+
+        const pl = new (window as any).Twitch.Embed(
           embedRef.current!.id,
           options,
         );
-        playerRef.current.addEventListener('play', () => onPlay?.());
-        playerRef.current.addEventListener('pause', () => onPause?.());
-        playerRef.current.addEventListener('ended', () => onEnded?.());
-        playerRef.current.addEventListener('ready', () => onStart?.());
-        playerRef.current.addEventListener('playing', () => onPlay?.());
-        playerRef.current.addEventListener('timeupdate', () => {
-          const player = playerRef.current.getPlayer();
-          onProgress?.({
-            target: player,
-            currentTime: player.getCurrentTime(),
-            duration: player.getDuration(),
-          });
-          onDurationChange?.({
-            target: player,
-            currentTime: player.getCurrentTime(),
-            duration: player.getDuration(),
-          });
+        pl.addEventListener('play', () => {
+          setPlaying(true);
+          onPlay?.();
         });
+        pl.addEventListener('pause', () => {
+          setPlaying(false);
+          onPause?.();
+        });
+        pl.addEventListener('ended', () => {
+          setPlaying(false);
+          onEnded?.();
+        });
+        pl.addEventListener('ready', () => {
+          onDurationChange?.({
+            target: pl,
+            currentTime: pl.getPlayer?.()?.getCurrentTime?.() ?? 0,
+            duration: pl.getPlayer?.()?.getDuration?.() ?? 0,
+          });
+          onStart?.();
+        });
+        pl.addEventListener('playing', () => {
+          setPlaying(true);
+          onPlay?.();
+        });
+        console.log(pl);
+        pl.addEventListener('timeupdate', () => {
+          console.log('timeupdate');
+        });
+        setPlayer(pl);
+        return () => {
+          if (pl) {
+            pl.removeEventListener?.('play', onPlay);
+            pl.removeEventListener?.('pause', onPause);
+            pl.removeEventListener?.('ended', onEnded);
+            pl.removeEventListener?.('ready', onStart);
+            pl.removeEventListener?.('playing', onPlay);
+            pl.removeEventListener?.('timeupdate', onProgress);
+          }
+        };
       }
-      if ((window as any).Twitch && (window as any).Twitch.Embed) {
-        createEmbed();
-      } else {
+      return () => {};
+    }, [player, init]);
+
+    // Create Twitch embed
+    useEffect(() => {
+      if (!twitchInfo || !embedRef.current) return;
+      if (!(window as any).Twitch || !(window as any).Twitch.Embed) {
         document
           .getElementById('twitch-embed-script')
           ?.addEventListener('load', () => {
-            createEmbed();
+            setInit(true);
           });
+      } else {
+        setInit(true);
       }
-      return () => {
-        if (playerRef.current) {
-          playerRef.current.removeEventListener?.('play', onPlay);
-          playerRef.current.removeEventListener?.('pause', onPause);
-          playerRef.current.removeEventListener?.('ended', onEnded);
-          playerRef.current.removeEventListener?.('ready', onStart);
-          playerRef.current.removeEventListener?.('playing', onPlay);
-          playerRef.current.removeEventListener?.('timeupdate', onProgress);
-          playerRef.current = null;
-        }
-      };
-    }, [twitchInfo, playerRef]);
+    }, [twitchInfo, embedRef]);
 
     // Imperative API
     useImperativeHandle(ref, () => ({
       seekTo(to: number) {
-        const player = playerRef.current?.getPlayer?.();
-        player?.seek?.(to);
+        player?.getPlayer?.()?.seek?.(to);
       },
       getRawPlayer<Y>(): Y | null {
-        return playerRef.current?.getPlayer?.() as Y | null;
+        return player?.getPlayer?.() as Y | null;
       },
       play() {
-        const player = playerRef.current?.getPlayer?.();
-        player?.play?.();
+        player?.getPlayer?.()?.play?.();
       },
       pause() {
-        const player = playerRef.current?.getPlayer?.();
-        player?.pause?.();
+        player?.getPlayer?.()?.pause?.();
       },
       getDuration() {
-        const player = playerRef.current?.getPlayer?.();
-        return player?.getDuration?.() ?? -1;
+        return player?.getPlayer?.()?.getDuration?.() ?? -1;
       },
       getCurrentTime() {
-        const player = playerRef.current?.getPlayer?.();
-        return player?.getCurrentTime?.() ?? -1;
+        return player?.getPlayer?.()?.getCurrentTime?.() ?? -1;
       },
       setPlayBackRate() {},
     }));

@@ -3,7 +3,6 @@ import { cnx } from '../../../util';
 import {
   FilePlayerProps,
   MediaPlayerFunction,
-  MediaPlayerParentFunction,
   MediaPlayerPlaybackRates,
 } from '../lib';
 

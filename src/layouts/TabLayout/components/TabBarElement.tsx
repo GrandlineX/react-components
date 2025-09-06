@@ -1,8 +1,8 @@
-import { getIcon, INames, IOClose, ISize } from '@grandlinex/react-icons';
+import { Icon, INames, IOClose, ISize } from '@grandlinex/react-icons';
 import React, { MouseEvent, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { cnx, trimmer, useUIContext } from '../../../util';
-import { Grid, Tooltip } from '../../../components';
+import { Grid } from '../../../components';
 import { TabContainerFunctions, TabItem, WCMode } from '../lib';
 
 export type TabContextMenu = {
@@ -126,7 +126,7 @@ export function TabBarElement({
         }}
       >
         <span className="tab-bar--button" role="button">
-          {item.icon ? getIcon(item.icon)({}) : null}
+          {item.icon ? <Icon name={item.icon} /> : null}
           {trimmer(item.titel)}
         </span>
 
@@ -161,7 +161,7 @@ export function TabBarElement({
                     m.onClick(e, item, context);
                   }}
                 >
-                  {m.icon && getIcon(m.icon)({})}
+                  {m.icon && <Icon name={m.icon} />}
                   {m.translation && ui.translation.get(m.translation)}
                   {m.text}
                 </Grid>

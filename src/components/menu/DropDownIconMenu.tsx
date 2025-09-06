@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getIcon, INames, IOChevronForward } from '@grandlinex/react-icons';
+import {
+  Icon,
+  INames,
+  IOChevronForward,
+  IOEllipsisVertical,
+} from '@grandlinex/react-icons';
 import { cnx } from '../../util';
 import { useAutoClose18 } from '../../util/hooks';
 
@@ -66,7 +71,7 @@ function DropDownIconMenu({
         className="glx-icon-button"
         onClick={() => setOpen(!open)}
       >
-        {children || getIcon('IOEllipsisVertical')({})}
+        {children || <IOEllipsisVertical />}
       </button>
       {open ? (
         <div
@@ -93,7 +98,7 @@ function DropDownIconMenu({
                     }}
                     key={el.key}
                   >
-                    {el.icon ? getIcon(el.icon)({}) : null}
+                    {el.icon ? <Icon name={el.icon} /> : null}
                     {el.label} <IOChevronForward />
                   </button>
                   {active[`submenu_${el.key}`] ? (
@@ -129,7 +134,7 @@ function DropDownIconMenu({
                                 }
                               />
                             ) : null}
-                            {del.icon ? getIcon(del.icon)({}) : null}
+                            {del.icon ? <Icon name={del.icon} /> : null}
                             {del.label}
                           </button>
                         ))}
@@ -155,7 +160,7 @@ function DropDownIconMenu({
                       checked={el.value ?? (active[el.key] || false)}
                     />
                   ) : null}
-                  {el.icon ? getIcon(el.icon)({}) : null}
+                  {el.icon ? <Icon name={el.icon} /> : null}
                   {el.label}
                 </button>
               ),

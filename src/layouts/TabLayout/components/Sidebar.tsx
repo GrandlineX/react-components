@@ -1,5 +1,5 @@
 import React from 'react';
-import { getIcon, INames } from '@grandlinex/react-icons';
+import { Icon, INames } from '@grandlinex/react-icons';
 import { Tooltip } from '../../../components';
 import { cnx } from '../../../util';
 
@@ -63,7 +63,7 @@ function Sidebar(props: SideBarProps) {
                   {l.value}
                 </span>
               ))}
-              {getIcon(icon)({ size: 20 })}
+              <Icon name={icon} size={20} />
             </button>
           </Tooltip>
         ))}
@@ -83,7 +83,7 @@ function Sidebar(props: SideBarProps) {
                 }
               }}
             >
-              {getIcon(icon)({ size: 20 })}
+              <Icon name={icon} size={20} />
             </button>
           </Tooltip>
         ))}

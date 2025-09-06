@@ -1,5 +1,5 @@
 import React from 'react';
-import { getIcon, INames } from '@grandlinex/react-icons';
+import { Icon, INames } from '@grandlinex/react-icons';
 import { cnx } from '../../util';
 import { CardProps } from '../Card/Card';
 import { Grid } from '../Grid/Grid';
@@ -56,9 +56,11 @@ function HCard({
               }}
             >
               <Grid flex center className="glx-hcard--effect glx-hround-top">
-                {typeof icon === 'string'
-                  ? getIcon(icon as INames)({ width: 96, height: 96 })
-                  : icon}
+                {typeof icon === 'string' ? (
+                  <Icon name={icon as INames} width={96} height={96} />
+                ) : (
+                  icon
+                )}
               </Grid>
             </div>
             <div className="glx-hcard--space" />
@@ -124,9 +126,11 @@ function HCard({
         <Grid flex flexR hCenter>
           {hoverButton?.map((el) => (
             <IconButton key={el.key} onClick={el.onClick} toolTip={el.tooltip}>
-              {typeof el.icon === 'string'
-                ? getIcon(el.icon as INames)({})
-                : el.icon}
+              {typeof el.icon === 'string' ? (
+                <Icon name={el.icon as INames} />
+              ) : (
+                el.icon
+              )}
             </IconButton>
           ))}
         </Grid>

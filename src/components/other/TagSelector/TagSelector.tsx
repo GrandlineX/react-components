@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { getIcon } from '@grandlinex/react-icons';
+import { Icon } from '@grandlinex/react-icons';
 import { cnx, useUIContext } from '../../../util';
 import { Badge, BadgeColorX, BadgeProps } from '../Badge/Badge';
 import { useAutoClose } from '../../../util/hooks';
@@ -211,11 +211,7 @@ export function TagSelector(prop: TagSelectorProps) {
                     : undefined,
                 }}
               >
-                {e.icon
-                  ? getIcon(e.icon)({
-                      size: 20,
-                    })
-                  : null}
+                {e.icon ? <Icon name={e.icon} size={20} /> : null}
               </div>
               <div>{e.text || e.key}</div>
             </Grid>

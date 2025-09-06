@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { getIcon, INames, ISize } from '@grandlinex/react-icons';
+import { Icon, INames, ISize } from '@grandlinex/react-icons';
 import { IconButton } from '../button/IconButton';
 import { cnx } from '../../util';
 import DropDownIconMenu, { MenuItem } from '../menu/DropDownIconMenu';
@@ -113,7 +113,7 @@ function NotificationElement({
             backgroundColor: fallbackIcon.color,
           }}
         >
-          {getIcon(fallbackIcon.icon)({ size: ISize.MD })}
+          <Icon name={fallbackIcon.icon} size={ISize.MD} />
         </Grid>
       ) : null}
     </div>

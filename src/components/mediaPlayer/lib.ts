@@ -70,7 +70,8 @@ export type MediaPlayerPlaybackRates =
   | 2.0
   | -1.0
   | -0.5;
-export type MediaPlayerParentFunction = {
+
+export type MediaPlayerFunction = {
   seekTo(to: number): void;
   getRawPlayer<Y>(): Y | null;
   play(): void;
@@ -79,6 +80,9 @@ export type MediaPlayerParentFunction = {
   getCurrentTime(): number;
   setPlayBackRate(rate: MediaPlayerPlaybackRates): void;
 };
+export type MediaPlayerParentFunction = {
+  seek(seconds: number): void;
+} & MediaPlayerFunction;
 
 export type MediaPlayerRefType = ComponentRef<
   ForwardRefExoticComponent<
@@ -89,6 +93,6 @@ export type MediaPlayerRefType = ComponentRef<
 export type PlayerCompList = {
   canPlay: (props: MediaPlayerProps<any>) => boolean;
   component: ForwardRefExoticComponent<
-    PlayerProps<any> & RefAttributes<MediaPlayerParentFunction>
+    PlayerProps<any> & RefAttributes<MediaPlayerFunction>
   >;
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { getIcon, INames, ISize } from '@grandlinex/react-icons';
+import { Icon, INames, ISize } from '@grandlinex/react-icons';
 import { Grid } from '../../../components';
 import { useUIContext } from '../../../util';
 
@@ -177,7 +177,7 @@ export function SpotlightModal({
       <Grid className="tab-layout--spotlight-input" flex flexRow vCenter>
         {command ? (
           <Grid className="option-icon">
-            {command.icon ? getIcon(command.icon)({ size: ISize.SM }) : null}
+            {command.icon ? <Icon name={command.icon} size={ISize.SM} /> : null}
           </Grid>
         ) : null}
         <Grid grow={1}>
@@ -223,7 +223,7 @@ export function SpotlightModal({
               onClick={optionAction || undefined}
             >
               <Grid className="option-icon">
-                {icon ? getIcon(icon)({ size: ISize.SM }) : null}
+                {icon ? <Icon name={icon} size={ISize.SM} /> : null}
               </Grid>
 
               <Grid flex flexC>

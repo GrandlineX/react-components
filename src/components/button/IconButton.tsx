@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { getIcon, INames } from '@grandlinex/react-icons';
+import { Icon, INames } from '@grandlinex/react-icons';
 import { cnx } from '../../util';
 import Tooltip, { ToolTipProp } from '../tooltip/Tooltip';
 
@@ -52,7 +52,7 @@ const IconButton = (props: IconButtonProps) => {
         disabled={disabled}
       >
         <span>
-          {icon ? getIcon(icon)({}) : null}
+          {icon ? <Icon name={icon} /> : null}
           {children}
         </span>
       </button>

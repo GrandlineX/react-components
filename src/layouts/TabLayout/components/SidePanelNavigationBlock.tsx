@@ -1,5 +1,5 @@
 import React from 'react';
-import { getIcon, INames } from '@grandlinex/react-icons';
+import { Icon, INames, ISize } from '@grandlinex/react-icons';
 import { MenuItemInterface, PanelMenuItem } from './PanelMenuItem';
 import { Grid } from '../../../components';
 
@@ -23,7 +23,7 @@ function SidePanelNavigationBlock(props: {
           vCenter
           gap={2}
         >
-          <div>{icon ? getIcon(icon)({}) : null}</div>
+          <div>{icon ? <Icon name={icon} size={ISize.SM} /> : null}</div>
           <div>{headerText}</div>
         </Grid>
       ) : null}

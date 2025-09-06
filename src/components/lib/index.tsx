@@ -1,5 +1,5 @@
-import { CSSProperties, ReactNode } from 'react';
-import { getIcon, INames, ISize } from '@grandlinex/react-icons';
+import React, { CSSProperties, ReactNode } from 'react';
+import { Icon, INames, ISize } from '@grandlinex/react-icons';
 import { cnx, CnxInput, CnxInputCondition } from '../../util';
 
 export type BaseProps = {
@@ -60,7 +60,7 @@ export function styleM(style?: CSSProperties, merged?: CSSProperties) {
 export function renderIcon(icon?: IconNodeType, size = ISize.MD): ReactNode {
   if (!icon) return null;
   if (typeof icon === 'string') {
-    return getIcon(icon as INames)({ size });
+    return <Icon name={icon as INames} size={size} />;
   }
   return icon;
 }

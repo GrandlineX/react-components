@@ -19,7 +19,6 @@ import HNavigator, { HNavigatorProps } from './Navigator/HNavigator';
 import Draw from './canvas/Draw';
 import Usage from './progress/Usage';
 import UsageMap from './progress/UsageMap';
-import Icon, { IconProps } from './Icon/Icon';
 import AnimateBox from './box/AnimateBox';
 
 export * from './other/Badge/Badge';
@@ -42,8 +41,6 @@ export * from './form/FormRender';
 export * from './imput/SmartInput';
 export * from './lib';
 export {
-  Icon,
-  IconProps,
   Usage,
   UsageMap,
   Form,

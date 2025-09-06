@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import {
-  getIcon,
+  Icon,
   INames,
   IOChevronDown,
   ISize,
@@ -32,11 +32,7 @@ export default function IconSel(props: {
   return (
     <div className={cnx('glx-flex-r', className)}>
       <div style={{ position: 'relative' }}>
-        {cur
-          ? getIcon(cur)({
-              size: ISize.SM,
-            })
-          : 'N/D'}
+        {cur ? <Icon name={cur} size={ISize.SM} /> : 'N/D'}
         {open && !disabled ? (
           <Grid
             flex
@@ -77,7 +73,7 @@ export default function IconSel(props: {
                     setSearch('');
                   }}
                 >
-                  {getIcon(el)({ size: ISize.SM })}
+                  <Icon name={el} size={ISize.SM} />
                 </div>
               ))}
             </div>

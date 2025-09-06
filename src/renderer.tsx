@@ -3,6 +3,7 @@ import '../themes/dev.scss';
 import { createRoot } from 'react-dom/client';
 import { GLang, initDefaultGLXContext, UIContext, UIContextData } from './util';
 import {
+  Grid,
   MediaPlayer,
   MediaPlayerRefType,
   PlayerUpdateEvent,
@@ -17,19 +18,44 @@ const context = new UIContextData({
   portalRoot: document.body,
   lang: new GLang(null),
 });
+const srcList = [
+  'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+];
+
 const App = () => {
+  const [pos, setPos] = useState<number>(0);
   const ref = useRef<MediaPlayerRefType>(null);
   const [progress, setProgress] = useState<PlayerUpdateEvent<any>>();
+  const [started, setStarted] = useState<boolean>(false);
+  const [playing, setPlaying] = useState<boolean>(false);
   return (
-    <div>
+    <Grid flex flexC gap={8}>
+      <select>
+        {srcList.map((src, index) => (
+          <option value={index} onClick={() => setPos(index)}>
+            {src}
+          </option>
+        ))}
+      </select>
       <MediaPlayer
         ref={ref}
-        src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        src={srcList[pos]}
         width="600px"
+        height="338px"
         onProgress={setProgress}
+        onStart={() => setStarted(true)}
+        onEnded={() => setStarted(false)}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
       />
-      <MediaplayerDevControls ref={ref} progress={progress} />
-    </div>
+      <MediaplayerDevControls
+        ref={ref}
+        progress={progress}
+        started={started}
+        play={playing}
+      />
+    </Grid>
   );
 };
 

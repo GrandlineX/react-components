@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import {
-  getIcon,
+  Icon,
   INames,
   IOEllipsisVertical,
   ISize,
@@ -70,7 +70,7 @@ const Card = (props: CardProps) => {
 
       if (typeof cur.icon === 'string') {
         cur.key = cur.icon;
-        cur.icon = getIcon(cur.icon as INames)({ size: ISize.MD });
+        cur.icon = <Icon name={cur.icon as INames} size={ISize.MD} />;
       }
       return cur;
     });
@@ -106,9 +106,11 @@ const Card = (props: CardProps) => {
                 }}
               >
                 <div className="glx-card--effect glx-round-top">
-                  {typeof icon === 'string'
-                    ? getIcon(icon as INames)({ width: 128, height: 128 })
-                    : icon}
+                  {typeof icon === 'string' ? (
+                    <Icon name={icon as INames} width={128} height={128} />
+                  ) : (
+                    icon
+                  )}
                 </div>
               </div>
               <div className="glx-card--space" />
@@ -236,9 +238,11 @@ const Card = (props: CardProps) => {
                   `glx-card--icon-${color}`,
                 ])}
               >
-                {typeof icon === 'string'
-                  ? getIcon(icon as INames)({ size: ISize.SM })
-                  : icon}
+                {typeof icon === 'string' ? (
+                  <Icon name={icon as INames} size={ISize.SM} />
+                ) : (
+                  icon
+                )}
               </div>
             ) : null}
             {skeleton ? (

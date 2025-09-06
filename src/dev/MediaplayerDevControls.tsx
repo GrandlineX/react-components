@@ -4,9 +4,13 @@ import { Grid, MediaPlayerRefType, PlayerUpdateEvent } from '../components';
 export default function MediaplayerDevControls({
   ref,
   progress,
+  started,
+  play,
 }: {
   ref: RefObject<MediaPlayerRefType | null>;
   progress?: PlayerUpdateEvent<any>;
+  started?: boolean;
+  play?: boolean;
 }) {
   return (
     <Grid flex flexC gap={12}>
@@ -41,7 +45,7 @@ export default function MediaplayerDevControls({
           onClick={() => {
             if (ref.current) {
               console.log(ref.current.getCurrentTime());
-              ref.current.seekTo(ref.current.getCurrentTime() + 10);
+              ref.current.seek(10);
             }
           }}
         >
@@ -51,7 +55,7 @@ export default function MediaplayerDevControls({
           onClick={() => {
             if (ref.current) {
               console.log(ref.current.getCurrentTime());
-              ref.current.seekTo(ref.current.getCurrentTime() - 10);
+              ref.current.seek(-10);
             }
           }}
         >
@@ -84,6 +88,10 @@ export default function MediaplayerDevControls({
           <option value={1.5}>1.5x</option>
           <option value={2.0}>2x</option>
         </select>
+      </Grid>
+      <Grid flex flexC vCenter>
+        <Grid>Started: {started ? 'true' : 'false'}</Grid>
+        <Grid>Playing: {play ? 'true' : 'false'}</Grid>
       </Grid>
     </Grid>
   );

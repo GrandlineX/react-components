@@ -2,11 +2,12 @@ import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { cnx } from '../../../util';
 import {
   FilePlayerProps,
+  MediaPlayerFunction,
   MediaPlayerParentFunction,
   MediaPlayerPlaybackRates,
 } from '../lib';
 
-const FilePlayer = forwardRef<MediaPlayerParentFunction, FilePlayerProps>(
+const FilePlayer = forwardRef<MediaPlayerFunction, FilePlayerProps>(
   (props, ref) => {
     const refX = useRef<HTMLVideoElement>(null);
 

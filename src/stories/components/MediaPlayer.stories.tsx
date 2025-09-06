@@ -68,8 +68,7 @@ export const Custom_Controlls: Story = {
         <button
           onClick={() => {
             if (ref.current) {
-              console.log(ref.current.getCurrentTime());
-              ref.current.seekTo(ref.current.getCurrentTime() + 10);
+              ref.current.seek(10);
             }
           }}
         >
@@ -78,8 +77,7 @@ export const Custom_Controlls: Story = {
         <button
           onClick={() => {
             if (ref.current) {
-              console.log(ref.current.getCurrentTime());
-              ref.current.seekTo(ref.current.getCurrentTime() - 10);
+              ref.current.seek(-10);
             }
           }}
         >

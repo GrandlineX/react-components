@@ -5,28 +5,27 @@ import {
   MediaPlayerProps,
   MediaPlayerRefType,
   PlayerCompList,
-  PlayerType,
 } from './lib';
-import FileAudiPlayer from './player/FileAudioPlayer';
-import FilePlayer from './player/FilePlayer';
-
-const basePlayer: PlayerCompList[] = [
-  {
-    canPlay: ({ player }) => player === PlayerType.FILE_AUDIO,
-    component: FileAudiPlayer,
-  },
-  { canPlay: () => true, component: FilePlayer },
-];
+import basePlayer from './player';
 
 const MediaPlayer = forwardRef<
   MediaPlayerParentFunction,
-  MediaPlayerProps<any>
+  MediaPlayerProps<any> & {
+    customPlayer?: PlayerCompList[];
+  }
 >((props, ref) => {
+  const { customPlayer } = props;
   const refX = useRef<MediaPlayerRefType>(null);
   useImperativeHandle(ref, () => ({
     seekTo(to: number) {
       if (refX.current) {
         refX.current.seekTo(to);
+      }
+    },
+    seek(sec: number) {
+      if (refX.current) {
+        const current = refX.current.getCurrentTime();
+        refX.current.seekTo(current + sec);
       }
     },
     getRawPlayer<Y>(): Y | null {
@@ -62,8 +61,14 @@ const MediaPlayer = forwardRef<
   }));
 
   const SelectedPlayer = useMemo(() => {
+    if (customPlayer) {
+      const cP = customPlayer.find((p) => p.canPlay(props))?.component;
+      if (cP) {
+        return cP;
+      }
+    }
     return basePlayer.find((p) => p.canPlay(props))?.component;
-  }, [props]);
+  }, [customPlayer, props]);
 
   if (!SelectedPlayer) {
     return null;

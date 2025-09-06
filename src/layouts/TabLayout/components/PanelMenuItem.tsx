@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  getIcon,
+  Icon,
   INames,
   IOChevronDown,
   IOChevronForward,
@@ -90,7 +90,7 @@ function PanelMenuItem({
       >
         <Grid flex flexR className="menu-item--content" vCenter gap={4}>
           <div className="menu-item--space" />
-          <div>{icon ? getIcon(icon)({ size: 16 }) : null}</div>
+          <div>{icon ? <Icon name={icon} size={16} /> : null}</div>
           <div>{text}</div>
         </Grid>
 

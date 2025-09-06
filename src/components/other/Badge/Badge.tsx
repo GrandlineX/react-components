@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { getIcon, INames, IOClose } from '@grandlinex/react-icons';
+import { Icon, INames, IOClose, ISize } from '@grandlinex/react-icons';
 import { cnx } from '../../../util';
 
 export type CustomBadgeColor = `!#${string}&#${string}!`;
@@ -114,7 +114,7 @@ export const Badge = (prop: BadgeProps) => {
         `glx-badge--${color}`,
       ])}
     >
-      {icon ? getIcon(icon)({}) : null}
+      {icon ? <Icon name={icon} size={ISize.SM} /> : null}
       {text}
       {close ? (
         <button

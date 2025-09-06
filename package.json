@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@grandlinex/react-icons": "0.2.1"
+    "@grandlinex/react-icons": "0.2.4"
   },
   "keywords": [
     "grandlinex",

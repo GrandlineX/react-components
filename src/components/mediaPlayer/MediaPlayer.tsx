@@ -1,29 +1,28 @@
-import React, {
-  ElementRef,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import {
   MediaPlayerParentFunction,
   MediaPlayerPlaybackRates,
   MediaPlayerProps,
-  playerSelector,
+  MediaPlayerRefType,
+  PlayerCompList,
   PlayerType,
 } from './lib';
-import { FilePlayer, FilePlayerRefType } from './player/FilePlayer';
-import {
-  FileAudioPlayerRefType,
-  FileAudiPlayer,
-} from './player/FileAudioPlayer';
+import FileAudiPlayer from './player/FileAudioPlayer';
+import FilePlayer from './player/FilePlayer';
 
-export type MediaPlayerRefType = ElementRef<typeof MediaPlayer>;
+const basePlayer: PlayerCompList[] = [
+  {
+    canPlay: ({ player }) => player === PlayerType.FILE_AUDIO,
+    component: FileAudiPlayer,
+  },
+  { canPlay: () => true, component: FilePlayer },
+];
 
-export const MediaPlayer = forwardRef<
+const MediaPlayer = forwardRef<
   MediaPlayerParentFunction,
   MediaPlayerProps<any>
 >((props, ref) => {
-  const refX = useRef<FilePlayerRefType | FileAudioPlayerRefType>(null);
+  const refX = useRef<MediaPlayerRefType>(null);
   useImperativeHandle(ref, () => ({
     seekTo(to: number) {
       if (refX.current) {
@@ -61,21 +60,21 @@ export const MediaPlayer = forwardRef<
       }
     },
   }));
-  switch (playerSelector(props)) {
-    case PlayerType.FILE_AUDIO:
-      return (
-        <FileAudiPlayer
-          ref={refX}
-          playerProps={props as MediaPlayerProps<HTMLAudioElement>}
-        />
-      );
-    case PlayerType.FILE:
-    default:
-      return (
-        <FilePlayer
-          ref={refX}
-          playerProps={props as MediaPlayerProps<HTMLVideoElement>}
-        />
-      );
+
+  const SelectedPlayer = useMemo(() => {
+    return basePlayer.find((p) => p.canPlay(props))?.component;
+  }, [props]);
+
+  if (!SelectedPlayer) {
+    return null;
   }
+
+  return (
+    <SelectedPlayer
+      ref={refX}
+      playerProps={props as MediaPlayerProps<HTMLAudioElement>}
+    />
+  );
 });
+
+export default MediaPlayer;

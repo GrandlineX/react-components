@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import '../themes/dev.scss';
 import { createRoot } from 'react-dom/client';
-import { Default as test } from './stories/components/Form.stories';
+import { GLang, initDefaultGLXContext, UIContext, UIContextData } from './util';
 import {
-  GLang,
-  initDefaultGLXContext,
-  UIContext,
-  UIContextData,
-  useUIContext,
-} from './util';
-import Tooltip from './components/tooltip/Tooltip';
-import { Form } from './components';
+  MediaPlayer,
+  MediaPlayerRefType,
+  PlayerUpdateEvent,
+} from './components';
+import MediaplayerDevControls from './dev/MediaplayerDevControls';
 
 const root = createRoot(document.getElementById('root')!);
 
@@ -21,14 +18,17 @@ const context = new UIContextData({
   lang: new GLang(null),
 });
 const App = () => {
-  const ui = useUIContext();
-
+  const ref = useRef<MediaPlayerRefType>(null);
+  const [progress, setProgress] = useState<PlayerUpdateEvent<any>>();
   return (
     <div>
-      <Tooltip text="HelloWorld">
-        {ui.translation.get('test.translation')}
-      </Tooltip>
-      <Form {...(test.args as any)} />
+      <MediaPlayer
+        ref={ref}
+        src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        width="600px"
+        onProgress={setProgress}
+      />
+      <MediaplayerDevControls ref={ref} progress={progress} />
     </div>
   );
 };

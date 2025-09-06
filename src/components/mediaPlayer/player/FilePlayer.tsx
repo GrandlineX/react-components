@@ -1,9 +1,4 @@
-import React, {
-  ElementRef,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { cnx } from '../../../util';
 import {
   FilePlayerProps,
@@ -11,9 +6,7 @@ import {
   MediaPlayerPlaybackRates,
 } from '../lib';
 
-export type FilePlayerRefType = ElementRef<typeof FilePlayer>;
-export type FilePlayerParentFunction = MediaPlayerParentFunction;
-export const FilePlayer = forwardRef<FilePlayerParentFunction, FilePlayerProps>(
+const FilePlayer = forwardRef<MediaPlayerParentFunction, FilePlayerProps>(
   (props, ref) => {
     const refX = useRef<HTMLVideoElement>(null);
 
@@ -149,3 +142,5 @@ export const FilePlayer = forwardRef<FilePlayerParentFunction, FilePlayerProps>(
     );
   },
 );
+
+export default FilePlayer;

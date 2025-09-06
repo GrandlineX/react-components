@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { createRef } from 'react';
-import { Grid, MediaPlayer } from '../../components';
-import { MediaPlayerRefType } from '../../components/mediaPlayer/MediaPlayer';
+import { Grid, MediaPlayer, MediaPlayerRefType } from '../../components';
 
 const meta = {
   title: 'Components/MediaPlayer',

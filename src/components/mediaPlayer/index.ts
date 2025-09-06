@@ -1,4 +1,7 @@
-export * from './MediaPlayer';
+import MediaPlayer from './MediaPlayer';
+import FileAudiPlayer from './player/FileAudioPlayer';
+import FilePlayer from './player/FilePlayer';
+
 export * from './lib';
-export * from './player/FilePlayer';
-export * from './player/FileAudioPlayer';
+
+export { MediaPlayer, FilePlayer, FileAudiPlayer };

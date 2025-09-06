@@ -1,4 +1,9 @@
-import { ReactNode } from 'react';
+import {
+  ComponentRef,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 export type MediaPlayerSrc = {
   src: string;
@@ -33,6 +38,7 @@ export type MediaPlayerProps<X> = {
   onProgress?: (event: PlayerUpdateEvent<X>) => void;
   bottomRow?: ReactNode;
   player?: PlayerType;
+  custom?: Record<string, any>;
 };
 
 export type PlayerProps<X> = {
@@ -72,4 +78,17 @@ export type MediaPlayerParentFunction = {
   getDuration(): number;
   getCurrentTime(): number;
   setPlayBackRate(rate: MediaPlayerPlaybackRates): void;
+};
+
+export type MediaPlayerRefType = ComponentRef<
+  ForwardRefExoticComponent<
+    MediaPlayerProps<any> & RefAttributes<MediaPlayerParentFunction>
+  >
+>;
+
+export type PlayerCompList = {
+  canPlay: (props: MediaPlayerProps<any>) => boolean;
+  component: ForwardRefExoticComponent<
+    PlayerProps<any> & RefAttributes<MediaPlayerParentFunction>
+  >;
 };

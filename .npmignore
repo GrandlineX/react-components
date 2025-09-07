@@ -35,6 +35,7 @@ webpack.config.js
 webpack.react.js
 dist/presenter
 dist/stories
+dist/dev
 dist/renderer.d.ts
 dist/renderer.js
 dist/renderer.js.map

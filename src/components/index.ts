@@ -22,7 +22,6 @@ import UsageMap from './progress/UsageMap';
 import AnimateBox from './box/AnimateBox';
 
 export * from './other/Badge/Badge';
-export * from './mediaPlayer';
 export * from './Grid/Grid';
 export * from './form/FormValidation';
 export * from './button/IconButton';

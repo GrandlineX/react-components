@@ -114,7 +114,7 @@ export const Badge = (prop: BadgeProps) => {
         `glx-badge--${color}`,
       ])}
     >
-      {icon ? <Icon name={icon} size={ISize.SM} /> : null}
+      {icon ? <Icon name={icon} size={ISize.SL} /> : null}
       {text}
       {close ? (
         <button

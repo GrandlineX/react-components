@@ -131,7 +131,7 @@ const ContentSwitcher = (props: ContentSwitcherProps) => {
             </div>
           ),
         )}
-        <div className="glx-content-switcher-end"> </div>
+        {open !== null ? <div className="glx-content-switcher-end" /> : null}
       </div>
     </div>
   );

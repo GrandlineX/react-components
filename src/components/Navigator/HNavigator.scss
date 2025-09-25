@@ -1,12 +1,18 @@
 .glx-navigator-horizontal--left,
-.glx-navigator-horizontal--right{
+.glx-navigator-horizontal--right {
   display: none;
-  height: 100%;
   position: absolute;
-  top: 0;
+  top: calc(50% - 20px);
+  background-color: rgba(0,0,0,0.5);
+  height: 40px;
   align-items: center;
-  background-color: $main-background;
+  svg {
+    width: 30px;
+    height: 30px;
+    color: white;
+  }
 }
+
 .glx-navigator-horizontal--wrapper:hover{
   .glx-navigator-horizontal--left,
   .glx-navigator-horizontal--right{
@@ -18,12 +24,12 @@
   position: relative;
   .glx-navigator-horizontal--left{
 
-    left: 0;
+    left: 4px;
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
   }
   .glx-navigator-horizontal--right{
-    right: 0;
+    right: 4px;
     border-bottom-left-radius: 4px;
     border-top-left-radius: 4px;
   }

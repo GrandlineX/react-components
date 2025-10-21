@@ -15,30 +15,32 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'Dark',
-      values: [
-        {
+      options: {
+        dark: {
           name: 'Dark',
           value: '#111',
         },
-        {
+
+        gray: {
           name: 'Gray',
           value: '#212121',
         },
-        {
+
+        light: {
           name: 'Light',
           value: '#FFF',
-        },
-      ],
+        }
+      }
     },
 
     viewport: {
-      viewports: INITIAL_VIEWPORTS,
+      options: INITIAL_VIEWPORTS,
     },
     docs: {
       codePanel: true
     }
   },
+
   decorators: [withThemeByClassName<ReactRenderer>({
       defaultTheme: 'light',
       themes:{
@@ -46,6 +48,12 @@ const preview: Preview = {
         light: 'glx-theme-light',
       }
   })],
+
+  initialGlobals: {
+    backgrounds: {
+      value: 'dark'
+    }
+  }
 };
 
 export default preview;

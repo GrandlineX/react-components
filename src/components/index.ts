@@ -20,6 +20,7 @@ import Draw from './canvas/Draw';
 import Usage from './progress/Usage';
 import UsageMap from './progress/UsageMap';
 import AnimateBox from './box/AnimateBox';
+import AvatarStack from "./AvatarStack/AvatarStack";
 
 export * from './other/Badge/Badge';
 export * from './Grid/Grid';
@@ -67,4 +68,5 @@ export {
   AnimateBox,
   ImageNavigator,
   EndlessImageScroll,
+  AvatarStack,
 };

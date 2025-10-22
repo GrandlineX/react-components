@@ -7,6 +7,14 @@ const defaultGLang = new GLang({
   code: 'en',
   data: [
     {
+      key: 'glx.input.icon.file',
+      value: 'Choose File',
+    },
+    {
+      key: 'glx.input.icon.drop',
+      value: 'Drop File',
+    },
+    {
       key: 'glx.form.required.field',
       value: 'Required fields are not allowed to be empty',
     },

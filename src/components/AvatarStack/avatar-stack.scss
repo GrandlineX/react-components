@@ -1,0 +1,20 @@
+.glx-avatar-stack{
+  img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid $main-contrast; /* optional: adds a clean outline */
+    object-fit: cover;
+    margin-left: -15px; /* controls overlap */
+    transition: transform 0.2s ease;
+  }
+
+  img:first-child {
+    margin-left: 0;
+  }
+
+  img:hover {
+    transform: scale(1.1);
+    z-index: 2;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { KeyboardEventHandler } from 'react';
+import React, { KeyboardEventHandler, KeyboardEvent } from 'react';
 import { IOCloseCircleOutline } from '@grandlinex/react-icons';
 
 import {
@@ -20,6 +20,7 @@ import ImageSel from './inputs/ImageSel';
 import FormDropdown from './inputs/FormDropdown';
 import FormElement, { useFormElContext } from './FormElement';
 import BadgeColorSelector from './inputs/BadgeColorSelector';
+import Upload from '../upload/Upload';
 
 /**
  * Get FormInputList
@@ -197,13 +198,13 @@ export function FormRow<T>({
   option: FormConfEl<T>[];
   form: any;
   updateForm: (...changes: FormFieldChange[]) => void;
-  submitForm: () => void;
+  submitForm: (e?: KeyboardEvent<any>) => void;
   error: FormErrorType | null | undefined;
 }) {
   const context = useUIContext();
   const enterHandler: KeyboardEventHandler<any> = (e) => {
     if (e.key === 'Enter' || e.code === 'Enter') {
-      submitForm();
+      submitForm(e);
     }
     return null;
   };
@@ -236,12 +237,10 @@ export function FormRow<T>({
             key,
             items,
             required,
-            submitOnEnter,
             preload,
             onChange,
             disabled,
             autoFocus,
-            accept,
             restriction,
             placeholder,
             help,
@@ -373,24 +372,14 @@ export function FormRow<T>({
               break;
             case InputOptionType.FILE:
               iType = (
-                <input
+                <Upload<T>
                   key={key}
-                  type="file"
-                  required={required}
-                  onKeyUp={submitOnEnter ? enterHandler : undefined}
-                  placeholder={placeholder}
-                  accept={accept}
-                  autoFocus={autoFocus}
-                  disabled={disabled}
-                  onChange={(event) => {
-                    onChange?.(
-                      event.target.files?.[0] || null,
-                      event.target.value,
-                    );
-                    updateForm({ key, value: event.target.value });
-                  }}
+                  inp={cur}
+                  form={form}
+                  updateForm={updateForm}
                 />
               );
+              noDecoration = true;
               break;
             case InputOptionType.ICON_TEXT:
               iType = (

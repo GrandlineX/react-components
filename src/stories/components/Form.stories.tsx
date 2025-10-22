@@ -1,13 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React, { useState } from 'react';
-import {
-  Form,
-  FormConf,
-  InputOption,
-  InputOptionType,
-  IUser,
-} from '../../components';
-import { sleep } from '../../util';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
+import React, {useState} from 'react';
+import {FField, Form, FormConf, FRow, InputOption, InputOptionType, IUser,} from '../../components';
+import {sleep} from '../../util';
 
 const meta = {
   title: 'Components/Form',
@@ -34,6 +28,7 @@ const fullConf: (inp: Partial<InputOption<any>>) => FormConf<any> = (
         key: 'key01',
         label: '1. Text',
         help: 'Simple Help Text ',
+        submitOnEnter: true,
         ...inp,
       },
     ],
@@ -504,7 +499,11 @@ export const FormCustomSubmit: Story = {
     buttonCenter: true,
     loadingMessage: 'Loading...',
     loading: true,
-    buttonNode: (submit) => <button onClick={submit}>Custom Submit</button>,
+    buttonNode: (submit) => (
+      <button type="button" onClick={submit}>
+        Custom Submit
+      </button>
+    ),
     compact: true,
   },
 };
@@ -528,7 +527,11 @@ export const Multy: Story = {
     buttonCenter: true,
     loadingMessage: 'Loading...',
     loading: true,
-    buttonNode: (submit) => <button onClick={submit}>Custom Submit</button>,
+    buttonNode: (submit) => (
+      <button type="button" onClick={submit}>
+        Custom Submit
+      </button>
+    ),
     compact: true,
   },
   render: (args) => {
@@ -586,5 +589,28 @@ export const FormConditional: Story = {
     loadingMessage: 'Loading...',
     loading: true,
     compact: true,
+  },
+};
+
+export const FormAltConf: Story = {
+  args: {
+    className: 'glx-pb-8',
+    onSubmit: async (form) => {
+      console.log(form);
+      await sleep(4000);
+    },
+    loadingMessage: 'Loading...',
+    loading: true,
+    compact: true,
+      children:[
+          <FRow>
+              <FField fkey={"text"} type={InputOptionType.TEXT} label={"test"}/>
+              <FField fkey={"text2"} type={InputOptionType.TEXT} label={"test2"}/>
+          </FRow>,
+          <FRow>
+              <FField fkey={"text3"} type={1} label={"test3"}/>
+              <FField fkey={"text4"} type={1} label={"test4"}/>
+          </FRow>
+      ]
   },
 };

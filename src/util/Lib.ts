@@ -88,3 +88,10 @@ export function loop<X = ReactNode>(
   }
   return arr;
 }
+
+export function asArray<T>(inp: T | T[]): T[] {
+  if (Array.isArray(inp)) {
+    return inp;
+  }
+  return [inp];
+}

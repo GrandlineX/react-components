@@ -42,7 +42,7 @@ const preview: Preview = {
   },
 
   decorators: [withThemeByClassName<ReactRenderer>({
-      defaultTheme: 'light',
+      defaultTheme: 'dark',
       themes:{
         dark: '',
         light: 'glx-theme-light',

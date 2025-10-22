@@ -1,0 +1,20 @@
+input#file-upload[type="file"] {
+  display: none;
+}
+
+.file-upload {
+  cursor: pointer;
+  width: calc(100% - 40px);
+  height: 100px;
+  color: $main-text;
+  border: 2px dashed $main-text;
+  padding: 16px;
+  border-radius: 8px;
+  display: inline-block;
+  transition: background 0.2s;
+  margin-bottom: 8px;
+}
+
+.file-upload.file-upload--active{
+  background: $main-contrast;
+}

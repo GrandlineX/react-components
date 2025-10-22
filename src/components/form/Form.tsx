@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
-import { FormErrorType, FormFieldChange, FormProps } from './FormTypes';
+import React, { useMemo, useState } from 'react';
+import {
+  FormConf,
+  FormErrorType,
+  FormFieldChange,
+  FormProps,
+} from './FormTypes';
 import { def, FormRow, getFormInputs } from './FormRender';
-import { cnx, useUIContext, uuid } from '../../util';
+import { asArray, cnx, useUIContext, uuid } from '../../util';
 import LPulse from '../loading/LPulse';
 import { Button } from '../button/Button';
 import { Grid } from '../Grid/Grid';
@@ -23,9 +28,30 @@ function Form<T extends Record<string, any> = any>({
   defaultError,
   className,
   compact,
+  children,
 }: Readonly<FormProps<T>>) {
   const ui = useUIContext();
-  const [form, setForm] = useState(defaultState || def(options));
+  const config = useMemo<FormConf<T>>(() => {
+    if (options) {
+      return options;
+    }
+    if (children) {
+      return asArray(children).map((row) => {
+        return asArray(row.props.children).map((input) => {
+          if (!input) {
+            return null;
+          }
+          const { fkey, ...props } = input.props;
+          return {
+            key: fkey,
+            ...props,
+          };
+        });
+      });
+    }
+    return [];
+  }, [children, options]);
+  const [form, setForm] = useState(defaultState || def(config));
   const [spinning, setSpinning] = useState<boolean | null | undefined>(
     undefined,
   );
@@ -34,7 +60,7 @@ function Form<T extends Record<string, any> = any>({
   );
 
   const validate = (set?: boolean) => {
-    const err = requiredFieldValidation(options, form, ui.translation);
+    const err = requiredFieldValidation(config, form, ui.translation);
     if (set && err) {
       setError(err);
     }
@@ -58,14 +84,14 @@ function Form<T extends Record<string, any> = any>({
         validateRequired: validate,
         changed: changes,
         clear: () => {
-          setForm(def(options));
+          setForm(def(config));
           setError(undefined);
         },
       });
     }
   };
   const fError = defaultError || error;
-  const submitForm = () => {
+  const submitForm = (e?: React.KeyboardEvent<any>) => {
     if (onSubmit) {
       if (loading) {
         setSpinning(true);
@@ -73,7 +99,7 @@ function Form<T extends Record<string, any> = any>({
       setError(undefined);
       const pre: any = {};
       const fKey = Object.keys(form);
-      const inpList = getFormInputs(options);
+      const inpList = getFormInputs(config);
       for (const key of fKey) {
         const opt = inpList?.find((el) => el.key === key)?.beforeSubmit;
         if (opt) {
@@ -89,9 +115,10 @@ function Form<T extends Record<string, any> = any>({
         update: setForm,
         validateRequired: validate,
         clear: () => {
-          setForm(def(options));
+          setForm(def(config));
           setError(undefined);
         },
+        keyEvent: e,
       }).then(() => {
         if (loading) {
           setSpinning(false);
@@ -114,7 +141,7 @@ function Form<T extends Record<string, any> = any>({
       {title}
       {spinning
         ? loadingNode || <LPulse />
-        : options.map((el) => {
+        : config.map((el) => {
             const elx = el.filter((e) => (e?.showOn ? e.showOn(form) : true));
             if (elx.length === 0) {
               return null;
@@ -178,7 +205,11 @@ function Form<T extends Record<string, any> = any>({
           {buttonNode ? (
             buttonNode(submitForm)
           ) : (
-            <Button cancel disabled={spinning || false} onClick={submitForm}>
+            <Button
+              cancel
+              disabled={spinning || false}
+              onClick={() => submitForm()}
+            >
               {buttonText || ui.translation.get('glx.form.required.submit')}
             </Button>
           )}

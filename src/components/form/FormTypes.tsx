@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { INames } from '@grandlinex/react-icons';
 import { BaseProps } from '../lib';
 import { DecorationType } from '../../util';
@@ -10,7 +10,8 @@ export type FormTypes =
   | boolean
   | undefined
   | string[]
-  | Record<string, any>;
+  | Record<string, any>
+  | FileList;
 
 export type FormConfEl<T> = InputOption<T> | null;
 export type FormConf<T> = FormConfEl<T>[][];
@@ -67,6 +68,7 @@ export interface InputOption<T> {
     max?: number;
     rows?: number;
     extended?: boolean;
+    multiple?: boolean;
   };
   autoComplete?: 'on' | 'off';
   showOn?: (form: T) => boolean;
@@ -94,10 +96,11 @@ export type FormChangeEvent<T> = {
   validateRequired: (setError?: boolean) => FormErrorType | null;
   clear: () => void;
   update: (form: T) => void;
+  keyEvent?: React.KeyboardEvent<any>;
 };
 export interface FormProps<T> extends BaseProps {
   title?: React.ReactNode;
-  options: FormConf<T>;
+  options?: FormConf<T>;
   defaultState?: Partial<T>;
   defaultError?: FormErrorType;
   onChange?: (event: FormChangeEvent<T>) => void;
@@ -109,6 +112,7 @@ export interface FormProps<T> extends BaseProps {
   loadingNode?: ReactNode;
   loadingMessage?: ReactNode;
   compact?: boolean | 'full';
+  children?: FormRowItemTypes<T> | FormRowItemTypes<T>[];
 }
 
 export type FormErrorType = {
@@ -117,3 +121,26 @@ export type FormErrorType = {
 };
 
 export type FormFieldChange = { key: string; value: FormTypes };
+
+export type FormRowProps<T> = {
+  children?: FormFieldItemTypes<T> | FormFieldItemTypes<T>[];
+};
+export type FormRowItemTypes<T> = React.ReactElement<
+  FormRowProps<T>,
+  FC<FormRowProps<T>>
+>;
+
+export type FormFieldProps<T> = Omit<InputOption<T>, 'key'> & { fkey: string };
+
+export type FormFieldItemTypes<T> = React.ReactElement<
+  FormFieldProps<T>,
+  FC<FormFieldProps<T>>
+>;
+
+export function FRow<T>(props: FormRowProps<T>) {
+  return null;
+}
+
+export function FField<T>(props: FormFieldProps<T>) {
+  return null;
+}
